@@ -1,2 +1,4 @@
 /Client/Library
 /Client/Temp
+/Client/obj
+/Client/*.csproj

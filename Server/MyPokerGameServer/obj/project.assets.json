@@ -692,11 +692,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\DELL\\Documents\\Te\\MyPokerGameServer\\MyPokerGameServer\\MyPokerGameServer\\MyPokerGameServer.csproj",
+      "projectUniqueName": "C:\\Users\\DELL\\Documents\\Te\\MyIdiePokerGame\\My-Private-Poker-Game\\Server\\MyPokerGameServer\\MyPokerGameServer.csproj",
       "projectName": "MyPokerGameServer",
-      "projectPath": "C:\\Users\\DELL\\Documents\\Te\\MyPokerGameServer\\MyPokerGameServer\\MyPokerGameServer\\MyPokerGameServer.csproj",
+      "projectPath": "C:\\Users\\DELL\\Documents\\Te\\MyIdiePokerGame\\My-Private-Poker-Game\\Server\\MyPokerGameServer\\MyPokerGameServer.csproj",
       "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\DELL\\Documents\\Te\\MyPokerGameServer\\MyPokerGameServer\\MyPokerGameServer\\obj\\",
+      "outputPath": "C:\\Users\\DELL\\Documents\\Te\\MyIdiePokerGame\\My-Private-Poker-Game\\Server\\MyPokerGameServer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

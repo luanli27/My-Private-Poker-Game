@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,23 +8,28 @@ public class LoginUi : MonoBehaviour {
     public InputField Account;
     public InputField Password;
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
         LoginButton.onClick.AddListener(OnRequeseLogin);
-        //new strange.framework.api.();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+        Singleton<EventManager>.Instance.AddEventListener(EventName.ACK_ENTER_ROOM, OnEnterRoom);
 	}
 
     void OnRequeseLogin()
     {
-        EventManager.Instance.DispatchEvent(EventName.ASK_LOGIN, new AskLoginEventArg(Account.text, Password.text));
+        ReqLogin msg = new ReqLogin
+        {
+            UserName = Account.text
+        };
+        Singleton<EventManager>.Instance.DispatchEvent(EventName.ASK_LOGIN, msg);
     }
 
-    void OnLoginResponse()
+    void OnEnterRoom(object msg)
     {
-
+        byte[] msgArray = msg as byte[];
+        AckEnterRoom enterRoomMsg = AckEnterRoom.Parser.ParseFrom(msgArray);
+        foreach (var pInfo in enterRoomMsg.PlayerInfo)
+        {
+            Debug.LogError("当前牌室内的玩家为:"+pInfo.UserName);
+        }
     }
 }

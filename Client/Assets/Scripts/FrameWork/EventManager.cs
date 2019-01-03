@@ -3,7 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventManager : Singleton<EventManager> {
+public class EventManager : MonoBehaviour {
+
+    void Awake()
+    {
+        Singleton<EventManager>.Instance = this;
+    }
 
     private Dictionary<EventName, Action<object>> _eventHandler = new Dictionary<EventName, Action<object>>();
     public void AddEventListener(EventName eventName, Action<object> handler)

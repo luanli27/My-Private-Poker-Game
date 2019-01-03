@@ -51,7 +51,7 @@ namespace MyPokerGameServer
                     msg.NewPlayerInfo = new PlayerInfo();
                     msg.NewPlayerInfo.UserName = player.Name;
                     msg.NewPlayerInfo.GoldNum = player.GoldNum;
-                    Singleton<NetworkManager>.Instance.SendMsg(player.Socket, MessageDefine.ACK | MessageDefine.G2C_New_Player_Enter_Room, msg);
+                    Singleton<NetworkManager>.Instance.SendMsg(player.Socket, MessageDefine.G2C_New_Player_Enter_Room, msg);
                 }
                 else
                 {
@@ -64,7 +64,7 @@ namespace MyPokerGameServer
                         msg.PlayerInfo.Add(pInfo);
                     }
 
-                    Singleton<NetworkManager>.Instance.SendMsg(player.Socket, MessageDefine.ACK | MessageDefine.G2C_Enter_Room, msg);
+                    Singleton<NetworkManager>.Instance.SendMsg(player.Socket, MessageDefine.G2C_Enter_Room, msg);
                 }
 
             }

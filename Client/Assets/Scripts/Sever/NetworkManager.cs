@@ -37,6 +37,11 @@ public class NetworkManager : MonoBehaviour {
 
     private void Awake()
     {
+        Singleton<NetworkManager>.Instance = this;
+    }
+
+    private void Start()
+    {
         ConnectToServer();
     }
 
@@ -45,9 +50,8 @@ public class NetworkManager : MonoBehaviour {
         if (!_isConnect)
         {
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            //IPAddress ip = IPAddress.Parse(Appconfig.Instance.appWebSocket_IP);
-            int port = Appconfig.Instance.appWebSocket_PORT;
-            _socket.BeginConnect(Appconfig.Instance.appWebSocket_IP, port, ConnectResult, _socket);
+            int port = Appconfig.appWebSocket_PORT;
+            _socket.BeginConnect(Appconfig.appWebSocket_IP, port, ConnectResult, _socket);
         }
     }
 
@@ -79,10 +83,16 @@ public class NetworkManager : MonoBehaviour {
                 if (!_socket.Connected)
                     break;
             }
+
+            byte[] receiveMsg = receive.Take(length).ToArray();
+
+
             //前4个字节为消息id
-            int msgId = BitConverter.ToInt32(receive.Take(4).ToArray(), 0);
-            //ReqLogin reqLogin = ReqLogin.Parser.ParseFrom(receive, 4, length - 4);
+            int msgId = BitConverter.ToInt32(receiveMsg.Take(4).ToArray(), 0);
             Debug.LogError("接收到服务器反馈消息, id为：" + msgId);
+            byte[] msgBody = receiveMsg.Skip(4).Take(receiveMsg.Length - 4).ToArray();
+
+            Singleton<SeverEventHandler>.Instance.OnReceiveMsgFromServer(msgId, msgBody);
         }
     }
 }
