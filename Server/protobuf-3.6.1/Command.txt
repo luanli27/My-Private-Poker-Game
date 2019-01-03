@@ -1,0 +1,1 @@
+protoc ./appprotobuf.proto --csharp_out=./

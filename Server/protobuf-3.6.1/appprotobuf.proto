@@ -1,0 +1,1904 @@
+syntax = "proto3";
+//￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣//
+//------------------------------------hall------------------------------------------//
+//__________________________________________________________________________________//
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//通用通知
+message HallCommonNtf
+{
+	 int32 Type				= 1;		//1：小秘书，2：其他
+	 int32 UserID			= 2;		//用户id
+	 int32 TargetUserID		= 3;		//新版本说明 服务器用
+	 int32 Status			= 4;		//状态 0：正常 1：删除
+	 int32 GameID			= 5;		//游戏id备用
+}
+//请求游戏玩家信息
+message ReqPlayerLogin
+{
+	 string UserName = 1;				// 用户名
+	 int32 Channel = 2;					//用户渠道 1=微信
+	 string Token = 3;					//用户token
+	 string Region = 4;					//地区区分规则和房间（待定）
+	 int32 GameID = 5;					//游戏id
+	 PlayerInfo pi=6;					//用户信息
+	 int32 UserID = 7;					//userid
+	 string GpsX = 8;					//GPS 经纬
+	 string GpsY = 9;					//GPS 经纬
+	 string VersionJS = 10;				//热更新版本号
+	 string VersionApk = 11;				//apk& app版本号
+}
+
+//返回游戏玩家信息
+message AckPlayerLogin
+{
+	 int32 UserID 			= 1;		//用户id
+	 int32 Result			= 2;		//返回结果（0:成功 != 0失败错误码）
+	 PlayerInfo pi			= 3;		//用户信息
+	 int32 CardCount 		= 4;		//用户房卡数
+	 int32 OwnTableID 		= 5;		//已经创建的房间id	
+	 int32 TableID 			= 6;		//玩家所在tableid
+	 int32 GameID			= 7;		//游戏id
+	 int32 OwnGameID 		= 8;		//已经创建的房间所属gameid
+	 int32 AssistStatus		= 9;		//小秘书状态0：创建 1 删除
+	repeated int32 ClubList			=10;		//用户加入的亲友圈包间列表（作为直接进入房间的鉴权使用）
+	 int32 ClubID	 		=11;		//已经进入的亲友圈id---------------废弃
+	 int32 RoomID	 		=12;		//已经进入的亲友圈房间-------------废弃
+	 int32 MaxRoomCount		=13;		//最大能开的亲友圈数量
+	 int32 MaxVipRoomCount	=14;		//最大能开的vip包房数量
+	 int32 RoomAdmin		=15;		//是几个亲友圈的管理员
+}
+
+//用户被踢告知
+message OGGateReqKickPeople
+{
+	 int32 UserID             =1;//用户名 代理专用
+	 int32 Reason			  =2;//用户被踢原因
+} 
+
+//桌内动作，切出/切入
+message ReqBreak
+{
+     int32 UserID = 1;
+     int32 TableID = 2;
+     int32 GameID = 3;			//游戏id
+     int32 TargetUserID = 4;	//gate用给谁广播
+     int32 BreakType = 5;		// 0:切回  2:切走	
+}
+
+//用户位置变化
+message ReqChangePos
+{
+		 int32 UserID			= 1;
+		 int32 TargetUserID		= 2;	//gate用给谁广播
+		 string GpsX				= 3;	//GPS 经纬
+		 string GpsY				= 4;	//GPS 经纬
+		 int32 TableID			= 5;
+		 int32 GameID			= 6;	//游戏id
+}
+
+message PlayerInfo
+{
+	 int32 UserID = 1;					// 用户id
+	 int32 Channel = 2;					//用户渠道 1=微信	
+	 string NickName = 3;				//昵称
+	 int32 Sex = 4;						//用户性别
+	 string HeadImgUrl = 5;				//头像地址
+	 uint32 IpAddress = 6;				//ip地址
+	 uint32 GateIpAddress = 7;			//登陆的代理ip地址
+     string UserName = 8;               //玩家名称
+     int32 UserSit = 9;                 //玩家座位    0东 1南 2西 3北
+     int32 TableID = 10;				//玩家所在tableid
+     int32 CardCount = 11;				//用户房卡数
+     int32 GameID = 12;					//游戏id
+     string City = 13;					//用户城市
+     string IdNumber = 14;				//身份证号
+     string RealName = 15;				//姓名
+     string GpsX = 16;					//GPS 经纬
+	 string GpsY = 17;					//GPS 经纬
+	 int32 PromotID = 18;				//推广员id
+}
+
+message PlayerTableInfo
+{
+	 int32 UserID 			= 1;		// 用户id
+	 int32 Status 			= 2;		// 用户状态	在线断线状态
+	 int32 Seat 			= 3;		// 用户方位	
+	 int32 IsPayed 			= 4;		// 均摊房卡付费标志	
+	 int32 IsReady 			= 5;		// 用户准备状态	0:未准备 1:已准备
+}
+
+//请求游戏玩家信息
+message ReqRefreshCard
+{
+	 int32 UserID = 1;					// 用户id
+	 int32 GameID = 2;					//游戏id
+	 int32 Channel = 3;					//用户渠道 1=微信
+}
+
+//返回游戏玩家信息
+message AckRefreshCard
+{
+	 int32 UserID = 1;
+	 int32 Result=2;					//返回结果（0:成功 != 0失败错误码）
+	 int32 CardCount = 3;					//房卡数
+}
+
+//公告通知
+message ReqNotice
+{
+	 string time =1 ;				//当前时间
+	 int32 GameID = 2;				//游戏id		
+}
+
+message AckNotice
+{
+	 int32 Result = 1;
+	 string Notice = 2;				//官方公告
+	 string NewVersion =3;			//新版本说明
+	 string RollingMsg =4;			//小喇叭
+	 int32 TickCount =5;			//用于时间戳校验
+	 int32 CacheTime = 6;			//缓存时间配置单位s
+	 int32 GameID = 7;				//游戏id
+}
+
+//请求聊天
+message ReqChatMsg
+{
+	 int32 UserID = 1;		// 用户名
+	 int32 TableID = 2;		//聊天通道，桌子号
+	 int32 Result = 3;		//聊天结果 0成功，!=0错误码
+	 int32 IndexMsg= 4;		//配置好的场景语音/或者互动表情序号
+	 string TextMsg= 5;		//文本消息
+	 string SoundMsg= 6;		//声音消息
+	 int32 TargetUserID = 7;
+	 int32 GameID = 8;		//游戏id
+	 int32 UserIDTo = 9;	//谁给谁发	
+	 int32 Type = 10;		//聊天类型 0:互动表情 1:文字 2:场景语音 3:语音	
+}
+//聊天返回
+//AckMessage
+
+//￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣//
+//------------------------------------room------------------------------------------//
+//__________________________________________________________________________________//
+
+//红运桌子规则定义扩展
+message TableRule
+{
+	 int32  RuleID= 1;               //11:推到胡，12：呼和浩特，13：划水，14：一口香，15：包头，16：鄂尔多斯，17：通辽 ，10000（跑的快），13000(斗地主) 
+	 int32  PlayerCount= 2;		     //玩家数 2，3，4
+	 int32  PlayerCountMin= 3;	    //最少玩家数 2，3，4，少于等于playercount，达到这个人数即可开牌
+	 int32  Round= 4;		        //该桌子的圈数
+	 RuleRunout rulerunout = 5;    //跑得快规则定义
+	 RuleDDZ    rulerddz = 6;      //斗地主规则定义
+	 RuleJS ruleJS =7;		    //江苏专区
+	 RuleGD rulergd = 8;                        //掼蛋 
+	 string ruleStr = 9;					//规则描述
+    	 RuleCY ruleCY = 10;				//草原麻将
+    	 RuleDDA5 ruledda5 = 11;			//打大A规则定义
+}
+
+//江苏徐州规则定义
+message RuleJS
+{
+	 int32  HunCount= 1;			//混牌数量0，1，2，3，4， Ruleid = 6是红中乱顶0,4
+	 int32  HuType= 2;			//和牌类型  0:点炮和，1:自摸, 2: 软次 3:硬次  4：点炮赢三家（平胡）
+	 int32  Feng= 3;			//是否带风（0不带风，1带风）
+	 int32  BaoTing = 4;			//是否报听（0不报听，1报听）
+	 int32  XiaZuiType= 5;	                  	//下嘴（0不下嘴，1下嘴，2最多下一嘴）
+	 int32  YiPaoDuoXiang = 6;	                  //是否一炮多响（0截胡，1一炮多响）
+	 int32  HuFanlimit = 7;			//血战麻将 胡番封顶
+	 int32	nZiMoType = 8;				//血战麻将 自摸加分类型(0自摸加底，1自摸加番)
+	 int32	nGangHuaType = 9;			//血战麻将 杠花胡牌类型(0点炮，1自摸)
+	 int32	nHuanZhangType = 10;		//血战麻将 自摸加分类型(0换3张，1换四张)
+	 int32	nYaoJiuJiangDui = 11;		//血战麻将 幺九将对
+	 int32	nMenQingZhongZhang = 12;	//血战麻将 门清中张
+	 int32	nTianDiHu = 13;				//血战麻将 天地胡
+	 int32	nTingPai = 14;				//血战麻将 听牌提示
+}
+
+//草原规则定义
+message RuleCY
+{
+	 int32  	HunCount= 1;			//混牌数量0，1，2，3，4， Ruleid = 6是红中乱顶0,4
+	 int32  	HuType= 2;			//和牌类型  0:点炮和，1:自摸, 2: 软次 3:硬次  4：点炮赢三家（平胡）
+	 FanZhong  FZ=3;			//蕃种翻倍定义
+     HuPaiXing  HuPX=4;			//胡牌牌型定义
+	 int32	Feng= 5;			//是否带风
+	 int32  	BaoTing = 6;			//是否报听，0,1 
+	 int32	DoubleQingYiSe =7; 	 //清一色翻倍 1 2
+	 int32	DunLaPao = 8;  		//是否蹲拉跑 0，1
+	 int32	Peng = 9;  		//能否碰牌 0，1
+	 int32	PengTing = 10;  		//是否碰听 0，1
+	 int32	Chi = 11;  		    	//能否吃牌 0，1
+	 int32	ChiTing = 12;  		//是否吃听 0，1
+	 int32	DiFen = 13;  		//底分 1，3，5，10，15
+	 int32	YiPaoDuoXiang = 14;  	//是否一炮多响 0，1
+	 int32	HuangZhuangHuangGang = 15;  //是否荒庄荒杠 0，1
+	 int32	QiangGangHu = 16;  	//是否抢杠胡 0，1
+	 int32	HuangZhuangCount = 17;  	//剩余几张荒庄 0，18
+	 int32	DoubleMenqing = 18;  	//是否门请翻倍 0 1
+	 int32	DoubleZimo = 19;  		//是否自摸翻倍 0 1
+	 int32	KanFen = 20;  		//坎不加分或者加1分 0 1
+	 int32	HuaHu = 21;  		//是否花胡 0 1
+	 int32	LianZhuang = 22;  		//是否连庄 0 1
+	 int32	HaiDiLaoYue = 23;  		 //海底捞月0 1
+	 int32	PingLong   = 24;  		 //平龙0 1
+	 int32	JiuLianBaoDeng   = 25;  	//九莲宝灯0 1
+	 int32	Ganghua   =26;  		//是否杠上开花0 1
+	 int32	DuanYao   = 27;  		//断幺 0 1
+	 int32	GouZhang = 28;  		 //够张
+	 int32	QueYiMen = 29;  		 //缺一门
+	 int32	DaiHua 	= 30;  		 //是否带花
+	 int32	BianKD	= 31;		//边砍吊
+	 int32  HuFanlimit = 32;			//血战麻将 胡番封顶
+	 int32	nZiMoType = 33;				//血战麻将 自摸加分类型(0自摸加底，1自摸加番)
+	 int32	nGangHuaType = 34;			//血战麻将 杠花胡牌类型(0点炮，1自摸)
+	 int32	nHuanZhangType = 35;		//血战麻将 自摸加分类型(0换3张，1换四张)
+	 int32	nYaoJiuJiangDui = 36;		//血战麻将 幺九将对
+	 int32	nMenQingZhongZhang = 37;	//血战麻将 门清中张
+	 int32	nTianDiHu = 38;				//血战麻将 天地胡
+	 int32	nTingPai = 39;				//血战麻将 听牌提示
+}
+
+//草原桌子规则蕃种定义
+message FanZhong
+{
+	 int32	QiDui		= 1;  		//七对
+	 int32	HaoQiDUI	= 2;  		//豪七对
+	 int32	PengPengHu  = 3;  		//碰碰胡（大对子）
+     int32	GangHuaMing	= 4;  	//明杠杠上开花
+	 int32	GangHuaAn	= 5;  	//暗杠杠上开花
+	 int32	GangPao		= 6;  	//杠上炮
+     int32	ShuangHaoHua= 7;	//超豪华(双豪华)
+	 int32	Menqing		= 8;			//门清
+	 int32	BianKD		= 9;			//边砍吊
+	 int32	YiTiaoLong 	= 10;  		//一条龙
+	 int32	GenZhuang 	= 11;  		//跟庄
+	 int32	GouZhang 	= 12;  		 //够张
+	 int32	QueYiMen 	= 13;  		 //缺一门
+	 int32	ChuangWuWan = 14;  		 //闯五万
+	 int32	XiaoLian 	= 15;  		 //小连
+	 int32	DaLian 		= 16;  		 //大连
+	 int32	LaoShao 	= 17;  		 //老少
+	 int32	SiGuiYi 	= 18;  		//四归一
+	 int32	DuanYao 	= 19;  		//断幺
+	 int32	ShouBaYi 	= 20;  		//手把一
+	 int32	TeDaHu 		= 21;  		//特大胡
+	 int32	ShiSanYao 	= 22;  		 //十三幺
+}
+
+//桌子规则胡牌牌型定义
+message HuPaiXing 
+{
+	 int32	PuTong		= 1;  		//普通牌型
+	 int32	QiDui		= 2;  		//七对
+	 int32	ShiSanYao	= 3;  		//十三幺
+}
+
+//商丘嘴定义
+message ShangQiuZui
+{
+	 int32	DuanMen			= 1;  		//绝门
+	 int32	QiaZhang		= 2;  		//掐张
+	 int32	MenQing			= 3;  		//门清
+	 int32	AnKa			= 4;  		//暗卡
+	 int32	ZiMoJiaZui		= 5;  		//自摸加嘴
+	 int32	QiHu			= 6;  		//弃胡
+	 int32	QiangGang		= 7;  		//抢杠
+	 int32	QiDui			= 8;  		//对对胡(七对）
+}
+
+//扑克桌子规则定义扩展
+message TableRulePoker
+{
+	 int32  RuleID= 1;          //110031000 跑得快 110031100五十K   110031200黑七  110031300 斗地主
+	 int32  PlayerCount= 2;		//玩家数 2，3，4
+	 int32  PlayerCountMin= 3;	//最少玩家数 2，3，4，少于等于playercount，达到这个人数即可开牌
+	 int32  Round= 4;			//该桌子的圈数
+	 RuleRunout runout = 5;		//跑得快规则定义
+	 RuleDDZ ruleDDZ = 8;		//斗地主配置
+}
+
+//跑得快规则定义
+message RuleRunout
+{
+	 int32  lead_seat		= 1;		//定庄 0：赢家坐庄 1：红桃3坐庄
+	 int32  score_type		= 2;		//算分方式 0：剩几张输几分 1：固定算分
+	 int32  score_more		= 3;		//算分方式为 1 的情况下，剩多输几分 默认 2
+	 int32  score_less		= 4;		//算分方式为 1 的情况下，剩少输几分 默认 1
+	 int32  score_bomb		= 5;		//算分方式为 1 的情况下，被炸扣 几分
+	 int32  bomb_type		= 6;		//炸弹类型 0：四张和AAA, 1:四带一和AAA带一，2：四张和AAAA
+	 int32  bomb_result		= 7;		//炸弹效果 0：不翻倍 n：n炸封顶
+	 int32  liandui_limit	= 8;		//连对最少几对起步 2：2对3344  3：3对 334455
+	 int32  SanYiDui	= 9;		//三带一对
+	 int32  SiYiDan	= 10;		//四带一单
+	 int32  SiErDan	= 11;		//四带两单
+	 int32  BiGen	= 12;		//有牌必跟
+}
+
+//510K规则定义
+message Rule510K
+{
+	 int32  PackCount=		1;			//用牌副数 1，2
+}
+
+//黑七规则定义
+message RuleBlack7
+{
+	 int32  ScoreMax=		1;			//闲家分数封顶 20,40,80 庄家=闲家*3	
+}
+
+//斗地主规则定义
+message RuleDDZ
+{
+	 int32 landlord=	1;			//叫地主（0：经典叫分、1：欢乐抢地主）
+	 int32 bomb=		2;			//炸弹封顶（0：炸弹不翻倍、1：1炸、2：2炸、3：3炸、4：4炸）
+	 int32 shun=		3;			//顺子（0：无、1：有）
+}
+
+// 江苏掼蛋 定义
+message RuleGD
+{
+	 int32  play_type		 = 1;		// 玩法类型  (0:经典	1:团团转)
+	 int32  round_type		 = 2;		// 局数		(0:过六 1:过八 2:过十 3:过A 4:4局 8:8局 12:12局)
+	 int32  upgrade_type	 = 3;		// 升级类型[经典玩法]  (0:双下升三级	1:双下升四级)
+	 int32  straight_flush	 = 4;		// 同花顺翻倍
+	 int32  six_bomb_double	 = 5;		// 六炸以上炸弹赢翻倍
+	 int32  six_bomb_lottery = 6;		// 六炸以上炸弹赢彩金
+	 int32  remian_card		 = 7;		// 剩余几张牌时报牌 (0:6张 1:10张 2:始终)
+}
+
+//打大A规则定义
+message RuleDDA5
+{
+	 int32 diScore=	1;				//底分（1：1分、 2：2分、 5：5分）
+	 int32 fanPai=2;				//反牌（0：反牌不必争大贡、1：反牌必争大贡）
+	 int32 fanPaiNoZou=3;			//反牌不走头扣一半（0：不选、1：选）
+	 int32 doubleLiang=4;			//双亮（0：双亮不必争大贡、1：双亮必争大贡）
+	 int32 doubleLiangNoZou=5;		//双亮不走头扣一半（0：不选、1：选）
+	 int32 guessA=6;				//估A（0：估所有A（估3家）、1：只估红桃A（随机估））
+	 int32 drawCard=7;				//摸牌（0：大贡先摸牌、1：随机先摸牌）
+	 int32 guessAChu=8;				//估A处（0：估A不可处（次家不可亮）、1：估A可处（次家可亮））
+	 int32 showHandCount=9;			//手牌剩张显示（0：不显示、1：显示）
+	 int32 leftWarning=10;			//剩张告警（0：不告警、1：剩余5张告警）
+}
+
+//桌子基本属性+
+message TableInfoMsg 
+{
+	 int32  TableID = 1;        //桌子ID(6位的数字)
+	 int32  OwnerID = 2;		//该桌子的房主
+	 string OwnerName = 3;		//该桌子的房主
+	 int32  Round= 4;			//该桌子的圈数，收的房卡数
+	 TableRule TR = 5;			//规则定义
+	repeated PlayerTableInfo ptis = 6;	//用户桌子属性
+	 int32 GameID = 7;			//游戏id
+	 int32  TotalPan= 8;		//打多少盘
+	 int32  TotalTime= 9;		//打多少分钟
+	 int64  TablelogID = 10;    //全局唯一桌子id
+	 int32	Type	   = 11;	//房间类型 0：标准  1：代开（房主自己不玩）
+	 int32  Creator	   = 12;	//房间初次创建者
+	 int32  Status	   = 13;	//房间状态 0：创建  2：游戏中
+	 TableRulePoker TRP = 14;	//扑克规则定义 废弃
+	 int32 ChargeType		= 15;	//收费方式： 0：创建者收费 1：均摊  2：大赢家
+	 int32  AdminID			= 16;		//该桌子的管理员，亲友圈的实际管理员
+	 bool  VoiceChatType	= 17;		//语音聊天
+	 bool  PrepareType		= 18;		//准备
+	 bool  ExpressionType	= 19;		//互动表情
+}
+
+//创建桌子
+message ReqTableCreate
+{
+	 int32  UserID			= 1;
+	 TableInfoMsg TableInfo = 2 ; 
+	 int32 ipAddr			= 3;		//用户操作ip地址
+	 int32 GameID			= 4;		//游戏id
+	 int32 Type				= 5;		//房间类型 0：标准  1：代开（房主自己不玩）
+	 int32 bEnter			= 6;		//是否创建成功自动进入房间
+	 int32 AuthID			= 7;		//小秘书授权id
+}
+
+//返回结果
+message	AckTableCreate
+{
+	 int32 UserID			= 1;
+	 int32 Result			= 2;        //返回结果（0:成功 != 0失败错误码 1：已经创建了房间 2：房卡不够 3：找不到可用房卡）
+	 int32 TableID			= 3;		//桌子ID
+	 int32 LeftCardCount	= 4;		//owner剩余房卡数
+	 string OwnerName		= 5;		//owner昵称
+	 int32 GameID			= 6;		//游戏id
+	 int64 TableLogID		= 7;		//全局桌子记录id
+	 int32 AuthID			= 8;		//小秘书授权id
+}
+
+//解散桌子
+message ReqTableDismiss
+{  
+	 int32 UserID = 1;
+	 int32 TableID = 2;					// 房间号
+	 int32 LeftCardCount = 3;			//owner剩余房卡数
+	 int32 bDissmiss = 4;				//是否解散 1 解散，0 未解散
+	 int32 TargetUserID = 5;
+	 int32 bAgreeDissmiss = 6;			//是否同意解散 1 同意，0 不同意
+	 int32 ipAddr=7;					//用户操作ip地址
+	 int32 GameID = 8;					//游戏id
+	repeated UserList ul			= 9;		//用户列表 均摊付费附带，保证返还用户房卡
+	 int32 AACard			= 10;		//分摊房卡数
+	 string WinMsg			= 11;		//解散提示
+}
+
+//仅用于均摊方式房卡返还追加
+message UserList
+{  
+	 int32 UserID			= 1;
+	 int64 CardRecord		= 2;		// 房卡记录
+}
+
+//返回结果
+message AckTableDismiss
+{  
+	 int32 UserID = 1;
+	 int32 TableID = 2;					// 房间号
+	 int32 Result = 3;                 	//返回结果（0:成功 != 0失败错误码）
+	 int32 LeftCardCount = 4;			//owner剩余房卡数
+	 int32 GameID = 5;					//游戏id
+	 int32 AddCardUser = 6;				//房卡退给初始创建者
+}
+
+//用户信息更新
+message ReqUserInfoChange
+{  
+	 int32 UserID = 1;
+	 int32 TargetUserID = 2;
+	 int32 CardCount = 3;					//房卡数
+}
+
+//通用返回结果
+message AckMessage
+{
+	 int32 UserID = 1;
+	 int32 Result=2;					//返回结果（0:成功 != 0失败错误码）
+	 int32 GameID=3;					//游戏id
+}
+
+//加入，离开桌子
+message ReqEnterLeaveTable
+{
+   int32 UserID			= 1;
+   int32 TableID			= 2;
+   int32 action_type		= 3;		//0:enter  1:leave
+   PlayerInfo pi 			= 4;		//加入桌子的用户信息
+   int32 TargetUserID		= 5;		//用于广播确定唯一id
+   int32 Seat				= 6;		//用户进入桌子之后给其他人广播会带上用户分配的座位
+   int32 GameID			= 7;		//游戏id
+	 int32 ClubID			= 8;		//亲友圈id
+	 int32 RoomID			= 9;		//亲友圈包间id
+}
+
+message AckEnterLeaveTable
+{
+     int32 UserID			= 1;
+     int32 TableID			= 2;
+     int32 action_type		= 3;
+     int32 Result			= 4;		// 0:SUCCESS >=1:FAILURE(1:通用坐下失败， 2：房间人满，3：房卡不足) 
+     int32 target_seat		= 5;
+     TableInfoMsg TableInfo = 6;		//返回房间信息
+    repeated PlayerInfo pis			= 7;		//用户列表
+     int32 GameID			= 8;		//游戏id
+	 int32 Seat				= 9;		//用户进入桌子之后座位号
+	 int32 ClubID			= 10;		//亲友圈id
+	 int32 TableStart		= 11;		//是否开桌
+	 int32 ShowCharge		= 12;		//显示付费提示 1：显示，用户确认继续准备，否则发退出房间
+	 int32 RoomID			= 13;		//亲友圈包间id
+	 string ErrMsg			= 14;		//失败原因：如：您还不是亲友圈成员，请输入盟主id：111111添加亲友圈
+	 int32 TableNo			= 15;		//亲友桌桌子序号
+}
+
+//桌内动作，准备/取消准备
+message ReqReady
+{
+     int32 UserID = 1;
+     int32 TableID = 2;
+     int32 action_type = 3;     // 0:准备  1:取消准备 
+     int32 TargetUserID = 4;	//gate用给谁广播
+     int32 GameID = 5;			//游戏id
+}
+
+message AckReady
+{
+     int32 UserID = 1;
+     int32 Result = 2;      // 0:SUCCESS 1:FAILURE(others reason )
+     int32 TableID = 3;
+     int32 action_type = 4;     // 0:准备  1:取消准备 
+     int32 GameID = 5;					//游戏id
+}
+
+//用户gate断线状态告知
+message OGGateReqBreak
+{
+	 int32 UserID             =1;//用户名 代理专用
+	 int32 TableID             =2;//用户所在桌子id
+   int32 TargetUserID		= 3;	  //gate用给谁广播
+   int32 GameID = 4;					//游戏id
+} 
+
+
+//通知客户端游戏结束
+message OGPlayerGameOver
+{
+   int32  UserID             =1;//用户ID
+   int32  TableID            =2;//桌号
+   int32  GameID			 =3;//游戏id
+   int32  RuleID			 =4;//游戏规则ID
+   string WinMsg			 =5;//解散提示
+}
+
+//通知客户端用户信息改变
+message OGPlayerInfoChange
+{
+	 int32 UserID = 1;					//用户id
+	 int32 LeftCardCount = 2;			//用户剩余房卡数
+}
+
+
+//一局游戏结果
+message ReqGameResult
+{
+	 int32 Round =1 ;					//游戏圈数（8盘=1圈，1圈=1房卡）
+	 string start_time = 2;				//开始时间
+	 string end_time =3;				//结束时间
+	 TableInfoMsg TableInfos = 4;		//房间规则
+    repeated UserResult UR =5;					//用户信息
+    
+}
+
+message UserResult 
+{
+     int32  	UserID = 1;				//玩家id
+     int32		Score = 2;				//分数
+}
+
+//通知客户端游戏开始
+message OGClientStartGame
+{
+   int32  UserID             =1;//用户ID
+   int32  TableID            =2;//桌号
+   uint32 Gamesvrip          =3;//游戏服务器ip
+   int32  Gamesvrport		 =4;//游戏服务器端口
+   int32  Gamecontinue       =5;//断线回来[1:断线续玩，0:正常启动]
+   int32  GameID			 =6;//游戏id
+   string Domain			 =7;//游戏服务域名
+   int32  RuleID			 =8;//游戏规则ID
+}
+
+//通知客户端代开房间房主游戏启动
+message OGCreatorGameStart
+{
+   int32  UserID             =1;//用户ID
+   int32  TableID            =2;//桌号
+   int32  GameID			 =3;//游戏id
+   int32  RuleID			 =4;//游戏规则ID
+}
+
+//￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣//
+//------------------------------------pdk game--------------------------------------//
+//__________________________________________________________________________________//
+//手牌容器
+message CGSHandCardItem
+{
+  repeated int32 cards           =1;		//牌数据
+}
+//桌牌容器
+message CGSTableCardItem
+{
+  repeated int32 cards           =1;		//牌数据
+   int32 type            =2;		//动作类型: 0-不出 1-没出过
+}
+//玩家动态信息
+message CGSPlayerInfoReal
+{
+   CGSTableCardItem card_table=1;	//桌牌内容
+   int32 time_think      =2;		//出牌思考时间
+  repeated int32 card_hand       =3;		//手牌内容
+   int32 left_card_count =4;		//当前剩余张数
+   int32 bomb_count      =5;		//当前已经打出的炸弹数量
+}
+//游戏实时信息
+message CGSGameInfoReal
+{
+   int32 status_game     =1;		//游戏当前状态
+   int32 seat_active     =2;		//当前活动玩家座位号
+   int32 bomb_count      =3;		//当前已经打出的炸弹数量
+   int32 bomb_multiple   =4;		//当前翻倍倍数
+   int32 cur_round       =5;		//本桌的连续游戏盘数
+   int32 total_round     =6;		//本桌的总游戏盘数
+}
+
+//------------------------------------------------------------------------------------------//
+//心跳消息       
+message CGSHeartBeatReq
+{
+   int64 time			= 1;			// 客户端发出的时间，服务器原封不动的返回，用来计算网络延迟
+   int32 userid			= 2;			//用户id
+   int32 delay			= 3;			//延时毫秒数
+   int32 heartCount		= 4;			//客户端超时计数器
+}
+message CGSHeartBeatAck
+{
+   int64 time			= 1;			// 客户端发出的时间，服务器原封不动的返回，用来计算网络延迟
+   int32 userid			= 2;			//用户id
+   int32 delay			= 3;			//延时毫秒数
+   int32 heartCount		= 4;			//客户端超时计数器
+   int32 time_expend    = 5;			//游戏时长
+}
+//------------------------------------------------------------------------------------------//
+//进入游戏     
+message CGSGameEnterReq
+{
+   int32 tableid	= 1;		// 桌号
+   string username	= 2;		// 用户名
+   string ticket	= 3;		// 加密验证（证书之类的）
+    int32 userid	= 4;		// 用户id
+}
+message CGSPlayerInfo
+{
+	 int32 userid		= 1;			// 用户id	
+	 int32 seat			= 2;			//座位号
+	 string nickname	= 3;			//昵称
+	 int32 sex			= 4;			//用户性别
+	 string headimg		= 5;			//头像地址
+	 uint32 ip			= 6;			//ip地址
+	 int32 status_online   =7;			//在线状态
+	 int32 break_type      =8;			//切入切出状态 0：切入 2：切出
+	 int32 score		   =9;			//当前总分
+	 int32 status_ready    =10;			//准备状态 0:准备好了 1:没准备
+}
+//桌子规则定义扩展
+message CGSTableRule
+{
+	 int32  player_count	= 1;		//玩家数 2，3，4
+	 int32  round			= 2;		//总盘数
+	 int32  lead_seat		= 3;		//定庄 0：赢家坐庄 1：红桃3坐庄
+	 int32  score_type		= 4;		//算分方式 0：剩几张输几分 1：固定算分
+	 int32  score_more		= 5;		//算分方式为 1 的情况下，剩多输几分 默认 2
+	 int32  score_less		= 6;		//算分方式为 1 的情况下，剩少输几分 默认 1
+	 int32  score_bomb		= 7;		//算分方式为 1 的情况下，被炸扣 几分
+	 int32  bomb_type		= 8;		//炸弹类型 0：四张和AAA, 1:四带一和AAA带一，2：四张和AAAA
+	 int32  bomb_result		= 9;		//炸弹效果 0：不翻倍 n：n炸封顶
+	 int32  liandui_limit	= 10;		//连对最少几对起步 2：2对3344  3：3对 334455
+	 int32  SanYiDui		= 11;		//三带一对
+	 int32  SiYiDan			= 12;		//四带一单
+	 int32  SiErDan			= 13;		//四带两单
+	 int32  BiGen			= 14;		//有牌必跟
+	 int32  time_think      = 15;		//出牌思考时间
+}
+message CGSGameEnterAck
+{
+   int32 result				=1;			//结果
+   int32 status_game		=2;			//游戏状态
+   int32 seat				=3;			//座位号
+  repeated CGSPlayerInfo pis		=4;			//用户信息
+   CGSTableRule  ptr		=5;			//桌子规则
+   string  rule_str			=6;			//桌子属性字符串 空格隔开
+   CGSGameInfoReal game_info     =7;	//游戏信息
+}
+//------------------------------------------------------------------------------------------//
+//准备就绪
+message CGSPlayerReadyReq
+{
+   int32 type			=1;			// 0:准备  2:取消准备
+}
+message CGSPlayerReadyAck
+{
+   int32 result          =1;			//结果
+}
+//------------------------------------------------------------------------------------------//
+//出牌
+message CGSTakeoutCardReq
+{
+  repeated int32 cards           =1;			//出牌数据
+}
+message CGSTakeoutCardAck
+{
+   int32 result          =1;			//结果
+  repeated int32 self_card_info  =2;			//玩家自己手牌信息
+}
+//------------------------------------------------------------------------------------------//
+//解散桌子
+message CGSDismissTableReq
+{  
+	 int32 dismiss =1;					//是否同意解散 1 同意，2 不同意 0 未选
+}
+//返回结果
+message CGSDismissTableAck
+{  
+	 int32 result = 1;					//结果
+}
+//------------------------------------------------------------------------------------------//
+//切入切出请求
+message CGSBreakReq
+{
+   int32 type					=1;		// 0:切回  2:切走
+}
+message CGSBreakAck
+{
+   int32 result                 =1;		//结果
+}
+//------------------------------------------------------------------------------------------//
+//游戏状态
+message CGSStatusUpdateNtf
+{
+   int32 status_game     =1;			//游戏当前状态
+}
+//上线
+message CGSPlayerOnLineNtf
+{
+  int32 seat		= 1;				//用户座位号
+}
+//离线
+message CGSPlayerOffLineNtf
+{
+   int32 seat            =1;			//座位号
+}
+//准备
+message CGSPlayerReadyNtf
+{
+   int32 seat            =1;			//座位号
+}
+//发牌
+message CGSDealCardNtf
+{
+   int32 seat                   =1;		//第一个出牌座位
+   CGSHandCardItem card_hand 	=2;		//用户手牌
+   int32 operate_type			=3;		//操作类型 1 << 0:出牌,1 << 1:过牌 两值合并, 1 + 1 << 1 = 3 既能出牌又能过牌
+}
+//出牌
+message CGSTakeoutCardNtf
+{
+   int32 seat                    =1;	//出牌座位号
+   int32 seat_next               =2;	//下一个出牌座位
+   int32 time_think              =3;	//下一个出牌座位思考时间
+  repeated int32 cards_takeout           =4;	//出牌数据
+   int32 multiple                =5;	//当前倍数
+  repeated int32 bomb_count              =6;	//当前每个人炸弹个数 0,1,2座位号
+   int32 left_card_count         =7;	//剩余手牌数
+   int32 operate_type			 =8;	//操作类型 1 << 0:出牌,1 << 1:过牌 两值合并, 1 + 1 << 1 = 3 既能出牌又能过牌
+}
+message CGSGameUserResult
+{
+   CGSHandCardItem card_hand    =1;		//玩家手牌[数组下表代表座位号]
+   int32 bomb_count				=2;		//炸弹个数
+   int32 cur_score				=3;		//当前盘成绩
+   int32 total_score			=4;		//当前总成绩
+   int32 isspring				=5;		//是否关牌
+   int32 isbaopei				=6;		//是否包赔
+}
+//游戏总结果
+message CGSGameSumResult
+{
+   int32 highest_score			=1;		//单局最高分
+   int32 bomb_count				=2;		//炸弹个数
+   int32 win_count				=3;		//胜利次数
+   int32 failure_count			=4;		//失败次数
+   int32 total_score			=5;		//当前总成绩
+}
+message CGSGameResultNtf
+{
+   int32 seat_win				=1;		//座位
+   int32 multiple_base			=2;		//基础倍数
+   int32 multiple_bomb			=3;		//倍数
+   int32 multiple_spring		=4;		//关牌倍数
+   int32 cur_round				=5;		//当前盘
+   int32 total_round			=6;		//总盘数
+   int32 use_time				=7;		//总用时秒
+  repeated CGSGameUserResult ur			=8;		//玩家结算成绩结构
+   int32 is_gameover			=9;		//结算类型（0：小结算、1：大结算）
+  repeated CGSGameSumResult sur			=10;	//玩家结算总成绩结构
+}
+//结束游戏
+message CGSGameOverNtf
+{
+   int32 reason                  =1;	//结束原因
+}
+//数据同步
+message CGSSyncDataNtf
+{
+  repeated CGSPlayerInfoReal player_info =1;	//玩家信息[数组下标代表座位号]
+   int32 operate_type			 =2;	//操作类型 1 << 0:出牌,1 << 1:过牌 两值合并, 1 + 1 << 1 = 3 既能出牌又能过牌
+   int32 takeout_index			 =3;	//本副牌打了几手牌（过牌也算）
+}
+//通知切入切出
+message CGSBreakReqNtf
+{
+   int32 seat                    =1;	//座位号
+   int32 type					 =2;	// 0:切回  2:切走
+}
+//用户请求解散
+message CGSDismissReqNtf
+{
+	 int32 seat							=1;	//当前回复座位号
+	 int32 lead_seat					=2;	//发起者座位号
+	 int32 left_time					=3;	//剩余强制解散时间 秒
+	repeated int32 player_dismiss				=4; //所有人断线状态  是否同意解散 1 同意，2 不同意 0 未选
+}
+
+//￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣//
+//------------------------------------掼蛋 game--------------------------------------//
+//__________________________________________________________________________________//
+// 手牌容器
+message GD_CGSHandCardItem
+{
+  repeated int32 cards           =1;		//牌数据
+}
+// 桌牌容器
+message GD_CGSTableCardItem
+{
+  repeated int32 cards           =1;		//牌数据
+   int32 type            =2;		//动作类型: 0-不出 1-没出过
+}
+// 玩家动态信息
+message GD_CGSPlayerInfoReal
+{
+   GD_CGSTableCardItem card_table	= 1;				// 桌牌内容
+	 int32 time_think	= 2;				// 出牌思考时间
+	repeated int32 card_hand = 3;				// 手牌内容
+	 int32 left_card_count = 4;				// 当前剩余张数
+	 int32 whether_tribute = 5;				// 当前是否需要进贡(0:为不需要 1:需要进贡 2:需要还贡)
+	 int32 tribute_card	= 6;				// 玩家进贡或者还贡的牌值
+}
+// 游戏实时信息
+message GD_CGSGameInfoReal
+{
+	 int32 status_game	= 1;	// 游戏当前状态
+	 int32 seat_active	= 2;	// 当前活动玩家座位号
+	 int32 cur_card	= 3;	// 当前是打几的牌[例如:1和3号玩家赢的话，打1和3玩家当前达到的位置]
+	repeated int32 score_both_parties	= 4;	// 当前两家达到的牌数[0:位置为1和3号玩家 1:位置为2和4号玩家]
+	 int32 is_next_lead	= 5;	// 是否领出
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_CLI_GS_REQ_HEARTBEAT         
+//心跳消息
+message GD_CGSHeartBeatReq
+{
+   int64 time			= 1;			// 客户端发出的时间，服务器原封不动的返回，用来计算网络延迟
+   int32 delay			= 2;			//延时毫秒数
+   int32 heartCount		= 3;			//客户端超时计数器
+}
+message GD_CGSHeartBeatAck
+{
+   int64 time			= 1;			// 客户端发出的时间，服务器原封不动的返回，用来计算网络延迟
+   int32 delay			= 2;			//延时毫秒数
+   int32 heartCount		= 3;			//客户端超时计数器
+   int32 time_expend    = 4;			//游戏时长
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_CLI_GS_REQ_GAMEENTER         
+//进入游戏
+message GD_CGSGameEnterReq
+{
+   int32 tableid	= 1;		// 桌号
+   string username	= 2;		// 用户名
+   string ticket	= 3;		// 加密验证（证书之类的）
+    int32 userid	= 4;		// 用户id
+}
+
+message GD_CGSPlayerInfo
+{
+	 int32 userid		= 1;			// 用户id	
+	 int32 seat			= 2;			//座位号
+	 string nickname		= 3;			//昵称
+	 int32 sex			= 4;			//用户性别
+	 string headimg		= 5;			//头像地址
+	 uint32 ip			= 6;			//ip地址
+	 int32 status_online   =7;			//在线状态 0:在线 1:离线
+	 int32 break_type      =8;			//切入切出状态 0：切入 1：切出
+	 int32 score		   =9;			//当前总分
+	 int32 status_ready    =10;			//准备状态 0:准备好 1:没准备
+	 int32 score_510k	   =11;			//当前510k分数
+	 int32 win_order		   =12;			//排名 0：没出完 1,2,3,4
+}
+//桌子规则定义扩展
+message GD_CGSTableRule
+{
+	 int32  player_count	= 1;		// 玩家数 2, 3，4
+	 int32  round			= 2;		// 总局数 (0:过六 1:过八 2:过十 3:过A 4:4局 8:8局 12:12局)
+	 int32  time_think      = 3;		// 出牌思考时间
+	 int32	cur_round       = 4;		// 本桌的连续游戏盘数
+	 int32  play_type		= 5;		// 玩法类型  (0:经典	1:团团转)
+	 int32  upgrade_type	= 6;		// 升级类型[经典玩法]  (0:双下升三级	1:双下升四级)
+	 int32  straight_flush	= 7;		// 同花顺翻倍
+	 int32  six_bomb_double	= 8;		// 六炸以上炸弹赢翻倍
+	 int32  six_bomb_lottery= 9;		// 六炸以上炸弹赢彩金
+	 int32  remian_card		= 10;		// 剩余几张牌时报牌 (0:6张 1:10张 2:始终)
+}
+message GD_CGSGameEnterAck
+{
+   int32 result				=1;			//结果
+   int32 status_game		=2;			//游戏状态
+   int32 seat				=3;			//座位号
+  repeated GD_CGSPlayerInfo pis		=4;			//用户信息
+   GD_CGSTableRule  ptr		=5;			//桌子规则
+   string  rule_str			=6;			//桌子属性字符串 空格隔开
+   GD_CGSGameInfoReal game_info     =7;	//游戏信息
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_CLI_GS_REQ_PLAYERREADY       
+//准备就绪
+message GD_CGSPlayerReadyReq
+{
+   int32 type				=1;			// 0:准备  2:取消准备
+}
+message GD_CGSPlayerReadyAck
+{
+   int32 result          =1;			//结果
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_CLI_GS_REQ_TAKEOUT           
+//出牌
+message GD_CGSTakeoutCardReq
+{
+  repeated int32 cards           =1;			//出牌数据
+}
+message GD_CGSTakeoutCardAck
+{
+   int32 result          =1;			//结果
+  repeated int32 self_card_info  =2;			//玩家自己手牌信息
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_STATUSUPDATE      
+//游戏状态
+message GD_CGSStatusUpdateNtf
+{
+   int32 status_game     =1;			//游戏当前状态
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_PLYONLINE         
+//上线
+message GD_CGSPlayerOnLineNtf
+{
+  int32 seat		= 1;				//用户座位号
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_PLYOFFLINE        
+//离线
+message GD_CGSPlayerOffLineNtf
+{
+   int32 seat            =1;			//座位号
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_PLYREADY          
+//准备
+message GD_CGSPlayerReadyNtf
+{
+   int32 seat            =1;			//座位号
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_DEALCARD          
+//发牌
+message GD_CGSDealCardNtf
+{
+   int32			seat                    = 1;	// 第一个出牌座位
+	 int32			whether_tribute         = 2;	// 当前是否需要进贡(0:为不需要 1:需要进贡 2:需要还贡 3:抗贡)
+	 int32			cur_card				= 3;	// 当前是打几的牌[例如:1和3号玩家赢的话，打1和3玩家当前达到的位置]
+	 GD_CGSHandCardItem	card_hand			= 4;	// 所有用户的手牌
+	repeated int32			score_both_parties		= 5;	// 当前两家达到的牌数[0:位置为1和3号玩家 1:位置为2和4号玩家]
+	repeated int32			ming_card_seat			= 6;	// 明牌的玩家
+	 int32			operate_type			= 7;	// 操作类型 1 << 0:出牌,1 << 1:过牌 两值合并, 1 + 1 << 1 = 3 既能出牌又能过牌
+	 int32			ming_card				= 8;	// 明牌的牌值
+	repeated int32			change_pos_seat			= 9;	// 需要转换座位的玩家
+	 int32			cur_power_pos			= 10;	// 当前活跃的位置[例如:1和3号为1，2和4号为2, 0为默认开始]
+}
+
+//******************************************************************************************//
+//#define CGS_MSG_GS_CLI_NTF_OPERATEGONG         // 需进贡模式下，玩家发送的进贡消息
+message GD_CGSAckOperateDataNtf
+{
+	 int32 tribute_seat	= 1;	// 进贡玩家座位号
+	 int32 tribute_card	= 2;	// 进贡玩家进贡的牌
+}
+
+//------------------------------------------------------------------------------------------//
+//进贡
+//#define GD_CGS_MSG_CLI_GS_REQ_       
+message GD_CGSOperateDataNtf
+{
+	 int32 tribute_seat	= 1;	// 进贡玩家座位号
+	 int32 tribute_card	= 2;	// 进贡玩家进贡的牌
+}
+
+//******************************************************************************************//
+//#define CGS_MSG_GS_CLI_NTF_OPERATEGONG         // 需进贡模式下，玩家发送的进贡消息
+message GD_CGSTributeNtf
+{
+  repeated int32 tribute_seat = 1;	// 进贡玩家座位号
+  repeated int32 tribute_card = 2;	// 进贡玩家进贡的牌
+  repeated int32 huangong_seat = 3;	// 还贡玩家的座位号
+  repeated int32 huangong_card = 4;	// 还贡玩家还贡的牌
+   int32 active_seat = 5;	// 当前出牌玩家座位号
+   int32 time_think = 6;	// 首出玩家出牌思考时间
+}
+
+//------------------------------------------------------------------------------------------//
+message GD_CGSTribudeAck
+{
+   int32 result =1; //结果
+}
+
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_TAKEOUT			
+//出牌
+message GD_CGSTakeoutCardNtf
+{
+ 	 int32 seat						= 1;	// 出牌座位号
+	 int32 seat_next				= 2;	// 下一个出牌座位
+	 int32 time_think				= 3;	// 下一个出牌座位思考时间
+	repeated int32 cards_takeout			= 4;	// 出牌数据
+	 int32 multiple					= 5;	// 当前倍数
+	 int32 bomb_count				= 6;	// 当前炸弹个数
+	repeated int32 remainder_card			= 7;	// 玩家剩余手牌 序号0,1,2,3
+	repeated int32 seat_ranking				= 8;	// 玩家名次 [默认为0, 头游为1 二游为2]
+	 GD_CGSHandCardItem opposite_cards	= 9;	// 队友手牌 [只在自己出完牌的那一刻下发]  
+	 int32 operate_type				= 10;	// 操作类型 1 << 0:出牌,1 << 1:过牌 两值合并, 1 + 1 << 1 = 3 既能出牌又能过牌
+	 int32 is_next_lead				= 11;	// 是否领出
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_BREAK			
+//用户切出切回
+message GD_CGSBreakReqNtf
+{
+   int32 seat  =1;	//座位号
+   int32 type	=2;	// 0:切回  2:切走
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_DISMISS			
+//用户请求解散
+message GD_CGSDismissReqNtf
+{
+	 int32 seat		=1;	//当前回复座位号
+	 int32 lead_seat	=2;	//发起者座位号
+	 int32 left_time	=3;	//剩余强制解散时间 秒
+	repeated int32 player_dismiss			=4; //所有人断线状态  是否同意解散 1 同意，2 不同意 0 未选
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_GAMERESULT        
+//游戏结果
+message GD_CGSGameUserResult
+{
+   GD_CGSHandCardItem card_hand    =1;		//玩家手牌[数组下表代表座位号]
+   int32 cur_score				=2;		//当前盘成绩
+   int32 total_score			=3;		//当前总成绩
+   int32 win_order				=4;		//排名
+   int32 score_510k				=5;		//赢分 510k分数
+}
+//游戏总结果
+message GD_CGSGameSumResult
+{
+  int32 highest_score			= 1;		//单局最高分
+   int32 win_count				= 2;		//次数
+   int32 failure_count			= 3;		//失败次数
+   int32 total_score			= 4;		//当前总成绩
+   int32 head_tour_cnt			= 5;		//头游次数
+   int32 last_tour_cnt			= 6;		//末游次数
+}
+message GD_CGSGameResultNtf
+{
+   int32 seat_win				=1;		//座位
+   int32 multiple_base			=2;		//基础倍数
+   int32 cur_round				=3;		//当前盘
+   int32 total_round			=4;		//总盘数
+   int32 use_time				=5;		//总用时秒
+  repeated GD_CGSGameUserResult ur			=6;		//玩家结算成绩结构 0 ,1,2 对应座位号
+   int32 is_gameover			=7;		//结算类型（0：小结算、1：大结算）
+  repeated GD_CGSGameSumResult sur			=8;		//玩家结算总成绩结构 0 ,1,2 对应座位号
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_GAMEOVER          
+//结束游戏
+message GD_CGSGameOverNtf
+{
+   int32 reason                  =1;	//结束原因
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_SYNCDATA          
+//数据同步
+message GD_CGSSyncDataNtf
+{
+   GD_CGSGameInfoReal game_info			= 1;	// 游戏信息
+	repeated GD_CGSPlayerInfoReal player_info		= 2;	// 玩家信息[数组下标代表座位号]
+	 int32 operate_type					= 3;	// 操作类型 1 << 0:出牌,1 << 1:过牌 两值合并, 1 + 1 << 1 = 3 既能出牌又能过牌
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_CLI_GS_REQ_BREAK				
+//切入切出请求
+message GD_CGSBreakReq
+{
+   int32 type					=1;		// 0:切回  1:切走
+}
+message GD_CGSBreakAck
+{
+   int32 result                 =1;		//结果
+}
+//------------------------------------------------------------------------------------------//
+// CGS_MSG_CLI_GS_REQ_DIMISSGAME				
+//解散桌子
+message GD_CGSDismissTableReq
+{  
+	 int32 dismiss =1;					//是否同意解散 1 同意，2 不同意 0 未选
+}
+//返回结果
+message GD_CGSDismissTableAck
+{  
+	 int32 result = 1;					//结果
+}
+
+//￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣//
+//-----------------------------------ddz game---------------------------------------//
+//__________________________________________________________________________________//
+//手牌容器
+message DDZ_CGSHandCardItem
+{
+  repeated int32 cards           =1; //牌数据
+}
+//桌牌容器
+message DDZ_CGSTableCardItem
+{
+  repeated int32 cards           =1; //牌数据
+   int32 type            =2; //动作类型: 0-不出 1-没出过
+}
+//玩家动态信息
+message DDZ_CGSPlayerInfoReal
+{
+   DDZ_CGSTableCardItem card_table		=1;				 //桌牌内容
+   int32 time_think					=2;				 //出牌思考时间
+  repeated int32 card_hand					=3;				 //手牌内容
+   int32 left_card_count			=4;				 //当前剩余张数
+   int32 call_score					=5; //叫分[default = 0]
+   int32 call_lord					=6; //叫地主 0：不叫 3：叫地主 0xFF：没有叫地主[default = 0]
+   int32 grab_lord					=7; //抢地主 0x00：没资格抢地主 1：不抢 2：抢地主 0xFF：还没有抢地主[default = 1]
+}
+//游戏实时信息
+message DDZ_CGSGameInfoReal
+{
+   int32 status_game     =1;  //游戏当前状态
+   int32 seat_lord       =2;  //地主的座位号
+   int32 seat_active     =3;  //当前活动玩家座位号
+   int32 call_type       =4;  //叫分类型 0:叫分 1：叫地主 2:叫抢踢 3:仅叫
+   int32 call_score      =5;  //当前最大叫分（表示 叫分[0-3] 或 叫地主[0、3] 的分值）
+   int32 grab_multipe    =6;  //当前抢地主倍数（1、2、4、8）
+   int32 bomb_count      =7;  //当前已经打出的炸弹数量（包括火箭）
+   int32 game_type       =8;  //玩法模式 0:普通玩法 1:癞子玩法
+   int32 laizi_card      =9;  //癞子牌信息
+   int32 bomb_multiple   =10; //当前炸弹倍数
+   int32 twe_much        =11; //当前加倍倍数
+   int32 total_multiple  =12; //当前总倍数
+	 int32 ming_seat		 =13; // 发到明牌的玩家
+   int32 ming_card		 =14; // 明牌数值 
+   int32 let_card_count  =15; //需让牌几张[2人场]
+}
+//------------------------------------------------------------------------------------------//
+//define CGS_MSG_CLI_GS_REQ_HEARTBEAT         //心跳消息
+message DDZ_CGSHeartBeatReq
+{
+   int64 time			= 1;			// 客户端发出的时间，服务器原封不动的返回，用来计算网络延迟
+   int32 delay			= 2;			//延时毫秒数
+   int32 heartCount		= 3;			//客户端超时计数器
+}
+message DDZ_CGSHeartBeatAck
+{
+   int64 time			= 1;			// 客户端发出的时间，服务器原封不动的返回，用来计算网络延迟
+   int32 delay			= 2;			//延时毫秒数
+   int32 heartCount		= 3;			//客户端超时计数器
+   int32 time_expend    = 4;			//游戏时长
+}
+//------------------------------------------------------------------------------------------//
+//define CGS_MSG_CLI_GS_REQ_GAMEENTER         //进入游戏
+message DDZ_CGSGameEnterReq
+{
+   int32 tableid	= 1;		// 桌号
+   string username	= 2;		// 用户名
+   string ticket	= 3;		// 加密验证（证书之类的）
+   int32 userid		= 4;		// 用户id
+}
+message DDZ_CGSPlayerInfo
+{
+	 int32 userid		= 1;			// 用户id	
+	 int32 seat			= 2;			//座位号
+	 string nickname	= 3;			//昵称
+	 int32 sex			= 4;			//用户性别
+	 string headimg		= 5;			//头像地址
+	 uint32 ip			= 6;			//ip地址
+	 int32 status_online   =7;			//在线状态 0:在线 1:离线
+	 int32 break_type      =8;			//切入切出状态 0：切入 1：切出
+	 int32 score		   =9;			//当前总分
+	 int32 status_ready    =10;			//准备状态 0:准备好 1:没准备
+}
+//桌子规则定义扩展
+message DDZ_CGSTableRule
+{
+	 int32  player_count	= 1;		//玩家数 2, 3，4
+	 int32  round			= 2;		//总盘数
+	 int32  time_think      = 3;		//出牌思考时间
+	 int32  suit_card		= 4;		//多少副牌 1 - 2，3人1副，4人 1-2副
+	 int32  BiGen			= 5;		//有牌必跟
+	 int32	cur_round       = 6;		//本桌的连续游戏盘数
+	 int32	StraightCard	= 7;		//是否带顺子
+	 int32	MixCard			= 8;		//是否带混牌
+	 int32	GameMode		= 9;		//游戏模式(叫分、叫分抢地主)
+	 int32  BombCapped		= 10;		//封顶
+
+}
+message DDZ_CGSGameEnterAck
+{
+   int32 result				=1;			//结果
+   int32 status_game		=2;			//游戏状态
+   int32 seat				=3;			//座位号
+  repeated DDZ_CGSPlayerInfo pis	=4;			//用户信息
+   DDZ_CGSTableRule  ptr	=5;			//桌子规则
+   string rule_str			=6;			//桌子属性字符串 空格隔开
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_CLI_GS_REQ_PLAYERREADY       //准备就绪
+message DDZ_CGSPlayerReadyReq
+{
+   int32 type				=1;			// 0:准备  2:取消准备
+}
+message DDZ_CGSPlayerReadyAck
+{
+   int32 result          =1;			//结果
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_CLI_GS_REQ_CALLSCORE         //叫分
+message DDZ_CGSCallScoreReq
+{
+   int32 score           =1; //叫多少分: 0-不叫 1,2,3=分数
+}
+message DDZ_CGSCallScoreAck
+{
+   int32 result          =1; //结果
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_CLI_GS_REQ_CALLLORD          //抢地主规则：叫地主
+message DDZ_CGSCallLordReq
+{
+	 int32 call_lord     =1; //0：不叫地主 1：叫地主
+}
+message DDZ_CGSCallLordAck
+{
+   int32 result          =1; //结果
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_CLI_GS_REQ_GRABLORD          //抢地主规则：抢地主
+message DDZ_CGSGrabLordReq
+{
+   int32 grab_lord       =1; //0：不抢地主 1：抢地主
+}
+message DDZ_CGSGrabLordAck
+{
+   int32 result          =1; //结果
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_CLI_GS_REQ_TAKEOUT           //出牌
+message DDZ_CGSTakeoutCardReq
+{
+  repeated int32 cards           =1; //出牌数据
+}
+message DDZ_CGSTakeoutCardAck
+{
+   int32 result          =1; //结果
+  repeated int32 self_card_info  =2; //玩家自己手牌信息
+  repeated int32 all_card_num    =3; //三个玩家手牌张数[座位号排列]
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_CLI_GS_REQ_TAKEOUT_LAIZI     //癞子出牌
+message DDZ_CGSTakeoutLaiziCardReq
+{
+  repeated int32 cards           =1; //出牌数据 牌的实际编号(0-53)
+  repeated int32 replace_info    =2; //替换规则 如果有癞子替换 则成对填充此字段
+                                     //一对中第一个为癞子牌编号 第二个为要替换的牌变化
+}
+message DDZ_CGSTakeoutLaiziCardAck
+{
+   int32 result          =1; //结果
+  repeated int32 self_card_info  =2; //玩家自己手牌信息
+  repeated int32 all_card_num    =3; //三个玩家手牌张数[座位号排列]
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_STATUSUPDATE      //游戏状态
+message DDZ_CGSStatusUpdateNtf
+{
+   int32 status_game     =1; //游戏当前状态
+}
+
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_PLYONLINE         //上线
+message DDZ_CGSPlayerOnLineNtf
+{
+  int32 seat		= 1;			//用户座位号
+}
+
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_PLYOFFLINE        //离线
+message DDZ_CGSPlayerOffLineNtf
+{
+   int32 seat            =1; //座位号
+}
+
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_PLYREADY          //准备
+message DDZ_CGSPlayerReadyNtf
+{
+   int32 seat            =1; //座位号
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_DEALCARD          //发牌
+message DDZ_CGSDealCardNtf
+{
+   int32 seat                    =1; //第一个出牌座位
+   int32 call_type               =2; // 叫分模式 0:普通版 1:抢地主版[default = 0]
+   DDZ_CGSHandCardItem	card_hand				=3; // 所有用户的手牌
+   int32 card_rule               =4; // 玩法规则 0:普通模式 1:癞子模式
+   int32 laizi_card              =5; // 癞子牌型 0-12 分别表示3,4,...A,2
+   int32 ming_seat				 =6; // 发到明牌的玩家
+   int32 ming_card				 =7; // 明牌数值
+	repeated int32 remainder_card			=8; //玩家剩余手牌 序号0,1,2,3
+}
+//#define CGS_MSG_CLI_GS_REQ_SETBASECARD		//扣底
+message DDZ_CGSSetBaseCardReq
+{
+  repeated int32 cards_res              =1;		//底牌内容
+}
+message DDZ_CGSSetBaseCardAck
+{
+   int32 result					=1;		//结果
+  repeated int32 cards_res 				=2;		//底牌内容
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_SETBASECARD		//扣底广播
+message DDZ_CGSSetBaseCardNtf
+{
+   int32 seat                   =1;		//第一个出牌座位
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_CALLSCORE         //普通叫分模式：叫分
+message DDZ_CGSCallScoreNtf
+{
+   int32 seat                    =1; //座位号
+   int32 seat_next               =2; //下一个叫分座位
+   int32 score                   =3; //叫多少分: 0-不叫 1,2,3=分数
+   int32 time_think              =4; //下一个叫分座位思考时间
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_CALLLORD          //抢地主叫分模式：叫地主
+message DDZ_CGSCallLordNtf
+{
+   int32 seat                    =1; //座位号
+   int32 call_lord               =2; //0：不叫地主 3：叫地主
+   int32 seat_next               =3; //下一个叫分座位
+   int32 time_think              =4; //下一个叫分座位思考时间
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_GRABLORD         //抢地主叫分模式：抢地主
+message DDZ_CGSGrabLordNtf
+{
+   int32 seat                    =1; //座位号
+   int32 grab_lord               =2; //1：不抢地主 2：抢地主
+   int32 seat_next               =3; //下一个叫分座位
+   int32 time_think              =4; //下一个叫分座位思考时间
+	 int32 multiple                =5; //当前倍数
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_POKERFLOW         //流局
+message DDZ_CGSPokerFlowNtf
+{
+  repeated DDZ_CGSHandCardItem card_hand     =1; //玩家手牌[数组下表代表座位号]
+  repeated int32 cards_res               =2; //底牌内容
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_SETLORD           //地主确定
+message DDZ_CGSSetLordNtf
+{
+   int32 seat_lord               =1; //地主座位号
+   int32 time_think              =2; //地主第一次出牌思考时间
+   int32 multiple                =3; //当前倍数
+   int32 laizi_card              =4; //癞子牌(0-12)分别表示3,4,...A,2为癞子牌
+	repeated int32 cards_res               =5;//底牌内容
+	 int32 let_card_count          =6; //需让牌几张[2人场]
+   int32 grab_lord_count         =7; //抢了几次地主[2人场]
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_SET_CALLLORD      // 确认叫地主
+message DDZ_CGSSetCallLordNtf
+{
+   int32 seat_calllord           =1; //叫地主的座位号
+   int32 first_grab              =2; //首先抢地主的座位号
+   int32 time_think              =3; //抢地主思考时间
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_TAKEOUT     //出牌
+message DDZ_CGSTakeoutCardNtf
+{
+   int32 seat                    =1; //出牌座位号
+   int32 seat_next               =2; //下一个出牌座位
+   int32 time_think              =3; //下一个出牌座位思考时间
+  repeated int32 cards_takeout           =4; //出牌数据
+   int32 multiple                =5; //当前倍数
+   int32 bomb_count              =6; //当前炸弹个数
+  repeated int32 remainder_card					 =7; //玩家剩余手牌 序号0,1,2,3
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_TAKEOUT_LAIZI            //癞子出牌
+message DDZ_CGSTakeoutLaiziCardNtf
+{
+   int32 seat                    =1; //出牌座位号
+   int32 seat_next               =2; //下一个出牌座位
+   int32 time_think              =3; //下一个出牌座位思考时间
+  repeated int32 cards_takeout           =4; //出牌数据
+  repeated int32 cards_replace           =5; //癞子替换规则
+   int32 multiple                =6; //当前倍数
+   int32 bomb_count				 =7; //当前炸弹个数
+  repeated int32 cardsnum                =8; //记牌器数据[数组下标分别代表3、4、5、6、7、8、9、10、J、Q、K、A、2、X、D] size为0则代表无记牌器
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_GAMERESULT        //游戏结果
+message DDZ_CGSGameResultNtf
+{
+   int32 seat_lord               =1; //地主的座位号
+   int32 seat_win                =2; //座位
+   int32 multiple_base           =3; //基础倍数
+   int32 multiple_bomb           =4; //倍数
+   int32 multiple_spring         =5; //春天倍数
+   int32 multiple_twemuch        =6; //加倍倍数
+   int32 cur_round				 =7; //当前盘
+   int32 total_round			 =8; //总盘数
+   int32 use_time				 =9; //总用时秒
+  repeated DDZ_CGSGameUserResult ur			 =10;//玩家结算成绩结构 0,1,2,3 对应座位号
+   int32 is_gameover			 =11;//结算类型（0：小结算、1：大结算）
+  repeated DDZ_CGSGameSumResult sur			 =12;//玩家结算总成绩结构 0,1,2,3 对应座位号
+  repeated int32 cards_res				 =13;//底牌内容 只庄家断线续玩发、
+}
+//游戏总结果
+message DDZ_CGSGameSumResult
+{
+   int32 highest_score			=1;		//单局最高分
+   int32 win_count				=2;		//次数
+   int32 failure_count			=3;		//失败次数
+   int32 total_score			=4;		//当前总成绩
+}
+message DDZ_CGSGameUserResult
+{
+   DDZ_CGSHandCardItem card_hand    =1;		//玩家手牌[数组下表代表座位号]
+   int32 cur_score				=2;		//当前盘成绩
+   int32 total_score			=3;		//当前总成绩
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_GAMEOVER          //结束游戏
+message DDZ_CGSGameOverNtf
+{
+   int32 reason                  =1; //结束原因
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_SYNCDATA          //数据同步
+message DDZ_CGSSyncDataNtf
+{
+   DDZ_CGSGameInfoReal game_info     =1; //游戏信息
+  repeated DDZ_CGSPlayerInfoReal player_info =2; //玩家信息[数组下标代表座位号]
+  repeated int32 card_res                =3; //底牌数据
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_CLI_GS_REQ_TWEMUCH            //加倍请求
+message DDZ_CGSDoubleReq
+{
+   int32 isdouble                =1; //是否加倍: 0-不加倍 1-加倍
+}
+message DDZ_CGSDoubleAck
+{
+   int32 result                  =1; //结果
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_TWEMUCH            //加倍通知
+message DDZ_CGSDoubleNtf
+{
+   int32 seat                    =1; //座位号
+   int32 isdouble                =2; //是否加倍: 0-不加倍 1-加倍
+   int32 item_use                =3; //是否使用道具：0：不使用，1：使用
+   int32 item_use_next           =4; //下轮加倍状态：0：不可以，1：在免费轮加倍 2：在道具轮加倍
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_STATUS_SPECIAL     //加倍和出牌状态通知(添加加倍流程后特殊通知)
+message DDZ_CGSSpecialStatusNtf
+{
+   int32 status          =1; //状态值   0x09:加倍状态   0x05：出牌状态
+   int32 thinktime       =2; //第一次出牌的思考时间  或 加倍思考时间
+   int32 seat_active     =3; //更新为出牌状态时，第一次出牌的座位号
+   int32 candouble       =4; //更新为加倍状态时，玩家是否有加倍资格 0-不满足 1-满足
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_LOOKCARDS         //看底牌通知
+message DDZ_CGSLookCardsNtf
+{
+   int32 seat                    =1; //座位号
+  repeated int32 cards_res               =2; //底牌内容
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_CLI_GS_REQ_BREAK           //切入切出请求
+message DDZ_CGSBreakReq
+{
+   int32 type					=1;		// 0:切回  1:切走
+}
+message DDZ_CGSBreakAck
+{
+   int32 result                 =1; //结果
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_BREAK				//用户切出切回
+message DDZ_CGSBreakReqNtf
+{
+   int32 seat                    =1;	//座位号
+   int32 type					 =2;	// 0:切回  2:切走
+}
+//------------------------------------------------------------------------------------------//
+// CGS_MSG_CLI_GS_REQ_DIMISSGAME				解散桌子
+message DDZ_CGSDismissTableReq
+{  
+	 int32 dismiss =1;					//是否同意解散 1 同意，2 不同意 0 未选
+}
+//返回结果
+message DDZ_CGSDismissTableAck
+{  
+	 int32 result = 1;					//结果
+}
+//------------------------------------------------------------------------------------------//
+//#define CGS_MSG_GS_CLI_NTF_DISMISS			//用户请求解散
+message DDZ_CGSDismissReqNtf
+{
+	 int32 seat							=1;	//当前回复座位号
+	 int32 lead_seat					=2;	//发起者座位号
+	 int32 left_time					=3;	//剩余强制解散时间 秒
+	repeated int32 player_dismiss				=4; //所有人断线状态  是否同意解散 1 同意，2 不同意 0 未选
+}
+
+
+//******************************************** 亲友圈 *************************************************//
+//------------------------------------------------------------------------------------------//
+//#define REQ_APPLY_CLUBROOM           //申请/取消申请亲友圈
+message ReqApplyClubRoom
+{
+	 int32 UserID			= 1;		//用户id
+	 int32 RoomID			= 2;		//申请加入/退出的房间id
+	 int32 type				= 3;		//类型 1-申请加入  0-申请退出
+	 int32 RoomAdmin		= 4;		//亲友圈管理员id（以管理员userid搜索）
+}
+
+message AckApplyClubRoom
+{
+	 int32 Result			= 1;		//进入结果 0-成功 非1-失败
+	 int32 type				= 2;		//类型 1-申请加入  0-申请退出
+	 string ErrMsg			= 3;		//失败原因
+	 int32 RoomID			= 4;		//申请加入/退出的房间id
+	 int32 IsPass 			= 5;		//是否通过 1：通过 0:提交申请
+}
+//------------------------------------------------------------------------------------------//
+//#define REQ_ENTER_CLUB           //进入亲友圈
+message ReqEnterClubRoom
+{
+	 int32 UserID			= 1;		//用户id
+	 int32 RoomID 			= 2;		//申请加入/退出的房间id
+	 ClubUserInfo cui		= 3;		//Gate服务更新最新玩家昵称和头像
+	 int32 AdminUserID 		= 4;		//亲友圈管理员id
+}
+
+message AckEnterClubRoom
+{
+	 int32 Result 			= 1;		//进入结果 0-成功 非1-失败
+	 string ErrMsg			= 2;		//失败原因
+}
+
+//------------------------------------------------------------------------------------------//
+//#define NTF_CLUB_SYNC_DATA		//亲友圈需要同步数据
+message NtfClubRoomSyncData
+{
+	 int32 RoomID 			= 1;		//亲友圈id
+	 int32 LeftCard 		= 2;		//剩余房卡
+	 int32 Status		 	= 3;		//状态0：正常 1：暂停
+	 int32 ApplyCount	 	= 4;		//申请个数 > 0要亮小红点
+}
+
+//------------------------------------------------------------------------------------------//
+//#define NTF_CLUB_BASE_DATA		//初始化数据
+message NtfClubRoomBaseData
+{
+	 int32 RoomID 			= 1;		//亲友圈包间id
+	 ClubRoomInfo cri		= 2;		//规则（牌室）信息
+	repeated ClubTableInfo TableList= 3;		//桌子列表
+	repeated ClubUserInfo UserList	= 4;		//玩家列表
+}
+
+//规则（牌室）
+message ClubRoomInfo
+{
+	 int32		RoomID 			= 1;		//规则（牌室）id
+	 string		RoomName		= 2;		//规则（牌室）名称
+	 string		RuleStr			= 3;		//规则描述
+	 TableInfoMsg	tim			= 4;		//规则详细配置 用于管理员修改配置使用
+	 int32		AuthCard		= 5;		//用户房卡数
+	 int32		AutoAuthCard	= 6;		//自动授卡数 >0代表无限，直到合伙人身上的房卡消耗光
+	 int32		LeftCard		= 7;		//用户房卡数
+	 int32		CreateUserID	= 8;		//创建者id
+	 int32		AdminUserID		= 9;		//管理员用户id
+	 int32		Status			=10;		//当前状态 0：正常 1：暂停
+	 int32		GameID			=11;		//游戏ID
+	 string		note			=12;		//备注
+	 int32		bVipRoom		=13;		//是否vip包房
+	 int32		MaxTables		=14;		//最大同时开桌数
+}
+
+//桌子信息
+message ClubTableInfo
+{
+	 int32 ClubTableID 		= 1;		//亲友圈桌子id
+	 int32 TableID			= 2;		//房间号
+	 int32 TableState		= 3;		//桌子状态 0-等待开桌 1-进行中 2-已结束
+	 int32 TotalRound		= 4;		//总轮次
+	 int32 CreateTime		= 5;		//桌子创建时间
+	 int32 CurrentRound		= 6;		//当前轮次
+	 int32 GameID			= 7;		//游戏ID
+	 int32 RoomID 			= 8;		//所在房间id
+	 int32 TableNO 			= 9;		//桌子序号	 1-n，对应大厅显示序号如 1,2,3,4,5,6
+}
+
+//玩家信息
+message ClubUserInfo
+{
+	 int32	UserID			= 1;		//用户id
+	 string NickName		= 2;		//昵称
+	 string HeadImgUrl		= 3;		//头像地址
+   int32	UserSit			= 4;        //玩家座位    0东 1南 2西 3北 -1站起
+   int32	ClubTableID		= 5;		//玩家所在tableid
+	 int32	status_online	= 6;        //在线状态 0:在线 1:离线
+	 int32	RoomID 			= 7;		//所在房间id
+	 int32  TableNO 			= 8;		//桌子序号	 1-n，对应大厅显示序号如 1,2,3,4,5,6
+}
+//------------------------------------------------------------------------------------------//
+//#define NTF_ENTER_CLUB					//通知进入退出亲友圈（用于更新在线人数）
+message NtfEnterClubRoom
+{
+	 int32 UserID			= 1;		//用户id
+	 int32 type				= 2;        //1-新玩家进入亲友圈  0-亲友圈玩家退出亲友圈
+	 ClubUserInfo cui		= 3;		//如果是新玩家进入，发送过来玩家个人信息
+	 int32 RoomID 			= 4;		//所在房间id
+}
+
+//------------------------------------------------------------------------------------------//
+//#define NTF_SIT_CLUB_TABLE				//通知坐下站起
+message NtfSitClubTable
+{
+	 int32 UserID			= 1;		//用户id
+	 int32 UserSit			= 2;        //玩家座位    0东 1南 2西 3北 -1站起
+	 int32 ClubTableID		= 3;		//桌子唯一id
+	 int32 RoomID 			= 4;		//所在房间id
+}
+//------------------------------------------------------------------------------------------//
+//#define NTF_CLUB_USER_BREAK				//通知用户断线离线
+message NtfClubUserBreak
+{
+   int32 UserID					= 1;	//用户id
+   int32 type					= 2;	// 0:切回  2:切走
+}
+//------------------------------------------------------------------------------------------//
+//#define NTF_CLUB_RULE_CHANGE				//通知页签 创/删/改
+message NtfClubRoomChange
+{
+   int32 type				= 1;		// 0-删除  1-创建  2-修改
+   ClubRoomInfo cri			= 2;		//规则信息
+   int32 RoomID				= 3;		//如果删得只剩一个牌室，强制进入的牌室id
+}
+//------------------------------------------------------------------------------------------//
+//#define NTF_CLUB_TABLE_STATUS					//通知桌子状态
+message NtfClubTableStatus
+{
+	 int32 ClubTableID 		= 1;		//亲友圈桌子id
+	 int32 TableNO	 		= 2;		//桌子序号id，1,2,3,4,5,6...
+	 int32 TableID			= 3;		//房间号
+	 int32 TableState		= 4;		//桌子状态 0-等待开桌 1-进行中 2-已结束
+	 int32 TotalRound		= 5;		//总轮次
+	 int32 CreateTime		= 6;		//桌子创建时间
+	 int32 CurrentRound		= 7;		//当前轮次
+	 int32 RoomID 			= 8;		//所在房间id
+}
+//------------------------------------------------------------------------------------------//
+//													//通知这个人退出亲友圈
+message NtfClubPlayerExit
+{
+	 AckApplyClubRoom msg		= 1;
+	 int32 RoomID			= 2;		//指定广播范围-牌室id
+	 int32 UserID			= 3;		//指定广播范围-用户id
+}
+
+//------------------------------------------------------------------------------------------//
+//#define REQ_SIT_CLUB_TABLE		//坐下站起
+message ReqSitClubTable
+{
+	 int32 type 			= 1;		//type  1-坐下 0-站起
+	 int32 UserID			= 2;		//用户id					//Gate添加参数
+	 int32 RoomID 			= 3;		//牌室id					//Gate添加参数
+	 int32 GameID 			= 4;		//进入桌子的gameid			//Gate添加参数
+	 int32 TableNO 			= 5;		//桌子序号	 1-n，对应大厅显示序号如 1,2,3,4,5,6
+}
+message AckSitClubTable
+{
+	 int32 type 			= 1;		//type  1-坐下 0-站起
+	 int32 Result 			= 2;		//结果 1-成功 非1-失败
+	 string ErrMsg			= 3;		//失败原因
+}
+//------------------------------------------------------------------------------------------//
+//#define REQ_EXIT_CLUB				//离开亲友圈
+message ReqExitClubRoom
+{
+	 int32 UserID			= 1;		//用户id
+	 int32 RoomID 			= 2;		//亲友圈房间id					//Gate添加参数
+}
+//返回 退出亲友圈
+message AckExitClubRoom
+{
+	 int32 Result 			= 1;		//退出结果 0-成功 非1-失败
+	 string ErrMsg			= 2;		//失败原因
+	 int32 RoomID 			= 3;		//亲友圈房间id
+}
+//------------------------------------------------------------------------------------------//
+//#define REQ_CREATE_CLUB_RULE		//创建亲友圈包间
+message ReqCreateClubRoom
+{
+	 int32 UserID			= 1;		//用户id
+	 ClubRoomInfo cri		= 2;		//创建的包房信息，部分字段可不填
+}
+message AckCreateClubRoom
+{
+	 int32 Result 			= 1;		//创建结果 0-成功 非1-失败
+	 string ErrMsg			= 2;		//失败原因
+	 int32 RoomID 			= 3;		//规则（包房）id
+}
+//------------------------------------------------------------------------------------------//
+//#define REQ_MODIFY_CLUB_RULE		//修改亲友圈包间
+message ReqModifyClubRoom
+{
+	 int32 UserID			= 1;		//用户id
+	 ClubRoomInfo cri		= 2;		//创建的包房信息，部分字段可不填
+}
+message AckModifyClubRoom
+{
+	 int32 Result 			= 1;		//修改结果 0-成功 非1-失败
+	 string ErrMsg			= 2;		//失败原因
+}
+//------------------------------------------------------------------------------------------//
+//#define REQ_DEL_CLUB_RULE			//删除牌室
+message ReqDelClubRoom
+{
+	 int32 UserID			= 1;		//用户id
+	 int32 RoomID 			= 2;		//（亲友圈包间）id
+}
+message AckDelClubRoom
+{
+	 int32 Result 			= 1;		//删除结果 0-成功 非1-失败
+	 string ErrMsg			= 2;		//失败原因
+}
+//------------------------------------------------------------------------------------------//
+//#define REQ_CLUB_ROOM_AUTHCARD		//牌室授卡
+message ReqClubRoomAuthCard
+{
+	 int32		UserID			= 1;		//用户id
+	 int32		RoomID 			= 2;		//亲友圈包间id
+	 int32		AuthCard		= 3;		//用户房卡数
+	 int32		AutoAuthCard	= 4;		//自动授卡数 >0代表无限，直到合伙人身上的房卡消耗光
+}
+message AckClubRoomAuthCard
+{
+	 int32		Result 			= 1;		//修改结果 0-成功 非1-失败
+	 string		ErrMsg			= 2;		//失败原因
+	 int32		AuthCard		= 3;		//包间房卡数
+	 int32		AutoAuthCard	= 4;		//自动授卡数 >0代表无限，直到合伙人身上的房卡消耗光
+	 int32		LeftCard		= 5;		//代理剩余总房卡数
+	 int32		RoomID	 		= 6;		//规则（牌室）id 更改AuthCard属于哪个牌室
+}
+//------------------------------------------------------------------------------------------//
+//#define REQ_CLUB_ADMIN_MEMBER           //管理员添加删除用户/审批 同意拒绝用户加入
+message ReqClubAdminMember
+{
+	 int32 UserID				= 1;		//管理员用户id
+	 int32 RoomID				= 2;		//牌室id
+	 int32 OptUserID			= 3;		//被操作的用户id
+	 int32 type					= 4;		//类型 1-申请加入  0-申请退出
+}
+
+message AckClubAdminMember
+{
+	 int32 Result 				= 1;		//进入结果 0-成功 非0-失败
+	 int32 type					= 2;		//类型 1-申请加入  0-申请退出
+	 string ErrMsg				= 3;		//失败原因
+	 int32 OptUserID			= 4;		//被操作的用户id
+	 int32 RoomID				= 5;		//亲友圈包房id
+
+}
+
+//#define REQ_CLUB_ADMIN_STATUS					//合伙人在游戏端上开启/停止亲友圈（对应微信后台功能）
+message ReqClubAdminStatus
+{
+	 int32 UserID				= 1;		//管理员用户id
+	 int32 onoff				= 2;		//类型 0：正常 1：暂停
+	 int32 RoomID				= 3;		//牌室id，如果是长老操作，必须填此字段
+}
+
+message AckClubAdminStatus
+{
+	 int32 Result 				= 1;		//进入结果 0-成功 非0-失败
+	 int32 onoff				= 2;		//类型  0：正常 1：暂停
+	 string ErrMsg				= 3;		//失败原因
+	 int32 RoomID				= 4;		//牌室id，如果是长老操作，必须填此字段
+}
+
+//玩家简要状态信息
+message UserStatusInfo
+{
+	 int32	UserID			= 1;		//用户id
+	 string NickName		= 2;		//昵称
+	 string HeadImgUrl		= 3;		//头像地址
+     int32	Status			= 4;        //状态    0离线  1在线   2游戏中
+	 int32	UpdateTime		= 5;        //最后更新时间
+}
+
+//------------------------------------------------------------------------------------------//
+//#define REQ_CLUB_PLAYER_STATUS				//查询亲友桌成员状态
+message ReqPlayerStatus
+{
+	 int32 UserID			= 1;		//用户id
+	 int32 RoomID 			= 2;		//亲友圈房间id
+	 int32 Type 			= 3;		//0：查询全部数据 1：只查询 userid 和status 节约带宽（已经在亲友桌内，头像和你成都有）
+}
+
+//返回
+message AckPlayerStatus
+{
+	 int32 Result 			= 1;		//退出结果 0-成功 非1-失败
+	 string ErrMsg			= 2;		//失败原因
+	repeated UserStatusInfo usis	= 3;		//成员信息列表
+}
+
+//------------------------------------------------------------------------------------------//
+//#define REQ_INVITE_PLAYER				//邀请亲友桌成员加入牌桌
+message ReqInvitePlayer
+{
+	 int32 UserID			= 1;		//用户id
+	 int32 InviteUserID		= 2;		//邀请哪个用户id进入
+	 int32 RoomID 			= 3;		//亲友圈房间id
+	 int32 TableID 			= 4;		//亲友圈桌id
+	 int32 TableNO 			= 5;		//亲友圈桌序号id
+}
+
+//返回 退出亲友圈
+message AckInvitePlayer
+{
+	 int32 Result 			= 1;		//退出结果 0-成功 非1-失败
+	 string ErrMsg			= 2;		//失败原因
+	 int32 RoomID 			= 3;		//亲友圈房间id
+}
+
+//------------------------------------------------------------------------------------------//
+//#define NTF_CLUB_INVITE_PLAYER				//邀请亲友桌成员加入牌桌
+message NtfInvitePlayer
+{
+	 int32	UserID			= 1;		//邀请的用户id
+	 string NickName		= 2;		//昵称
+	 string HeadImgUrl		= 3;		//头像地址
+	 int32	RoomID			= 4;		//亲友桌房间id
+	 string ClubRoomName	= 5;		//亲友圈名字
+	 string ClubRuleStr		= 6;		//亲友圈规则
+	 int32	TableID			= 7;		//亲友圈桌id
+}
+//------------------------------------------------------------------------------------------//	
+//#define NTF_CLUB_PLAYER_STATUS		//初始化用户状态数据
+message NtfClubPlayerStatus
+{
+	 int32 RoomID 			= 1;		//亲友圈包间id
+	repeated UserStatusInfo usis	= 2;		//玩家列表
+}

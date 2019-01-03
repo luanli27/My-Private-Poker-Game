@@ -1,0 +1,88 @@
+﻿using System;
+using System.Collections;
+using System.Net.Sockets;
+using UnityEngine;
+using Google.Protobuf;
+using System.IO;
+using System.Linq;
+using System.Threading;
+
+public class NetworkManager : MonoBehaviour {
+
+    private bool _isConnect = false;
+    private Socket _socket;
+    private byte[] _receiveMsg = new byte[256];
+
+    public void SendMsg(int msgId,  IMessage msg)
+    {
+        if (_socket == null)
+            this.ConnectToServer();
+        MemoryStream output = new MemoryStream();
+        byte[] idBytes = BitConverter.GetBytes(msgId);
+        //id占4个字节
+        output.Write(idBytes, 0, 4);
+        msg.WriteTo(output);
+        output.Position = 0;
+        byte[] bytes = new byte[output.Length];
+        output.Read(bytes, 0, bytes.Length);
+        _socket.Send(bytes);
+
+        Debug.LogError("向服务器发送信息,id为：" + msgId);
+    }
+
+    public void ReceiveMsg()
+    {
+
+    }
+
+    private void Awake()
+    {
+        ConnectToServer();
+    }
+
+    private void ConnectToServer()
+    {
+        if (!_isConnect)
+        {
+            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            //IPAddress ip = IPAddress.Parse(Appconfig.Instance.appWebSocket_IP);
+            int port = Appconfig.Instance.appWebSocket_PORT;
+            _socket.BeginConnect(Appconfig.Instance.appWebSocket_IP, port, ConnectResult, _socket);
+        }
+    }
+
+    private void ConnectResult(IAsyncResult ar)
+    {
+        _isConnect = ar.IsCompleted;
+        if (_isConnect)
+        {
+            Debug.LogError("socket 连接成功！");
+            Thread newThread = new Thread(OnSocketConnect);
+            newThread.Start();
+        }
+        else
+            Debug.LogError("socket 连接失败！");
+    }
+
+    private void OnSocketConnect()
+    {
+        while (true)
+        {
+            byte[] receive = new byte[1024];
+            int length = 0;
+            try
+            {
+                length = _socket.Receive(receive);
+            }
+            catch (Exception e)
+            {
+                if (!_socket.Connected)
+                    break;
+            }
+            //前4个字节为消息id
+            int msgId = BitConverter.ToInt32(receive.Take(4).ToArray(), 0);
+            //ReqLogin reqLogin = ReqLogin.Parser.ParseFrom(receive, 4, length - 4);
+            Debug.LogError("接收到服务器反馈消息, id为：" + msgId);
+        }
+    }
+}
