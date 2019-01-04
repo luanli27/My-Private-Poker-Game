@@ -30,11 +30,6 @@ public class NetworkManager : MonoBehaviour {
         Debug.LogError("向服务器发送信息,id为：" + msgId);
     }
 
-    public void ReceiveMsg()
-    {
-
-    }
-
     private void Awake()
     {
         Singleton<NetworkManager>.Instance = this;
@@ -61,14 +56,14 @@ public class NetworkManager : MonoBehaviour {
         if (_isConnect)
         {
             Debug.LogError("socket 连接成功！");
-            Thread newThread = new Thread(OnSocketConnect);
+            Thread newThread = new Thread(ReceiveMsg);
             newThread.Start();
         }
         else
             Debug.LogError("socket 连接失败！");
     }
 
-    private void OnSocketConnect()
+    private void ReceiveMsg()
     {
         while (true)
         {

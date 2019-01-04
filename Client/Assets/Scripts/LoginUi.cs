@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoginUi : MonoBehaviour {
@@ -31,5 +32,7 @@ public class LoginUi : MonoBehaviour {
         {
             Debug.LogError("当前牌室内的玩家为:"+pInfo.UserName);
         }
+
+        SceneManager.LoadScene("DDZGameScene");
     }
 }
