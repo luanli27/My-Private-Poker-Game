@@ -2,25 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelfPlayerView : MonoBehaviour
+class SelfPlayerView : DDZPlayerBase
 {
     public RemotePlayerInfoView InfoView;
     public RemotePlayerPlayView PlayView;
     public CallScoreView CallScoreView;
-    public CardsLeftView CardsLeftView;
     public ReadyView ReadyView;
+    public HandCardsView HandCardsView;
+    public OptionView OptionView;
 
-    private RemotePlayerInfoData _playerData;
+    private DDZPlayerData _playerData;
 
-    public void OnPlayerEnterRoom(RemotePlayerInfoData data)
+    public override void OnPlayerEnterRoom(DDZPlayerData data)
     {
         _playerData = data;
         InfoView.SetPlayerInfo(_playerData);
         InfoView.gameObject.SetActive(true);
         PlayView.gameObject.SetActive(false);
         CallScoreView.gameObject.SetActive(false);
-        CardsLeftView.gameObject.SetActive(false);
         ReadyView.gameObject.SetActive(true);
         ReadyView.SetReady(true);
+        HandCardsView.gameObject.SetActive(false);
+        OptionView.gameObject.SetActive(false);
+    }
+
+    public override void PlayCards(List<int> cards)
+    {
+
     }
 }

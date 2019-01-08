@@ -574,7 +574,7 @@ MonoBehaviour:
   HeadIcon: {fileID: 1037845492}
   PlayerName: {fileID: 17861105}
   CoinNum: {fileID: 1977457617}
-  LordFlag: {fileID: 0}
+  LordFlag: {fileID: 1336650489}
 --- !u!1 &1643473038
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,11 +703,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e5215bee2204d84f8574f8ea08dadc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InfoView: {fileID: 0}
-  PlayView: {fileID: 0}
-  CallScoreView: {fileID: 0}
-  CardsLeftView: {fileID: 0}
-  ReadyView: {fileID: 0}
+  InfoView: {fileID: 1438584074}
+  PlayView: {fileID: 1669483889871904615}
+  CallScoreView: {fileID: 1840061899}
+  ReadyView: {fileID: 1205071014}
+  HandCardsView: {fileID: 1300994328}
+  OptionView: {fileID: 2908389852701202049}
 --- !u!1 &1688184391
 GameObject:
   m_ObjectHideFlags: 0
@@ -1471,6 +1472,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1904678838733219950}
+  - component: {fileID: 2908389852701202049}
   m_Layer: 5
   m_Name: OptionItems
   m_TagString: Untagged
@@ -1498,6 +1500,18 @@ RectTransform:
   m_AnchoredPosition: {x: 808.4, y: 172.7}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2908389852701202049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3115339087995277386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ed1b8eb5e78274d85685ede3a821b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3800354087410390927
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,6 +1523,7 @@ GameObject:
   - component: {fileID: 486196775968166067}
   - component: {fileID: 1364373921112123303}
   - component: {fileID: 4681954862280074688}
+  - component: {fileID: 1300994328}
   m_Layer: 5
   m_Name: HandCards
   m_TagString: Untagged
@@ -1572,6 +1587,18 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
+--- !u!114 &1300994328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3800354087410390927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3cefe884acfa684ea54212b74a66afc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6803507691639689137
 GameObject:
   m_ObjectHideFlags: 0

@@ -68,7 +68,7 @@
 
 		injectionBinder.Bind<ISpaceship>().To<TieFighter>(); //Injects a new TieFighter wherever an ISpaceship is requested
 		injectionBinder.Bind<ISpaceship>().To<Starship>().ToName(Ships.ENTERPRISE); //Injects a Starship wherever an ISpaceship is requested with the Name qualifier Enterprise
-		injectionBinder.Bind<ITool>().To<SonicScrewdriver>().ToSingleton(); //Injects SonicScrewdriver as a Singleton wherever an ITool is requested
+		injectionBinder.Bind<ITool>().To<SonicScrewdriver>().ToSingleton(); //Injects SonicScrewdriver as a SingletonMonoBehaviour wherever an ITool is requested
 		injectionBinder.Bind<IMoonbase>().ToValue(new Alpha()); //Injects the provided instance wherever IMoonbase is requested
 		injectionBinder.Bind<ISpaceship>().Bind<ITimeShip>.To<Tardis>(); //Injects a new Tardis wherever EITHER ISpaceship or ITimeship is requested.
 

@@ -628,7 +628,7 @@ MonoBehaviour:
   HeadIcon: {fileID: 2229122489874462243}
   PlayerName: {fileID: 2229122489913178097}
   CoinNum: {fileID: 2229122491034957858}
-  LordFlag: {fileID: 0}
+  LordFlag: {fileID: 2229122489783887999}
 --- !u!1 &5441764122287664260
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,6 +1659,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3958966223159509886}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2229122489783887999 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2890886368447589121, guid: 3db632cadaca47145a31b3256b44e81e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3958966223159509886}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5571327106540469673
 PrefabInstance:
   m_ObjectHideFlags: 0

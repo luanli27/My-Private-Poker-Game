@@ -1,18 +1,18 @@
-﻿using UnityEngine;
-public class Singleton<T> where T : MonoBehaviour
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+public class Singleton<T> where T : new()
 {
-    private static T _instance;
+    private static T _Instance;
     public static T Instance
     {
         get
         {
-            if (_instance == null)
+            if (_Instance == null)
             {
-               Debug.LogError("未在场景中找到" + typeof(T).Name + "类的实例对象，请检查Scene的脚本挂载状态！！");
+                _Instance = new T();
             }
-            return _instance;
+            return _Instance;
         }
-
-        set { _instance = value; }
     }
 }

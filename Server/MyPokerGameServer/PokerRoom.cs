@@ -62,6 +62,17 @@ namespace MyPokerGameServer
                         pInfo.UserName = innerP.Name;
                         pInfo.GoldNum = innerP.GoldNum;
                         msg.PlayerInfo.Add(pInfo);
+
+                        //TODO 测试阶段来两个机器人
+                        PlayerInfo fakePlayerOne = new PlayerInfo();
+                        fakePlayerOne.UserName = "nintendo";
+                        fakePlayerOne.GoldNum = 999999;
+                        msg.PlayerInfo.Add(fakePlayerOne);
+                        PlayerInfo fakePlayerSec = new PlayerInfo();
+                        fakePlayerSec.UserName = "capcom";
+                        fakePlayerSec.GoldNum = 888888;
+                        msg.PlayerInfo.Add(fakePlayerSec);
+                        //TODO END
                     }
 
                     Singleton<NetworkManager>.Instance.SendMsg(player.Socket, MessageDefine.G2C_Enter_Room, msg);

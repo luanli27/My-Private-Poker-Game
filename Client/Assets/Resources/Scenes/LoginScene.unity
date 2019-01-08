@@ -511,6 +511,30 @@ MonoBehaviour:
   LoginButton: {fileID: 405098203}
   Account: {fileID: 1169448769}
   Password: {fileID: 1292045138}
+--- !u!114 &649244559 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4460771124368480128, guid: 40dc553bdf0177340b1a254bcae4e084,
+    type: 3}
+  m_PrefabInstance: {fileID: 4355152832794262292}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b700ee1726b3b84aa2cf99e028d2f76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &649244560 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4460131295853266698, guid: 40dc553bdf0177340b1a254bcae4e084,
+    type: 3}
+  m_PrefabInstance: {fileID: 4355152832794262292}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 396fe7a99427e0f45acbaa04349f41e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1169448769 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114550811445242408, guid: 9daf33889055e864da0d1fc9f55ea0ce,
@@ -632,5 +656,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4460131295853266698, guid: 40dc553bdf0177340b1a254bcae4e084,
+        type: 3}
+      propertyPath: NetworkManager
+      value: 
+      objectReference: {fileID: 649244559}
+    - target: {fileID: 4460771124368480128, guid: 40dc553bdf0177340b1a254bcae4e084,
+        type: 3}
+      propertyPath: SeverEventHandler
+      value: 
+      objectReference: {fileID: 649244560}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40dc553bdf0177340b1a254bcae4e084, type: 3}

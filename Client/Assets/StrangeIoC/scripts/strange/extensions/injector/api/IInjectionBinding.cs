@@ -52,7 +52,7 @@ namespace strange.extensions.injector.api
 {
 	public interface IInjectionBinding : IBinding
 	{
-		/// Map the Binding to a Singleton so that every `GetInstance()` on the Binder Key returns the same imstance.
+		/// Map the Binding to a SingletonMonoBehaviour so that every `GetInstance()` on the Binder Key returns the same imstance.
 		IInjectionBinding ToSingleton();
 
 		/// Map the Binding to a stated instance so that every `GetInstance()` on the Binder Key returns the provided imstance. Sets type to Value

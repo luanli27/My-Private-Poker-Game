@@ -7,11 +7,13 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 
-public class NetworkManager : MonoBehaviour {
+class NetworkManager : MonoBehaviour {
 
     private bool _isConnect = false;
     private Socket _socket;
     private byte[] _receiveMsg = new byte[256];
+
+    public SeverEventHandler SeverEventHandler;
 
     public void SendMsg(int msgId,  IMessage msg)
     {
@@ -28,11 +30,6 @@ public class NetworkManager : MonoBehaviour {
         _socket.Send(bytes);
 
         Debug.LogError("向服务器发送信息,id为：" + msgId);
-    }
-
-    private void Awake()
-    {
-        Singleton<NetworkManager>.Instance = this;
     }
 
     private void Start()
@@ -87,7 +84,7 @@ public class NetworkManager : MonoBehaviour {
             Debug.LogError("接收到服务器反馈消息, id为：" + msgId);
             byte[] msgBody = receiveMsg.Skip(4).Take(receiveMsg.Length - 4).ToArray();
 
-            Singleton<SeverEventHandler>.Instance.OnReceiveMsgFromServer(msgId, msgBody);
+            SeverEventHandler.OnReceiveMsgFromServer(msgId, msgBody);
         }
     }
 }

@@ -32,11 +32,11 @@
  * 
  * `Bind<ISimpleInterface>().To<SimpleInterfaceImplementer>();`
  * 
- * //Returns a Singleton instance of SimpleInterfaceImplementer.
+ * //Returns a SingletonMonoBehaviour instance of SimpleInterfaceImplementer.
  * 
  * `Bind<ISimpleInterface>().To<SimpleInterfaceImplementer>().ToSingleton();`
  * 
- * //Returns a Singleton instance of SimpleInterfaceImplementer.
+ * //Returns a SingletonMonoBehaviour instance of SimpleInterfaceImplementer.
  * 
  * `Bind<ISimpleInterface>().ToValue(new SimpleInterfaceImplementer());`
  * 

@@ -58,7 +58,7 @@ namespace strange.extensions.injector.impl
 			return Get (binding, null);
 		}
 
-		/// Generate a Singleton instance
+		/// Generate a SingletonMonoBehaviour instance
 		protected object singletonOf(IInjectionBinding binding, object[] args)
 		{
 			if (binding.value != null)

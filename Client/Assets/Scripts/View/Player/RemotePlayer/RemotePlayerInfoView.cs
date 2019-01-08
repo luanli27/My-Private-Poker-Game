@@ -11,11 +11,11 @@ public class RemotePlayerInfoView : MonoBehaviour
     public Image LordFlag;
 
 
-    public void SetPlayerInfo(RemotePlayerInfoData data)
+    public void SetPlayerInfo(DDZPlayerData data)
     {
-        HeadIcon.material.mainTexture = data.HeadIcon;
-        PlayerName.text = data.PlayerName;
-        CoinNum.text = data.CoinNum.ToString();
+        //HeadIcon.material.mainTexture = data.HeadIcon;
+        PlayerName.text = data.Name;
+        CoinNum.text = data.TotalCoins.ToString();
         LordFlag.enabled = false;
     }
 
