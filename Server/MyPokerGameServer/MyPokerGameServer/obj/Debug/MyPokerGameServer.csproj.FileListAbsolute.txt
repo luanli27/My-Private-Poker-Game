@@ -1,0 +1,9 @@
+C:\Users\DELL\Documents\Te\MyIdiePokerGame\My-Private-Poker-Game\Server\MyPokerGameServer\MyPokerGameServer\bin\Debug\MyPokerGameServer.exe.config
+C:\Users\DELL\Documents\Te\MyIdiePokerGame\My-Private-Poker-Game\Server\MyPokerGameServer\MyPokerGameServer\bin\Debug\MyPokerGameServer.exe
+C:\Users\DELL\Documents\Te\MyIdiePokerGame\My-Private-Poker-Game\Server\MyPokerGameServer\MyPokerGameServer\bin\Debug\MyPokerGameServer.pdb
+C:\Users\DELL\Documents\Te\MyIdiePokerGame\My-Private-Poker-Game\Server\MyPokerGameServer\MyPokerGameServer\bin\Debug\Google.Protobuf.dll
+C:\Users\DELL\Documents\Te\MyIdiePokerGame\My-Private-Poker-Game\Server\MyPokerGameServer\MyPokerGameServer\obj\Debug\MyPokerGameServer.csprojAssemblyReference.cache
+C:\Users\DELL\Documents\Te\MyIdiePokerGame\My-Private-Poker-Game\Server\MyPokerGameServer\MyPokerGameServer\obj\Debug\MyPokerGameServer.csproj.CoreCompileInputs.cache
+C:\Users\DELL\Documents\Te\MyIdiePokerGame\My-Private-Poker-Game\Server\MyPokerGameServer\MyPokerGameServer\obj\Debug\MyPokerGameServer.csproj.CopyComplete
+C:\Users\DELL\Documents\Te\MyIdiePokerGame\My-Private-Poker-Game\Server\MyPokerGameServer\MyPokerGameServer\obj\Debug\MyPokerGameServer.exe
+C:\Users\DELL\Documents\Te\MyIdiePokerGame\My-Private-Poker-Game\Server\MyPokerGameServer\MyPokerGameServer\obj\Debug\MyPokerGameServer.pdb
