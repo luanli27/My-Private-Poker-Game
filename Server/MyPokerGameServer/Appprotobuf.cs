@@ -20,18 +20,20 @@ public static partial class AppprotobufReflection {
   static AppprotobufReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "ChFhcHBwcm90b2J1Zi5wcm90byIcCghSZXFMb2dpbhIQCghVc2VyTmFtZRgB",
-          "IAEoCSIvCgxBY2tFbnRlclJvb20SHwoKUGxheWVySW5mbxgBIAMoCzILLlBs",
-          "YXllckluZm8iOwoVQWNrTmV3UGxheWVyRW50ZXJSb29tEiIKDW5ld1BsYXll",
-          "ckluZm8YASABKAsyCy5QbGF5ZXJJbmZvIi8KClBsYXllckluZm8SEAoIVXNl",
-          "ck5hbWUYASABKAkSDwoHZ29sZE51bRgCIAEoBWIGcHJvdG8z"));
+          "ChFhcHBwcm90b2J1Zi5wcm90byIxCghSZXFMb2dpbhITCgtBY2NvdW50TmFt",
+          "ZRgBIAEoCRIQCghQYXNzd29yZBgCIAEoCSJGChJBY2tFbnRlclJvb21SZXN1",
+          "bHQSDgoGcmVzdWx0GAEgASgFEiAKC3BsYXllckluZm9zGAIgAygLMgsuUGxh",
+          "eWVySW5mbyI4ChVBY2tOZXdQbGF5ZXJFbnRlclJvb20SHwoKcGxheWVySW5m",
+          "bxgBIAEoCzILLlBsYXllckluZm8iQAoKUGxheWVySW5mbxIMCgRTZWF0GAEg",
+          "ASgFEhMKC0FjY291bnROYW1lGAIgASgJEg8KB0NvaW5OdW0YAyABKAViBnBy",
+          "b3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-          new pbr::GeneratedClrTypeInfo(typeof(global::ReqLogin), global::ReqLogin.Parser, new[]{ "UserName" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::AckEnterRoom), global::AckEnterRoom.Parser, new[]{ "PlayerInfo" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::AckNewPlayerEnterRoom), global::AckNewPlayerEnterRoom.Parser, new[]{ "NewPlayerInfo" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::PlayerInfo), global::PlayerInfo.Parser, new[]{ "UserName", "GoldNum" }, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::ReqLogin), global::ReqLogin.Parser, new[]{ "AccountName", "Password" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::AckEnterRoomResult), global::AckEnterRoomResult.Parser, new[]{ "Result", "PlayerInfos" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::AckNewPlayerEnterRoom), global::AckNewPlayerEnterRoom.Parser, new[]{ "PlayerInfo" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::PlayerInfo), global::PlayerInfo.Parser, new[]{ "Seat", "AccountName", "CoinNum" }, null, null, null)
         }));
   }
   #endregion
@@ -62,7 +64,8 @@ public sealed partial class ReqLogin : pb::IMessage<ReqLogin> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public ReqLogin(ReqLogin other) : this() {
-    userName_ = other.userName_;
+    accountName_ = other.accountName_;
+    password_ = other.password_;
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -70,17 +73,25 @@ public sealed partial class ReqLogin : pb::IMessage<ReqLogin> {
     return new ReqLogin(this);
   }
 
-  /// <summary>Field number for the "UserName" field.</summary>
-  public const int UserNameFieldNumber = 1;
-  private string userName_ = "";
-  /// <summary>
-  /// 玩家姓名
-  /// </summary>
+  /// <summary>Field number for the "AccountName" field.</summary>
+  public const int AccountNameFieldNumber = 1;
+  private string accountName_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public string UserName {
-    get { return userName_; }
+  public string AccountName {
+    get { return accountName_; }
     set {
-      userName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      accountName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "Password" field.</summary>
+  public const int PasswordFieldNumber = 2;
+  private string password_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Password {
+    get { return password_; }
+    set {
+      password_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
     }
   }
 
@@ -97,14 +108,16 @@ public sealed partial class ReqLogin : pb::IMessage<ReqLogin> {
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (UserName != other.UserName) return false;
+    if (AccountName != other.AccountName) return false;
+    if (Password != other.Password) return false;
     return true;
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override int GetHashCode() {
     int hash = 1;
-    if (UserName.Length != 0) hash ^= UserName.GetHashCode();
+    if (AccountName.Length != 0) hash ^= AccountName.GetHashCode();
+    if (Password.Length != 0) hash ^= Password.GetHashCode();
     return hash;
   }
 
@@ -115,17 +128,24 @@ public sealed partial class ReqLogin : pb::IMessage<ReqLogin> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public void WriteTo(pb::CodedOutputStream output) {
-    if (UserName.Length != 0) {
+    if (AccountName.Length != 0) {
       output.WriteRawTag(10);
-      output.WriteString(UserName);
+      output.WriteString(AccountName);
+    }
+    if (Password.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(Password);
     }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public int CalculateSize() {
     int size = 0;
-    if (UserName.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(UserName);
+    if (AccountName.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(AccountName);
+    }
+    if (Password.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Password);
     }
     return size;
   }
@@ -135,8 +155,11 @@ public sealed partial class ReqLogin : pb::IMessage<ReqLogin> {
     if (other == null) {
       return;
     }
-    if (other.UserName.Length != 0) {
-      UserName = other.UserName;
+    if (other.AccountName.Length != 0) {
+      AccountName = other.AccountName;
+    }
+    if (other.Password.Length != 0) {
+      Password = other.Password;
     }
   }
 
@@ -149,7 +172,11 @@ public sealed partial class ReqLogin : pb::IMessage<ReqLogin> {
           input.SkipLastField();
           break;
         case 10: {
-          UserName = input.ReadString();
+          AccountName = input.ReadString();
+          break;
+        }
+        case 18: {
+          Password = input.ReadString();
           break;
         }
       }
@@ -158,10 +185,10 @@ public sealed partial class ReqLogin : pb::IMessage<ReqLogin> {
 
 }
 
-public sealed partial class AckEnterRoom : pb::IMessage<AckEnterRoom> {
-  private static readonly pb::MessageParser<AckEnterRoom> _parser = new pb::MessageParser<AckEnterRoom>(() => new AckEnterRoom());
+public sealed partial class AckEnterRoomResult : pb::IMessage<AckEnterRoomResult> {
+  private static readonly pb::MessageParser<AckEnterRoomResult> _parser = new pb::MessageParser<AckEnterRoomResult>(() => new AckEnterRoomResult());
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public static pb::MessageParser<AckEnterRoom> Parser { get { return _parser; } }
+  public static pb::MessageParser<AckEnterRoomResult> Parser { get { return _parser; } }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
@@ -174,56 +201,67 @@ public sealed partial class AckEnterRoom : pb::IMessage<AckEnterRoom> {
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public AckEnterRoom() {
+  public AckEnterRoomResult() {
     OnConstruction();
   }
 
   partial void OnConstruction();
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public AckEnterRoom(AckEnterRoom other) : this() {
-    playerInfo_ = other.playerInfo_.Clone();
+  public AckEnterRoomResult(AckEnterRoomResult other) : this() {
+    result_ = other.result_;
+    playerInfos_ = other.playerInfos_.Clone();
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public AckEnterRoom Clone() {
-    return new AckEnterRoom(this);
+  public AckEnterRoomResult Clone() {
+    return new AckEnterRoomResult(this);
   }
 
-  /// <summary>Field number for the "PlayerInfo" field.</summary>
-  public const int PlayerInfoFieldNumber = 1;
-  private static readonly pb::FieldCodec<global::PlayerInfo> _repeated_playerInfo_codec
-      = pb::FieldCodec.ForMessage(10, global::PlayerInfo.Parser);
-  private readonly pbc::RepeatedField<global::PlayerInfo> playerInfo_ = new pbc::RepeatedField<global::PlayerInfo>();
-  /// <summary>
-  /// 玩家列表
-  /// </summary>
+  /// <summary>Field number for the "result" field.</summary>
+  public const int ResultFieldNumber = 1;
+  private int result_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public pbc::RepeatedField<global::PlayerInfo> PlayerInfo {
-    get { return playerInfo_; }
+  public int Result {
+    get { return result_; }
+    set {
+      result_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "playerInfos" field.</summary>
+  public const int PlayerInfosFieldNumber = 2;
+  private static readonly pb::FieldCodec<global::PlayerInfo> _repeated_playerInfos_codec
+      = pb::FieldCodec.ForMessage(18, global::PlayerInfo.Parser);
+  private readonly pbc::RepeatedField<global::PlayerInfo> playerInfos_ = new pbc::RepeatedField<global::PlayerInfo>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public pbc::RepeatedField<global::PlayerInfo> PlayerInfos {
+    get { return playerInfos_; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
-    return Equals(other as AckEnterRoom);
+    return Equals(other as AckEnterRoomResult);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public bool Equals(AckEnterRoom other) {
+  public bool Equals(AckEnterRoomResult other) {
     if (ReferenceEquals(other, null)) {
       return false;
     }
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if(!playerInfo_.Equals(other.playerInfo_)) return false;
+    if (Result != other.Result) return false;
+    if(!playerInfos_.Equals(other.playerInfos_)) return false;
     return true;
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override int GetHashCode() {
     int hash = 1;
-    hash ^= playerInfo_.GetHashCode();
+    if (Result != 0) hash ^= Result.GetHashCode();
+    hash ^= playerInfos_.GetHashCode();
     return hash;
   }
 
@@ -234,22 +272,32 @@ public sealed partial class AckEnterRoom : pb::IMessage<AckEnterRoom> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public void WriteTo(pb::CodedOutputStream output) {
-    playerInfo_.WriteTo(output, _repeated_playerInfo_codec);
+    if (Result != 0) {
+      output.WriteRawTag(8);
+      output.WriteInt32(Result);
+    }
+    playerInfos_.WriteTo(output, _repeated_playerInfos_codec);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public int CalculateSize() {
     int size = 0;
-    size += playerInfo_.CalculateSize(_repeated_playerInfo_codec);
+    if (Result != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Result);
+    }
+    size += playerInfos_.CalculateSize(_repeated_playerInfos_codec);
     return size;
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public void MergeFrom(AckEnterRoom other) {
+  public void MergeFrom(AckEnterRoomResult other) {
     if (other == null) {
       return;
     }
-    playerInfo_.Add(other.playerInfo_);
+    if (other.Result != 0) {
+      Result = other.Result;
+    }
+    playerInfos_.Add(other.playerInfos_);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -260,8 +308,12 @@ public sealed partial class AckEnterRoom : pb::IMessage<AckEnterRoom> {
         default:
           input.SkipLastField();
           break;
-        case 10: {
-          playerInfo_.AddEntriesFrom(input, _repeated_playerInfo_codec);
+        case 8: {
+          Result = input.ReadInt32();
+          break;
+        }
+        case 18: {
+          playerInfos_.AddEntriesFrom(input, _repeated_playerInfos_codec);
           break;
         }
       }
@@ -294,7 +346,7 @@ public sealed partial class AckNewPlayerEnterRoom : pb::IMessage<AckNewPlayerEnt
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public AckNewPlayerEnterRoom(AckNewPlayerEnterRoom other) : this() {
-    NewPlayerInfo = other.newPlayerInfo_ != null ? other.NewPlayerInfo.Clone() : null;
+    PlayerInfo = other.playerInfo_ != null ? other.PlayerInfo.Clone() : null;
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -302,14 +354,14 @@ public sealed partial class AckNewPlayerEnterRoom : pb::IMessage<AckNewPlayerEnt
     return new AckNewPlayerEnterRoom(this);
   }
 
-  /// <summary>Field number for the "newPlayerInfo" field.</summary>
-  public const int NewPlayerInfoFieldNumber = 1;
-  private global::PlayerInfo newPlayerInfo_;
+  /// <summary>Field number for the "playerInfo" field.</summary>
+  public const int PlayerInfoFieldNumber = 1;
+  private global::PlayerInfo playerInfo_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public global::PlayerInfo NewPlayerInfo {
-    get { return newPlayerInfo_; }
+  public global::PlayerInfo PlayerInfo {
+    get { return playerInfo_; }
     set {
-      newPlayerInfo_ = value;
+      playerInfo_ = value;
     }
   }
 
@@ -326,14 +378,14 @@ public sealed partial class AckNewPlayerEnterRoom : pb::IMessage<AckNewPlayerEnt
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (!object.Equals(NewPlayerInfo, other.NewPlayerInfo)) return false;
+    if (!object.Equals(PlayerInfo, other.PlayerInfo)) return false;
     return true;
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override int GetHashCode() {
     int hash = 1;
-    if (newPlayerInfo_ != null) hash ^= NewPlayerInfo.GetHashCode();
+    if (playerInfo_ != null) hash ^= PlayerInfo.GetHashCode();
     return hash;
   }
 
@@ -344,17 +396,17 @@ public sealed partial class AckNewPlayerEnterRoom : pb::IMessage<AckNewPlayerEnt
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public void WriteTo(pb::CodedOutputStream output) {
-    if (newPlayerInfo_ != null) {
+    if (playerInfo_ != null) {
       output.WriteRawTag(10);
-      output.WriteMessage(NewPlayerInfo);
+      output.WriteMessage(PlayerInfo);
     }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public int CalculateSize() {
     int size = 0;
-    if (newPlayerInfo_ != null) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(NewPlayerInfo);
+    if (playerInfo_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayerInfo);
     }
     return size;
   }
@@ -364,11 +416,11 @@ public sealed partial class AckNewPlayerEnterRoom : pb::IMessage<AckNewPlayerEnt
     if (other == null) {
       return;
     }
-    if (other.newPlayerInfo_ != null) {
-      if (newPlayerInfo_ == null) {
-        newPlayerInfo_ = new global::PlayerInfo();
+    if (other.playerInfo_ != null) {
+      if (playerInfo_ == null) {
+        playerInfo_ = new global::PlayerInfo();
       }
-      NewPlayerInfo.MergeFrom(other.NewPlayerInfo);
+      PlayerInfo.MergeFrom(other.PlayerInfo);
     }
   }
 
@@ -381,10 +433,10 @@ public sealed partial class AckNewPlayerEnterRoom : pb::IMessage<AckNewPlayerEnt
           input.SkipLastField();
           break;
         case 10: {
-          if (newPlayerInfo_ == null) {
-            newPlayerInfo_ = new global::PlayerInfo();
+          if (playerInfo_ == null) {
+            playerInfo_ = new global::PlayerInfo();
           }
-          input.ReadMessage(newPlayerInfo_);
+          input.ReadMessage(playerInfo_);
           break;
         }
       }
@@ -417,8 +469,9 @@ public sealed partial class PlayerInfo : pb::IMessage<PlayerInfo> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public PlayerInfo(PlayerInfo other) : this() {
-    userName_ = other.userName_;
-    goldNum_ = other.goldNum_;
+    seat_ = other.seat_;
+    accountName_ = other.accountName_;
+    coinNum_ = other.coinNum_;
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -426,31 +479,36 @@ public sealed partial class PlayerInfo : pb::IMessage<PlayerInfo> {
     return new PlayerInfo(this);
   }
 
-  /// <summary>Field number for the "UserName" field.</summary>
-  public const int UserNameFieldNumber = 1;
-  private string userName_ = "";
-  /// <summary>
-  /// 玩家姓名
-  /// </summary>
+  /// <summary>Field number for the "Seat" field.</summary>
+  public const int SeatFieldNumber = 1;
+  private int seat_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public string UserName {
-    get { return userName_; }
+  public int Seat {
+    get { return seat_; }
     set {
-      userName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      seat_ = value;
     }
   }
 
-  /// <summary>Field number for the "goldNum" field.</summary>
-  public const int GoldNumFieldNumber = 2;
-  private int goldNum_;
-  /// <summary>
-  /// 玩家金币数量
-  /// </summary>
+  /// <summary>Field number for the "AccountName" field.</summary>
+  public const int AccountNameFieldNumber = 2;
+  private string accountName_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public int GoldNum {
-    get { return goldNum_; }
+  public string AccountName {
+    get { return accountName_; }
     set {
-      goldNum_ = value;
+      accountName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "CoinNum" field.</summary>
+  public const int CoinNumFieldNumber = 3;
+  private int coinNum_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CoinNum {
+    get { return coinNum_; }
+    set {
+      coinNum_ = value;
     }
   }
 
@@ -467,16 +525,18 @@ public sealed partial class PlayerInfo : pb::IMessage<PlayerInfo> {
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (UserName != other.UserName) return false;
-    if (GoldNum != other.GoldNum) return false;
+    if (Seat != other.Seat) return false;
+    if (AccountName != other.AccountName) return false;
+    if (CoinNum != other.CoinNum) return false;
     return true;
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override int GetHashCode() {
     int hash = 1;
-    if (UserName.Length != 0) hash ^= UserName.GetHashCode();
-    if (GoldNum != 0) hash ^= GoldNum.GetHashCode();
+    if (Seat != 0) hash ^= Seat.GetHashCode();
+    if (AccountName.Length != 0) hash ^= AccountName.GetHashCode();
+    if (CoinNum != 0) hash ^= CoinNum.GetHashCode();
     return hash;
   }
 
@@ -487,24 +547,31 @@ public sealed partial class PlayerInfo : pb::IMessage<PlayerInfo> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public void WriteTo(pb::CodedOutputStream output) {
-    if (UserName.Length != 0) {
-      output.WriteRawTag(10);
-      output.WriteString(UserName);
+    if (Seat != 0) {
+      output.WriteRawTag(8);
+      output.WriteInt32(Seat);
     }
-    if (GoldNum != 0) {
-      output.WriteRawTag(16);
-      output.WriteInt32(GoldNum);
+    if (AccountName.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(AccountName);
+    }
+    if (CoinNum != 0) {
+      output.WriteRawTag(24);
+      output.WriteInt32(CoinNum);
     }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public int CalculateSize() {
     int size = 0;
-    if (UserName.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(UserName);
+    if (Seat != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Seat);
     }
-    if (GoldNum != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeInt32Size(GoldNum);
+    if (AccountName.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(AccountName);
+    }
+    if (CoinNum != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(CoinNum);
     }
     return size;
   }
@@ -514,11 +581,14 @@ public sealed partial class PlayerInfo : pb::IMessage<PlayerInfo> {
     if (other == null) {
       return;
     }
-    if (other.UserName.Length != 0) {
-      UserName = other.UserName;
+    if (other.Seat != 0) {
+      Seat = other.Seat;
     }
-    if (other.GoldNum != 0) {
-      GoldNum = other.GoldNum;
+    if (other.AccountName.Length != 0) {
+      AccountName = other.AccountName;
+    }
+    if (other.CoinNum != 0) {
+      CoinNum = other.CoinNum;
     }
   }
 
@@ -530,12 +600,16 @@ public sealed partial class PlayerInfo : pb::IMessage<PlayerInfo> {
         default:
           input.SkipLastField();
           break;
-        case 10: {
-          UserName = input.ReadString();
+        case 8: {
+          Seat = input.ReadInt32();
           break;
         }
-        case 16: {
-          GoldNum = input.ReadInt32();
+        case 18: {
+          AccountName = input.ReadString();
+          break;
+        }
+        case 24: {
+          CoinNum = input.ReadInt32();
           break;
         }
       }

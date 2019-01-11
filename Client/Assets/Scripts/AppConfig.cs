@@ -1,6 +1,6 @@
 ﻿class Appconfig
 {
-    public static readonly string appWebSocket_IP = "127.0.0.1";
+    public static readonly string appWebSocket_IP = "192.168.1.254";
     public static readonly int appWebSocket_PORT = 2700;
     public static readonly string gameWebSocket_IP ="testcyapp.moigame.cn";
     public static readonly int gameWebSocket_PORT = 22203;

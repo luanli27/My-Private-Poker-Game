@@ -82,10 +82,10 @@ namespace MyPokerGameServer
                     //前4个字节为消息id
                     int msgId = BitConverter.ToInt32(receive.Take(4).ToArray(), 0);
                     ReqLogin reqLogin = ReqLogin.Parser.ParseFrom(receive, 4, length - 4);
-                    Console.WriteLine("接收到消息, id为：" + msgId + "  登陆账号为: " + reqLogin.UserName);
+                    Console.WriteLine("接收到消息, id为：" + msgId + "  登陆账号为: " + reqLogin.AccountName);
 
                     //domo版,取消中间流程,直接进入游戏(随便建个房间)
-                    Singleton<RoomManager>.Instance.EnterRoom(100027, new Player(socket, reqLogin.UserName, 6666));
+                    Singleton<RoomManager>.Instance.EnterRoom(100027, new Player(socket, reqLogin.AccountName, 6666));
                 }
             }
         }

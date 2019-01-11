@@ -5,5 +5,5 @@ using UnityEngine;
 abstract class DDZPlayerBase : MonoBehaviour
 {
     public abstract void PlayCards(List<int> cards);
-    public abstract void OnPlayerEnterRoom(DDZPlayerData data);
+    public abstract void InitPlayerViewWithData(DDZPlayerData data);
 } 

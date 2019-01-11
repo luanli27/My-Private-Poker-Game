@@ -4,7 +4,11 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <ApplicationIcon />
-    <StartupObject />
+    <StartupObject>MyPokerGameServer.Server.EntryClass</StartupObject>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
 
   <ItemGroup>

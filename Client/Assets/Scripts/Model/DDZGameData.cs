@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class DDZGameData : Singleton<DDZGameData>
 {
-    private List<DDZPlayerData> _playersData;
-    public List<DDZPlayerData> PlayersData
+    private Dictionary<int, DDZPlayerData> _playersSeatDataDic;
+    public Dictionary<int, DDZPlayerData> PlayersSeatDataDic
     {
         set
         {
-            _playersData = value;
+            _playersSeatDataDic = value;
             SetMySeat();
         }
-        get => _playersData;
+        get => _playersSeatDataDic;
     }
 
     public int MySeatIndex = -1;
@@ -20,12 +20,11 @@ public class DDZGameData : Singleton<DDZGameData>
 
     private void SetMySeat()
     {
-        for (int playerIndex = 0; playerIndex < _playersData.Count; playerIndex++)
+        foreach (var playerData in _playersSeatDataDic)
         {
-            DDZPlayerData playerData = PlayersData[playerIndex];
-            if (playerData.Name == Singleton<AccountData>.Instance.AccountName)
+            if (playerData.Value.Name == Singleton<AccountData>.Instance.AccountName)
             {
-                MySeatIndex = playerIndex;
+                MySeatIndex = playerData.Key;
                 break;
             }
         }

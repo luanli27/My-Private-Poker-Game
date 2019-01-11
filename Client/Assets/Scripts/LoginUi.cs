@@ -20,7 +20,7 @@ public class LoginUi : MonoBehaviour {
     {
         ReqLogin msg = new ReqLogin
         {
-            UserName = Account.text
+            AccountName = Account.text
         };
         Singleton<AccountData>.Instance.AccountName = Account.text;
         Singleton<EventManager>.Instance.DispatchEvent(EventName.ASK_LOGIN, msg);
@@ -29,18 +29,18 @@ public class LoginUi : MonoBehaviour {
     void OnEnterRoom(object msg)
     {
         byte[] msgArray = msg as byte[];
-        AckEnterRoom enterRoomMsg = AckEnterRoom.Parser.ParseFrom(msgArray);
-        List<DDZPlayerData> pDataList = new List<DDZPlayerData>();
-        foreach (var pInfo in enterRoomMsg.PlayerInfo)
+        AckEnterRoomResult enterRoomMsg = AckEnterRoomResult.Parser.ParseFrom(msgArray);
+        Dictionary<int, DDZPlayerData> pSeatDataDic = new Dictionary<int, DDZPlayerData>();
+        foreach (var pInfo in enterRoomMsg.PlayerInfos)
         {
-            Debug.LogError("当前牌室内的玩家为:"+pInfo.UserName);
+            Debug.LogError("当前牌室内的玩家为:"+pInfo.AccountName);
             DDZPlayerData playerData = new DDZPlayerData();
-            playerData.Name = pInfo.UserName;
-            playerData.TotalCoins = pInfo.GoldNum;
-            pDataList.Add(playerData);
+            playerData.Name = pInfo.AccountName;
+            playerData.TotalCoins = pInfo.CoinNum;
+            pSeatDataDic[pInfo.Seat] = playerData;
         }
 
-        Singleton<DDZGameData>.Instance.PlayersData = pDataList;
+        Singleton<DDZGameData>.Instance.PlayersSeatDataDic = pSeatDataDic;
         AsyncOperation ao = SceneManager.LoadSceneAsync("DDZGameScene");
         ao.completed += (operation) => { Debug.Log("<color=#00EEEE>" + "斗地主场景加载完毕" + "</color>");};
     }

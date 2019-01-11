@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+message ReqLogin
+{
+	string AccountName = 1;
+	string Password = 2;
+}
+message AckEnterRoomResult
+{
+	int32 result = 1;
+	repeated PlayerInfo playerInfos = 2;
+}
+message AckNewPlayerEnterRoom
+{
+	PlayerInfo playerInfo = 1;		
+}
+message PlayerInfo
+{
+	int32 Seat = 1;
+	string AccountName = 2;
+	int32 CoinNum = 3; 
+}
+
+

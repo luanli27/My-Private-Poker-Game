@@ -12,7 +12,7 @@ class RemotePlayerView : DDZPlayerBase
 
     private DDZPlayerData _playerData;
 
-    public override void OnPlayerEnterRoom(DDZPlayerData data)
+    public override void InitPlayerViewWithData(DDZPlayerData data)
     {
         _playerData = data;
         InfoView.SetPlayerInfo(_playerData);

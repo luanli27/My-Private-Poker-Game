@@ -15,6 +15,7 @@ namespace MyPokerGameServer
             else
             {
                 PokerRoom newRoom = new PokerRoom(roomId);
+                _roomDic[roomId] = newRoom;
                 newRoom.EnterNewPlayer(player);
             }
         }
