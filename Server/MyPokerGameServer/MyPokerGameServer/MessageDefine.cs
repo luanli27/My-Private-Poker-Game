@@ -10,25 +10,21 @@ namespace MyPokerGameServer
 {
     public class MessageDefine
     {
-        private static int OGID_CLIENT_2_ROOM_BASE = 1000;
-        private static int OGID_CLIENT_2_ROOM_BASE_MAX = 1999;
-        private static int ID_Game_Base = 8002000;
-        private static int ID_Game_Max = 8002999;
-        private static int OGID_GATE_2_CHAT_BASE = 7000;
-        private static int OGID_GATE_2_CHAT_BASE_MAX = 7999;
-        private static int OGID_GATE_2_CLUB_BASE = 9300;
-        private static int OGID_GATE_2_CLUB_BASE_MAX = 9999;
+        private static int C2G_MSG_BASE = 1000;
+        private static int C2G_MSG_MAX = 1999;
+        private static int G2C_MSG_BASE = 8002000;
+        private static int G2C_MSG_MAX = 8002999;
 
         //------------------------------C2G-------------------------------------------//
-        //------------------------------HALL-------------------------------------------//
         //登陆
-        public static int OGID_CLIENT_2_ROOM_LOGIN = OGID_CLIENT_2_ROOM_BASE + 1;
-        //------------------------------GAME-------------------------------------------//
+        public static int C2G_REQ_LOGIN = C2G_MSG_BASE + 1;
+        public static int C2G_REQ_READY_FOR_START = C2G_MSG_BASE + 2;
+        public static int C2G_REQ_PLAY_CARDS = C2G_MSG_BASE + 3;
 
         //------------------------------G2C-------------------------------------------//
-        //------------------------------HALL-------------------------------------------//
-        //------------------------------GAME-------------------------------------------//
-        public static int G2C_Enter_Room = ID_Game_Base + 1;
-        public static int G2C_New_Player_Enter_Room = ID_Game_Base + 2;
+        public static int G2C_ENTER_ROOM = G2C_MSG_BASE + 1;
+        public static int G2C_NEW_PLAYER_ENTER_ROOM = G2C_MSG_BASE + 2;
+        public static int G2C_DEAL_CARDS = G2C_MSG_BASE + 3;
+        public static int G2C_PLAY_CARDS = G2C_MSG_BASE + 4;
     }
 }

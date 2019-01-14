@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 class DDZGameScene : MonoBehaviour
@@ -14,6 +15,7 @@ class DDZGameScene : MonoBehaviour
     {
         InitGameScene();
         RegisterEvents();
+        ReadyForStartGame();
     }
 
     private void InitGameScene()
@@ -36,6 +38,14 @@ class DDZGameScene : MonoBehaviour
     private void RegisterEvents()
     {
         Singleton<EventManager>.Instance.AddEventListener(EventName.ACK_NEW_PLAYER_ENTER_ROOM, OnNewPlayerEnterRoom);
+        Singleton<EventManager>.Instance.AddEventListener(EventName.ACK_DEAL_CARDS, DealCardsHandler);
+    }
+    
+    //进入场景自动发送准备好开始游戏的消息
+
+    private void ReadyForStartGame()
+    {
+        Singleton<NetworkManager>.Instance.SendMsg(MessageDefine.C2G_REQ_READY_FOR_START, new ReqReadyForStartGame{Ready = true});
     }
 
     private void MapSeatWithPlayerView()
@@ -52,8 +62,7 @@ class DDZGameScene : MonoBehaviour
     private void OnNewPlayerEnterRoom(object msg)
     {
         Debug.LogError("有新玩家进入牌桌");
-        byte[] msgArray = msg as byte[];
-        AckNewPlayerEnterRoom enterRoomMsg = AckNewPlayerEnterRoom.Parser.ParseFrom(msgArray);
+        AckNewPlayerEnterRoom enterRoomMsg = msg as AckNewPlayerEnterRoom;
         DDZPlayerData newPlayerData = new DDZPlayerData
         {
             Name = enterRoomMsg.PlayerInfo.AccountName,
@@ -63,5 +72,13 @@ class DDZGameScene : MonoBehaviour
         Singleton<DDZGameData>.Instance.PlayersSeatDataDic[seat] = newPlayerData;
         _playerSeatDic[enterRoomMsg.PlayerInfo.Seat].gameObject.SetActive(true);
         _playerSeatDic[enterRoomMsg.PlayerInfo.Seat].InitPlayerViewWithData(Singleton<DDZGameData>.Instance.PlayersSeatDataDic[seat]);
+    }
+
+    private void DealCardsHandler(object msg)
+    {
+        if (msg is DealCard dealCardMsg)
+        {
+            Debug.LogError("收到服务器发送的发牌信息, think time is :" + dealCardMsg.ThinkTime);
+        }
     }
 }

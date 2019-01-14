@@ -7,7 +7,8 @@ using UnityEngine;
  */
 public enum EventName
 {
-    ASK_LOGIN,
+    REQ_LOGIN,
     ACK_ENTER_ROOM,
-    ACK_NEW_PLAYER_ENTER_ROOM
+    ACK_NEW_PLAYER_ENTER_ROOM,
+    ACK_DEAL_CARDS,
 }

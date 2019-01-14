@@ -20,7 +20,9 @@ class EventManager : Singleton<EventManager> {
 
     public void DispatchEvent(EventName eventName, object msg)
     {
-        if (_eventHandler[eventName] != null)
-            _eventHandler[eventName](msg);
+        if (_eventHandler.ContainsKey(eventName))
+        {
+            _eventHandler[eventName]?.Invoke(msg);
+        }
     }
 }

@@ -21,4 +21,32 @@ message PlayerInfo
 	int32 CoinNum = 3; 
 }
 
+message ReqReadyForStartGame
+{
+	bool ready = 1;
+}
+
+message DealCard
+{
+	int32 startSeat = 1;
+	repeated int32 leftCardNum = 2;
+	repeated int32 handCards = 3; 
+	int32 thinkTime = 4;
+}
+
+message ReqTakeOutCards
+{
+	repeated int32 takeoutCards = 1; 
+}
+
+message AckTakeOutCards
+{
+	int32 seat = 1;
+	int32 nextSeat = 2;
+	int32 operation = 3;
+	repeated int32 takeoutCards = 4; 
+	int32 thinkTime = 5;
+	bool isNewRound = 6;
+}
+
 

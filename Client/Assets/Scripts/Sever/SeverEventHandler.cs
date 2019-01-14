@@ -5,10 +5,12 @@ using UnityEngine;
 
  class SeverEventHandler : MonoBehaviour {
 
-     private Dictionary<int, Action<object>> _receiveMsgHanlerDic = new Dictionary<int, Action<object>>
+     private Dictionary<int, Action<byte[]>> _receiveMsgHanlerDic = new Dictionary<int, Action<byte[]>>
      {
-         { MessageDefine.G2C_Enter_Room, (msg) => Singleton<EventManager>.Instance.DispatchEvent(EventName.ACK_ENTER_ROOM, msg)},
-         { MessageDefine.G2C_New_Player_Enter_Room, (msg) => Singleton<EventManager>.Instance.DispatchEvent(EventName.ACK_NEW_PLAYER_ENTER_ROOM, msg)}
+         { MessageDefine.G2C_ENTER_ROOM, msg => Singleton<EventManager>.Instance.DispatchEvent(EventName.ACK_ENTER_ROOM,  AckEnterRoomResult.Parser.ParseFrom(msg))},
+         { MessageDefine.G2C_NEW_PLAYER_ENTER_ROOM, msg => 
+             Singleton<EventManager>.Instance.DispatchEvent(EventName.ACK_NEW_PLAYER_ENTER_ROOM, AckNewPlayerEnterRoom.Parser.ParseFrom(msg))},
+         { MessageDefine.G2C_DEAL_CARDS, msg => Singleton<EventManager>.Instance.DispatchEvent(EventName.ACK_DEAL_CARDS, DealCard.Parser.ParseFrom(msg))},
      };
 
      public NetworkManager NetworkManager;
@@ -16,8 +18,8 @@ using UnityEngine;
      private class ServerMsg
      {
          public int MsgId { set; get; }
-         public object MsgBody { set; get; }
-         public ServerMsg(int msgId, object msgBody)
+         public byte[] MsgBody { set; get; }
+         public ServerMsg(int msgId, byte[] msgBody)
          {
              MsgId = msgId;
              MsgBody = msgBody;
@@ -29,7 +31,7 @@ using UnityEngine;
 
      void Start()
      {
-         Singleton<EventManager>.Instance.AddEventListener(EventName.ASK_LOGIN, AskLoginHander);
+         Singleton<EventManager>.Instance.AddEventListener(EventName.REQ_LOGIN, AskLoginHander);
      }
 
      void Update()
@@ -48,7 +50,7 @@ using UnityEngine;
      void AskLoginHander(object arg)
     {
         ReqLogin reqLogin = arg as ReqLogin;
-        NetworkManager.SendMsg(MessageDefine.OGID_CLIENT_2_ROOM_LOGIN, reqLogin);
+        NetworkManager.SendMsg(MessageDefine.C2G_REQ_LOGIN, reqLogin);
     }
 
     /*-------------------------------------------------------------Receive MSG From Server-------------------------------------------------------------------------------------*/

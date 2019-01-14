@@ -23,13 +23,12 @@ public class LoginUi : MonoBehaviour {
             AccountName = Account.text
         };
         Singleton<AccountData>.Instance.AccountName = Account.text;
-        Singleton<EventManager>.Instance.DispatchEvent(EventName.ASK_LOGIN, msg);
+        Singleton<EventManager>.Instance.DispatchEvent(EventName.REQ_LOGIN, msg);
     }
 
     void OnEnterRoom(object msg)
     {
-        byte[] msgArray = msg as byte[];
-        AckEnterRoomResult enterRoomMsg = AckEnterRoomResult.Parser.ParseFrom(msgArray);
+        AckEnterRoomResult enterRoomMsg = msg as AckEnterRoomResult;
         Dictionary<int, DDZPlayerData> pSeatDataDic = new Dictionary<int, DDZPlayerData>();
         foreach (var pInfo in enterRoomMsg.PlayerInfos)
         {

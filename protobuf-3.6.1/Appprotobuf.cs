@@ -25,15 +25,25 @@ public static partial class AppprotobufReflection {
           "bHQSDgoGcmVzdWx0GAEgASgFEiAKC3BsYXllckluZm9zGAIgAygLMgsuUGxh",
           "eWVySW5mbyI4ChVBY2tOZXdQbGF5ZXJFbnRlclJvb20SHwoKcGxheWVySW5m",
           "bxgBIAEoCzILLlBsYXllckluZm8iQAoKUGxheWVySW5mbxIMCgRTZWF0GAEg",
-          "ASgFEhMKC0FjY291bnROYW1lGAIgASgJEg8KB0NvaW5OdW0YAyABKAViBnBy",
-          "b3RvMw=="));
+          "ASgFEhMKC0FjY291bnROYW1lGAIgASgJEg8KB0NvaW5OdW0YAyABKAUiJQoU",
+          "UmVxUmVhZHlGb3JTdGFydEdhbWUSDQoFcmVhZHkYASABKAgiWAoIRGVhbENh",
+          "cmQSEQoJc3RhcnRTZWF0GAEgASgFEhMKC2xlZnRDYXJkTnVtGAIgAygFEhEK",
+          "CWhhbmRDYXJkcxgDIAMoBRIRCgl0aGlua1RpbWUYBCABKAUiJwoPUmVxVGFr",
+          "ZU91dENhcmRzEhQKDHRha2VvdXRDYXJkcxgBIAMoBSKBAQoPQWNrVGFrZU91",
+          "dENhcmRzEgwKBHNlYXQYASABKAUSEAoIbmV4dFNlYXQYAiABKAUSEQoJb3Bl",
+          "cmF0aW9uGAMgASgFEhQKDHRha2VvdXRDYXJkcxgEIAMoBRIRCgl0aGlua1Rp",
+          "bWUYBSABKAUSEgoKaXNOZXdSb3VuZBgGIAEoCGIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::ReqLogin), global::ReqLogin.Parser, new[]{ "AccountName", "Password" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::AckEnterRoomResult), global::AckEnterRoomResult.Parser, new[]{ "Result", "PlayerInfos" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::AckNewPlayerEnterRoom), global::AckNewPlayerEnterRoom.Parser, new[]{ "PlayerInfo" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::PlayerInfo), global::PlayerInfo.Parser, new[]{ "Seat", "AccountName", "CoinNum" }, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::PlayerInfo), global::PlayerInfo.Parser, new[]{ "Seat", "AccountName", "CoinNum" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::ReqReadyForStartGame), global::ReqReadyForStartGame.Parser, new[]{ "Ready" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::DealCard), global::DealCard.Parser, new[]{ "StartSeat", "LeftCardNum", "HandCards", "ThinkTime" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::ReqTakeOutCards), global::ReqTakeOutCards.Parser, new[]{ "TakeoutCards" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::AckTakeOutCards), global::AckTakeOutCards.Parser, new[]{ "Seat", "NextSeat", "Operation", "TakeoutCards", "ThinkTime", "IsNewRound" }, null, null, null)
         }));
   }
   #endregion
@@ -610,6 +620,670 @@ public sealed partial class PlayerInfo : pb::IMessage<PlayerInfo> {
         }
         case 24: {
           CoinNum = input.ReadInt32();
+          break;
+        }
+      }
+    }
+  }
+
+}
+
+public sealed partial class ReqReadyForStartGame : pb::IMessage<ReqReadyForStartGame> {
+  private static readonly pb::MessageParser<ReqReadyForStartGame> _parser = new pb::MessageParser<ReqReadyForStartGame>(() => new ReqReadyForStartGame());
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<ReqReadyForStartGame> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::AppprotobufReflection.Descriptor.MessageTypes[4]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public ReqReadyForStartGame() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public ReqReadyForStartGame(ReqReadyForStartGame other) : this() {
+    ready_ = other.ready_;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public ReqReadyForStartGame Clone() {
+    return new ReqReadyForStartGame(this);
+  }
+
+  /// <summary>Field number for the "ready" field.</summary>
+  public const int ReadyFieldNumber = 1;
+  private bool ready_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Ready {
+    get { return ready_; }
+    set {
+      ready_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as ReqReadyForStartGame);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(ReqReadyForStartGame other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (Ready != other.Ready) return false;
+    return true;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (Ready != false) hash ^= Ready.GetHashCode();
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (Ready != false) {
+      output.WriteRawTag(8);
+      output.WriteBool(Ready);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (Ready != false) {
+      size += 1 + 1;
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(ReqReadyForStartGame other) {
+    if (other == null) {
+      return;
+    }
+    if (other.Ready != false) {
+      Ready = other.Ready;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          input.SkipLastField();
+          break;
+        case 8: {
+          Ready = input.ReadBool();
+          break;
+        }
+      }
+    }
+  }
+
+}
+
+public sealed partial class DealCard : pb::IMessage<DealCard> {
+  private static readonly pb::MessageParser<DealCard> _parser = new pb::MessageParser<DealCard>(() => new DealCard());
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<DealCard> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::AppprotobufReflection.Descriptor.MessageTypes[5]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public DealCard() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public DealCard(DealCard other) : this() {
+    startSeat_ = other.startSeat_;
+    leftCardNum_ = other.leftCardNum_.Clone();
+    handCards_ = other.handCards_.Clone();
+    thinkTime_ = other.thinkTime_;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public DealCard Clone() {
+    return new DealCard(this);
+  }
+
+  /// <summary>Field number for the "startSeat" field.</summary>
+  public const int StartSeatFieldNumber = 1;
+  private int startSeat_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int StartSeat {
+    get { return startSeat_; }
+    set {
+      startSeat_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "leftCardNum" field.</summary>
+  public const int LeftCardNumFieldNumber = 2;
+  private static readonly pb::FieldCodec<int> _repeated_leftCardNum_codec
+      = pb::FieldCodec.ForInt32(18);
+  private readonly pbc::RepeatedField<int> leftCardNum_ = new pbc::RepeatedField<int>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public pbc::RepeatedField<int> LeftCardNum {
+    get { return leftCardNum_; }
+  }
+
+  /// <summary>Field number for the "handCards" field.</summary>
+  public const int HandCardsFieldNumber = 3;
+  private static readonly pb::FieldCodec<int> _repeated_handCards_codec
+      = pb::FieldCodec.ForInt32(26);
+  private readonly pbc::RepeatedField<int> handCards_ = new pbc::RepeatedField<int>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public pbc::RepeatedField<int> HandCards {
+    get { return handCards_; }
+  }
+
+  /// <summary>Field number for the "thinkTime" field.</summary>
+  public const int ThinkTimeFieldNumber = 4;
+  private int thinkTime_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int ThinkTime {
+    get { return thinkTime_; }
+    set {
+      thinkTime_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as DealCard);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(DealCard other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (StartSeat != other.StartSeat) return false;
+    if(!leftCardNum_.Equals(other.leftCardNum_)) return false;
+    if(!handCards_.Equals(other.handCards_)) return false;
+    if (ThinkTime != other.ThinkTime) return false;
+    return true;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (StartSeat != 0) hash ^= StartSeat.GetHashCode();
+    hash ^= leftCardNum_.GetHashCode();
+    hash ^= handCards_.GetHashCode();
+    if (ThinkTime != 0) hash ^= ThinkTime.GetHashCode();
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (StartSeat != 0) {
+      output.WriteRawTag(8);
+      output.WriteInt32(StartSeat);
+    }
+    leftCardNum_.WriteTo(output, _repeated_leftCardNum_codec);
+    handCards_.WriteTo(output, _repeated_handCards_codec);
+    if (ThinkTime != 0) {
+      output.WriteRawTag(32);
+      output.WriteInt32(ThinkTime);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (StartSeat != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(StartSeat);
+    }
+    size += leftCardNum_.CalculateSize(_repeated_leftCardNum_codec);
+    size += handCards_.CalculateSize(_repeated_handCards_codec);
+    if (ThinkTime != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(ThinkTime);
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(DealCard other) {
+    if (other == null) {
+      return;
+    }
+    if (other.StartSeat != 0) {
+      StartSeat = other.StartSeat;
+    }
+    leftCardNum_.Add(other.leftCardNum_);
+    handCards_.Add(other.handCards_);
+    if (other.ThinkTime != 0) {
+      ThinkTime = other.ThinkTime;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          input.SkipLastField();
+          break;
+        case 8: {
+          StartSeat = input.ReadInt32();
+          break;
+        }
+        case 18:
+        case 16: {
+          leftCardNum_.AddEntriesFrom(input, _repeated_leftCardNum_codec);
+          break;
+        }
+        case 26:
+        case 24: {
+          handCards_.AddEntriesFrom(input, _repeated_handCards_codec);
+          break;
+        }
+        case 32: {
+          ThinkTime = input.ReadInt32();
+          break;
+        }
+      }
+    }
+  }
+
+}
+
+public sealed partial class ReqTakeOutCards : pb::IMessage<ReqTakeOutCards> {
+  private static readonly pb::MessageParser<ReqTakeOutCards> _parser = new pb::MessageParser<ReqTakeOutCards>(() => new ReqTakeOutCards());
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<ReqTakeOutCards> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::AppprotobufReflection.Descriptor.MessageTypes[6]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public ReqTakeOutCards() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public ReqTakeOutCards(ReqTakeOutCards other) : this() {
+    takeoutCards_ = other.takeoutCards_.Clone();
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public ReqTakeOutCards Clone() {
+    return new ReqTakeOutCards(this);
+  }
+
+  /// <summary>Field number for the "takeoutCards" field.</summary>
+  public const int TakeoutCardsFieldNumber = 1;
+  private static readonly pb::FieldCodec<int> _repeated_takeoutCards_codec
+      = pb::FieldCodec.ForInt32(10);
+  private readonly pbc::RepeatedField<int> takeoutCards_ = new pbc::RepeatedField<int>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public pbc::RepeatedField<int> TakeoutCards {
+    get { return takeoutCards_; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as ReqTakeOutCards);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(ReqTakeOutCards other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if(!takeoutCards_.Equals(other.takeoutCards_)) return false;
+    return true;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    hash ^= takeoutCards_.GetHashCode();
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    takeoutCards_.WriteTo(output, _repeated_takeoutCards_codec);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    size += takeoutCards_.CalculateSize(_repeated_takeoutCards_codec);
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(ReqTakeOutCards other) {
+    if (other == null) {
+      return;
+    }
+    takeoutCards_.Add(other.takeoutCards_);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          input.SkipLastField();
+          break;
+        case 10:
+        case 8: {
+          takeoutCards_.AddEntriesFrom(input, _repeated_takeoutCards_codec);
+          break;
+        }
+      }
+    }
+  }
+
+}
+
+public sealed partial class AckTakeOutCards : pb::IMessage<AckTakeOutCards> {
+  private static readonly pb::MessageParser<AckTakeOutCards> _parser = new pb::MessageParser<AckTakeOutCards>(() => new AckTakeOutCards());
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<AckTakeOutCards> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::AppprotobufReflection.Descriptor.MessageTypes[7]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public AckTakeOutCards() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public AckTakeOutCards(AckTakeOutCards other) : this() {
+    seat_ = other.seat_;
+    nextSeat_ = other.nextSeat_;
+    operation_ = other.operation_;
+    takeoutCards_ = other.takeoutCards_.Clone();
+    thinkTime_ = other.thinkTime_;
+    isNewRound_ = other.isNewRound_;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public AckTakeOutCards Clone() {
+    return new AckTakeOutCards(this);
+  }
+
+  /// <summary>Field number for the "seat" field.</summary>
+  public const int SeatFieldNumber = 1;
+  private int seat_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int Seat {
+    get { return seat_; }
+    set {
+      seat_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "nextSeat" field.</summary>
+  public const int NextSeatFieldNumber = 2;
+  private int nextSeat_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int NextSeat {
+    get { return nextSeat_; }
+    set {
+      nextSeat_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "operation" field.</summary>
+  public const int OperationFieldNumber = 3;
+  private int operation_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int Operation {
+    get { return operation_; }
+    set {
+      operation_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "takeoutCards" field.</summary>
+  public const int TakeoutCardsFieldNumber = 4;
+  private static readonly pb::FieldCodec<int> _repeated_takeoutCards_codec
+      = pb::FieldCodec.ForInt32(34);
+  private readonly pbc::RepeatedField<int> takeoutCards_ = new pbc::RepeatedField<int>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public pbc::RepeatedField<int> TakeoutCards {
+    get { return takeoutCards_; }
+  }
+
+  /// <summary>Field number for the "thinkTime" field.</summary>
+  public const int ThinkTimeFieldNumber = 5;
+  private int thinkTime_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int ThinkTime {
+    get { return thinkTime_; }
+    set {
+      thinkTime_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "isNewRound" field.</summary>
+  public const int IsNewRoundFieldNumber = 6;
+  private bool isNewRound_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool IsNewRound {
+    get { return isNewRound_; }
+    set {
+      isNewRound_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as AckTakeOutCards);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(AckTakeOutCards other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (Seat != other.Seat) return false;
+    if (NextSeat != other.NextSeat) return false;
+    if (Operation != other.Operation) return false;
+    if(!takeoutCards_.Equals(other.takeoutCards_)) return false;
+    if (ThinkTime != other.ThinkTime) return false;
+    if (IsNewRound != other.IsNewRound) return false;
+    return true;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (Seat != 0) hash ^= Seat.GetHashCode();
+    if (NextSeat != 0) hash ^= NextSeat.GetHashCode();
+    if (Operation != 0) hash ^= Operation.GetHashCode();
+    hash ^= takeoutCards_.GetHashCode();
+    if (ThinkTime != 0) hash ^= ThinkTime.GetHashCode();
+    if (IsNewRound != false) hash ^= IsNewRound.GetHashCode();
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (Seat != 0) {
+      output.WriteRawTag(8);
+      output.WriteInt32(Seat);
+    }
+    if (NextSeat != 0) {
+      output.WriteRawTag(16);
+      output.WriteInt32(NextSeat);
+    }
+    if (Operation != 0) {
+      output.WriteRawTag(24);
+      output.WriteInt32(Operation);
+    }
+    takeoutCards_.WriteTo(output, _repeated_takeoutCards_codec);
+    if (ThinkTime != 0) {
+      output.WriteRawTag(40);
+      output.WriteInt32(ThinkTime);
+    }
+    if (IsNewRound != false) {
+      output.WriteRawTag(48);
+      output.WriteBool(IsNewRound);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (Seat != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Seat);
+    }
+    if (NextSeat != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(NextSeat);
+    }
+    if (Operation != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Operation);
+    }
+    size += takeoutCards_.CalculateSize(_repeated_takeoutCards_codec);
+    if (ThinkTime != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(ThinkTime);
+    }
+    if (IsNewRound != false) {
+      size += 1 + 1;
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(AckTakeOutCards other) {
+    if (other == null) {
+      return;
+    }
+    if (other.Seat != 0) {
+      Seat = other.Seat;
+    }
+    if (other.NextSeat != 0) {
+      NextSeat = other.NextSeat;
+    }
+    if (other.Operation != 0) {
+      Operation = other.Operation;
+    }
+    takeoutCards_.Add(other.takeoutCards_);
+    if (other.ThinkTime != 0) {
+      ThinkTime = other.ThinkTime;
+    }
+    if (other.IsNewRound != false) {
+      IsNewRound = other.IsNewRound;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          input.SkipLastField();
+          break;
+        case 8: {
+          Seat = input.ReadInt32();
+          break;
+        }
+        case 16: {
+          NextSeat = input.ReadInt32();
+          break;
+        }
+        case 24: {
+          Operation = input.ReadInt32();
+          break;
+        }
+        case 34:
+        case 32: {
+          takeoutCards_.AddEntriesFrom(input, _repeated_takeoutCards_codec);
+          break;
+        }
+        case 40: {
+          ThinkTime = input.ReadInt32();
+          break;
+        }
+        case 48: {
+          IsNewRound = input.ReadBool();
           break;
         }
       }

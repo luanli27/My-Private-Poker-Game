@@ -46,10 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountConnectionInfo.cs" />
+    <Compile Include="AccountConnectionManager.cs" />
     <Compile Include="Appprotobuf.cs" />
+    <Compile Include="DDZCardDealer.cs" />
+    <Compile Include="DDZGameData.cs" />
+    <Compile Include="Enum.cs" />
+    <Compile Include="LoginManager.cs" />
     <Compile Include="MessageDefine.cs" />
     <Compile Include="NetworkManager.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="AccountInfo.cs" />
+    <Compile Include="PlayerGameInfo.cs" />
     <Compile Include="PokerGame.cs" />
     <Compile Include="PokerRoom.cs" />
     <Compile Include="Program.cs" />
