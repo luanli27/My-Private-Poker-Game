@@ -44,8 +44,8 @@ namespace MyPokerGameServer
             Console.WriteLine("玩家" + account + "进入"+ _roomId + "房间！");
             _accountList.Add(account);
             //TODO TESTAREA
-            _accountList.Add("robot1");
-            _accountList.Add("robot2");
+//            _accountList.Add("robot1");
+//            _accountList.Add("robot2");
             //TODO END NEED DELETE
 
             //更新账号连接信息，调整为进入房间状态
@@ -60,6 +60,7 @@ namespace MyPokerGameServer
                 }
                 Socket socket = connectionInfo.OrigSocket;
 
+                //除进房间的新玩家外，其余玩家收到新玩家进入房间的消息
                 if (p != account)
                 {
                     AckNewPlayerEnterRoom msg = new AckNewPlayerEnterRoom();
@@ -69,6 +70,7 @@ namespace MyPokerGameServer
                     msg.PlayerInfo.CoinNum = 9999;
                     Singleton<NetworkManager>.Instance.SendMsg(socket, MessageDefine.G2C_NEW_PLAYER_ENTER_ROOM, msg);
                 }
+                //新进房间的玩家收到房间玩家列表信息
                 else
                 {
                     AckEnterRoomResult msg = new AckEnterRoomResult();

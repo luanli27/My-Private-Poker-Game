@@ -62,7 +62,14 @@ namespace MyPokerGameServer
 
         private Socket GetPlayerSocket(string account)
         {
-            return Singleton<AccountConnectionManager>.Instance.GetAccountConnectionInfo(account).OrigSocket;
+            Socket result = null;
+            AccountConnectionInfo info = Singleton<AccountConnectionManager>.Instance.GetAccountConnectionInfo(account);
+            if (info != null)
+            {
+                result = info.OrigSocket;
+            }
+
+            return result;
         }
     }
 }

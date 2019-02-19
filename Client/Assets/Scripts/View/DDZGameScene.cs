@@ -1,13 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 class DDZGameScene : MonoBehaviour
 {
     public RemotePlayerView LeftPlayView;
     public RemotePlayerView RightPlayView;
-    public SelfPlayerView SelfPlayerView;
+    public SelfPlayerView LocalPlayerView;
+    public DealCardsAnimator DealCardsAnimator;
 
     private Dictionary<int, DDZPlayerBase> _playerSeatDic = new Dictionary<int, DDZPlayerBase>(); 
 
@@ -22,7 +22,7 @@ class DDZGameScene : MonoBehaviour
     {
         LeftPlayView.gameObject.SetActive(false);
         RightPlayView.gameObject.SetActive(false);
-        SelfPlayerView.gameObject.SetActive(false);
+        LocalPlayerView.gameObject.SetActive(false);
         MapSeatWithPlayerView();
 
         foreach (var playerItem in _playerSeatDic)
@@ -52,7 +52,7 @@ class DDZGameScene : MonoBehaviour
     {
         int playerNum = Singleton<DDZGameData>.Instance.PlayerCount;
         int mySeat = Singleton<DDZGameData>.Instance.MySeatIndex;
-        _playerSeatDic[mySeat] = SelfPlayerView;
+        _playerSeatDic[mySeat] = LocalPlayerView;
         int rightSeat = (mySeat + 1) % playerNum;
         int leftSeat = (mySeat + 2) % playerNum;
         _playerSeatDic[rightSeat] = RightPlayView;
@@ -78,7 +78,16 @@ class DDZGameScene : MonoBehaviour
     {
         if (msg is DealCard dealCardMsg)
         {
-            Debug.LogError("收到服务器发送的发牌信息, think time is :" + dealCardMsg.ThinkTime);
+            foreach (var kv in _playerSeatDic)
+            {
+                DDZPlayerBase player = kv.Value;
+                player.OnGameBegin();
+            }
+
+            List<int> localPlayerHandCards = dealCardMsg.HandCards.ToList();
+            DDZGameData.Instance.PlayersSeatDataDic[DDZGameData.Instance.MySeatIndex].HandCards = localPlayerHandCards;
+            DealCardsAnimator.DealCard(localPlayerHandCards);
+            Debug.LogError("收到服务器发送的发牌信息, 本地玩家的手牌数据为:" + localPlayerHandCards);
         }
     }
 }

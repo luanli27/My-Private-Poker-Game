@@ -26,6 +26,12 @@ class SelfPlayerView : DDZPlayerBase
         OptionView.gameObject.SetActive(false);
     }
 
+    public override void OnGameBegin()
+    {
+        ReadyView.gameObject.SetActive(false);
+        HandCardsView.gameObject.SetActive(true);
+    }
+
     public override void PlayCards(List<int> cards)
     {
 

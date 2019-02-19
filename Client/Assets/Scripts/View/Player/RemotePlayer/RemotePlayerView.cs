@@ -24,6 +24,11 @@ class RemotePlayerView : DDZPlayerBase
         ReadyView.SetReady(true);
     }
 
+    public override void OnGameBegin()
+    {
+        ReadyView.gameObject.SetActive(false);
+    }
+
     public override void PlayCards(List<int> cards)
     {
 
