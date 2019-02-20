@@ -119,7 +119,7 @@ namespace MyPokerGameServer
                 }
                 else
                 {
-                    Singleton<AccountConnectionManager>.Instance.SendMsgToGameRoom(socket);
+                    Singleton<AccountConnectionManager>.Instance.SendMsgToGameRoom(socket, msgId, msgBody);
                 }
             }
         }

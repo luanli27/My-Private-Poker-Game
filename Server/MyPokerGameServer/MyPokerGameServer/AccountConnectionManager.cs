@@ -12,7 +12,7 @@ namespace MyPokerGameServer
     class AccountConnectionManager : Singleton<AccountConnectionManager>
     {
         private Dictionary<string, AccountConnectionInfo> _accountsInfoDic = new Dictionary<string, AccountConnectionInfo>();
-        private Dictionary<Socket, string> _socketDic = new Dictionary<Socket, string>();
+        private Dictionary<Socket, string> _socketDic = new Dictionary<Socket, string>();  //key : socket, value : account
 
         public void AddNewConnectionInfo(string account, Socket socket)
         {
@@ -34,14 +34,14 @@ namespace MyPokerGameServer
             return result;
         }
 
-        public void SendMsgToGameRoom(Socket socket)
+        public void SendMsgToGameRoom(Socket socket, int msgId, byte[] msgBody)
         {
             if (_socketDic.ContainsKey(socket) && _accountsInfoDic.ContainsKey(_socketDic[socket]))
             {
                 int roomId = _accountsInfoDic[_socketDic[socket]].IdOfRoomEntered;
                 if (roomId != -1)
                 {
-                    Singleton<RoomManager>.Instance.GetRoom(roomId).OnReceiveMsg();
+                    Singleton<RoomManager>.Instance.GetRoom(roomId).OnReceiveMsg(_socketDic[socket], msgId, msgBody);
                 }
             }
         }

@@ -8,8 +8,8 @@ namespace MyPokerGameServer
     {
         private int _roomId = -1;
         private int _maxGamerCount = 3;
-        private List<string> _accountList = new List<string>();
-        private Dictionary<int, Action<byte[]>> _receiveMsgHanlerDic = new Dictionary<int, Action<byte[]>>();
+        private Dictionary<string, PlayerInfoInRoom> _playerInfoDic = new Dictionary<string, PlayerInfoInRoom>();
+        private Dictionary<int, Action<string, byte[]>> _receiveMsgHanlerDic = new Dictionary<int, Action<string, byte[]>>();
 
         public PokerRoom(int roomId)
         {
@@ -20,15 +20,13 @@ namespace MyPokerGameServer
         public bool CanEnter(string account)
         {
             bool result = true;
-            if (_accountList.Count > _maxGamerCount)
-            {
+            if (_playerInfoDic.Count > _maxGamerCount)
                 result = false;
-            }
             else
             {
-                foreach (var p in _accountList)
+                foreach (var p in _playerInfoDic)
                 {
-                    if (p == account)
+                    if (p.Key == account)
                     {
                         result = false;
                         break;
@@ -42,7 +40,7 @@ namespace MyPokerGameServer
         public void EnterNewPlayer(string account)
         {
             Console.WriteLine("玩家" + account + "进入"+ _roomId + "房间！");
-            _accountList.Add(account);
+            _playerInfoDic.Add(account, new PlayerInfoInRoom());
             //TODO TESTAREA
 //            _accountList.Add("robot1");
 //            _accountList.Add("robot2");
@@ -51,9 +49,9 @@ namespace MyPokerGameServer
             //更新账号连接信息，调整为进入房间状态
             Singleton<AccountConnectionManager>.Instance.OnEnterRoom(account, _roomId);
             //通知客户端进入游戏房间,非新玩家的广播进入新玩家消息，新玩家发送房间玩家列表信息
-            foreach (var p in _accountList)
+            foreach (var p in _playerInfoDic)
             {
-                AccountConnectionInfo connectionInfo = Singleton<AccountConnectionManager>.Instance.GetAccountConnectionInfo(p);
+                AccountConnectionInfo connectionInfo = Singleton<AccountConnectionManager>.Instance.GetAccountConnectionInfo(p.Key);
                 if (connectionInfo == null)
                 {
                     continue;
@@ -61,11 +59,11 @@ namespace MyPokerGameServer
                 Socket socket = connectionInfo.OrigSocket;
 
                 //除进房间的新玩家外，其余玩家收到新玩家进入房间的消息
-                if (p != account)
+                if (p.Key != account)
                 {
                     AckNewPlayerEnterRoom msg = new AckNewPlayerEnterRoom();
                     msg.PlayerInfo = new PlayerInfo();
-                    msg.PlayerInfo.Seat = _accountList.Count - 1;
+                    msg.PlayerInfo.Seat = _playerInfoDic.Count - 1;
                     msg.PlayerInfo.AccountName = account;
                     msg.PlayerInfo.CoinNum = 9999;
                     Singleton<NetworkManager>.Instance.SendMsg(socket, MessageDefine.G2C_NEW_PLAYER_ENTER_ROOM, msg);
@@ -74,35 +72,36 @@ namespace MyPokerGameServer
                 else
                 {
                     AckEnterRoomResult msg = new AckEnterRoomResult();
-                    for (int i = 0; i < _accountList.Count; i++)
+                    int seat = 0;
+                    foreach (var kv in _playerInfoDic)
                     {
                         PlayerInfo pInfo = new PlayerInfo();
-                        pInfo.Seat = i;
-                        pInfo.AccountName = _accountList[i];
+                        pInfo.Seat = seat;
+                        pInfo.AccountName = kv.Key;
                         pInfo.CoinNum = 9999;
                         msg.PlayerInfos.Add(pInfo);
+                        seat++;
                     }
 
                     Singleton<NetworkManager>.Instance.SendMsg(socket, MessageDefine.G2C_ENTER_ROOM, msg);
                 }
-
-            }
-            if (_accountList.Count == _maxGamerCount)
-            {
-                StartGame();
             }
         }
 
         public void StartGame()
         {
             PokerGame game = new PokerGame();
-            game.InitPlayerList(_accountList);
+            List<string> accountList = new List<string>();
+            foreach (var kv in _playerInfoDic)
+                accountList.Add(kv.Key);
+            game.InitPlayerList(accountList);
             game.Start();
         }
 
-        public void OnReceiveMsg()
+        public void OnReceiveMsg(string account, int msgId, byte[] msgBody)
         {
-
+            if(_receiveMsgHanlerDic.ContainsKey(msgId) && _playerInfoDic.ContainsKey(account))
+                _receiveMsgHanlerDic[msgId].Invoke(account, msgBody);
         }
 
         private void RegisterDDZEvents()
@@ -110,10 +109,36 @@ namespace MyPokerGameServer
             _receiveMsgHanlerDic.Add(MessageDefine.C2G_REQ_READY_FOR_START, OnPlayerReadyForStart);
         }
 
-        private void OnPlayerReadyForStart(object msg)
+        private void OnPlayerReadyForStart(string account, byte[] msg)
         {
-            ReqReadyForStartGame msgBody = msg as ReqReadyForStartGame;
-            Console.WriteLine("收到客户端准备完毕的消息");
+            ReqReadyForStartGame readyForStartGame = ReqReadyForStartGame.Parser.ParseFrom(msg, 0, msg.Length);
+            _playerInfoDic[account].IsReadyForStartGame = readyForStartGame.Ready;
+            Console.WriteLine("收到玩家:" + account + "准备完毕的消息");
+            CheckIfCanStartGame();
         }
+
+        private void CheckIfCanStartGame()
+        {
+            if (_playerInfoDic.Count == _maxGamerCount)
+            {
+                bool canStart = true;
+                foreach (var kv in _playerInfoDic)
+                {
+                    if (!kv.Value.IsReadyForStartGame)
+                    {
+                        canStart = false;
+                        break;
+                    }
+                }
+
+                if (canStart)
+                    StartGame();
+            }
+        }
+    }
+
+    class PlayerInfoInRoom
+    {
+        public bool IsReadyForStartGame;
     }
 }

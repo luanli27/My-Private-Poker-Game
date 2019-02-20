@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Net.Sockets;
 using UnityEngine;
 using Google.Protobuf;
@@ -7,18 +6,16 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 
-class NetworkManager : MonoBehaviour {
+class NetworkManager : Singleton<NetworkManager> {
 
     private bool _isConnect = false;
     private Socket _socket;
     private byte[] _receiveMsg = new byte[256];
 
-    public SeverEventHandler SeverEventHandler;
-
     public void SendMsg(int msgId,  IMessage msg)
     {
         if (_socket == null)
-            this.ConnectToServer();
+            ConnectToServer();
         MemoryStream output = new MemoryStream();
         byte[] idBytes = BitConverter.GetBytes(msgId);
         //id占4个字节
@@ -32,7 +29,7 @@ class NetworkManager : MonoBehaviour {
         Debug.LogError("向服务器发送信息,id为：" + msgId);
     }
 
-    private void Start()
+    public void Start()
     {
         ConnectToServer();
     }
@@ -84,7 +81,7 @@ class NetworkManager : MonoBehaviour {
             Debug.LogError("接收到服务器反馈消息, id为：" + msgId);
             byte[] msgBody = receiveMsg.Skip(4).Take(receiveMsg.Length - 4).ToArray();
 
-            SeverEventHandler.OnReceiveMsgFromServer(msgId, msgBody);
+            SeverEventHandler.Instance.OnReceiveMsgFromServer(msgId, msgBody);
         }
     }
 }

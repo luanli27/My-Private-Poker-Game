@@ -85,9 +85,14 @@ class DDZGameScene : MonoBehaviour
             }
 
             List<int> localPlayerHandCards = dealCardMsg.HandCards.ToList();
-            DDZGameData.Instance.PlayersSeatDataDic[DDZGameData.Instance.MySeatIndex].HandCards = localPlayerHandCards;
             DealCardsAnimator.DealCard(localPlayerHandCards);
-            Debug.LogError("收到服务器发送的发牌信息, 本地玩家的手牌数据为:" + localPlayerHandCards);
+            DDZGameData.Instance.PlayersSeatDataDic[DDZGameData.Instance.MySeatIndex].HandCards = localPlayerHandCards;
+            string cardInfo = "";
+            foreach (int cardId in localPlayerHandCards)
+            {
+                cardInfo += cardId + ",";
+            }
+            Debug.LogError("收到服务器发送的发牌信息, 本地玩家的手牌数据为:" + cardInfo);
         }
     }
 }

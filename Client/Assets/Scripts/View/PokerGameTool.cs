@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEditor;
 
 public class PokerGameTool : Singleton<PokerGameTool>
 {
@@ -79,6 +78,77 @@ public class PokerGameTool : Singleton<PokerGameTool>
         }
 
         result += suitStr;
+        return result;
+    }
+
+    public List<int> SortCards(List<int> cards, bool reverse = false)
+    {
+        List<int> result = QuickSort(cards, 0, cards.Count - 1);
+        if (reverse)
+            result.Reverse();
+
+        return result;
+    }
+
+    private List<int> QuickSort(List<int> cards, int left, int right)
+    {
+        //order redJoker,blackJoker,2-3
+        int finalIndex = PartSort(cards, left, right);
+        if (finalIndex > left)
+            QuickSort(cards, left, finalIndex - 1);
+
+        if (finalIndex < right)
+            QuickSort(cards, finalIndex + 1, right);
+
+        return cards;
+    }
+
+    private int PartSort(List<int> cards, int left, int right)
+    {
+        int baseIndex = left;
+        float baseOrderValue = GetCardOrderValue(cards[baseIndex]);
+        while (left < right)
+        {
+            float rightOrderValue = GetCardOrderValue(cards[right]);
+            while (rightOrderValue > baseOrderValue && right > left)
+            {
+                right--;
+                rightOrderValue = GetCardOrderValue(cards[right]);
+            }
+
+            float leftOrderValue = GetCardOrderValue(cards[left]);
+            while (leftOrderValue <= baseOrderValue && left < right)
+            {
+                left++;
+                leftOrderValue = GetCardOrderValue(cards[left]);
+            }
+
+            int temp = cards[left];
+            cards[left] = cards[right];
+            cards[right] = temp;
+        }
+
+        int temple = cards[baseIndex];
+        cards[baseIndex] = cards[right];
+        cards[right] = temple;
+        return right;
+    }
+
+    /*only use this value to compare two cards order priority
+      redJoker must be the biggest, 2 is smallest
+      same key should be ordered as club, diamend, heart,spade
+     */
+
+    private float GetCardOrderValue(int cardId)
+    {
+        float result;
+        int key = GetCardKey(cardId);
+        PokerCardSuit suit = GetCardSuit(cardId);
+        if (suit == PokerCardSuit.JOKER)
+            result = 13 + key + (int)suit*0.1f;
+        else
+            result = key + (int) suit * 0.1f;
+
         return result;
     }
 }

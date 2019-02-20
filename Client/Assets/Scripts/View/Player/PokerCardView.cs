@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PokerCardView : MonoBehaviour, RecycleAbleInterface
+public class PokerCardView : MonoBehaviour
 {
     public Image PokerNumImg;
     public Image PokerSuitImg;

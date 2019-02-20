@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LoginScene : MonoBehaviour {
-
-    void Awake()
-    {
-    }
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		
 	}
 	

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface RecycleAbleInterface
+public interface RecycleAbleInterface<T>
 {
     void Reset();
+    T Spawn();
 }

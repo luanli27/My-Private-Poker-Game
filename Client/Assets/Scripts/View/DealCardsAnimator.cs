@@ -19,7 +19,15 @@ public class DealCardsAnimator : MonoBehaviour
     {
         yield return StartCoroutine(InsertAnimation(cards));
         yield return StartCoroutine(ShrinkHandCardsAnimation(_shrinkDurationTime));
+        SortCards(cards);
         yield return StartCoroutine(StretchHandCardsAnimation(_stretchDurationTime));
+    }
+
+    private void SortCards(List<int> cards)
+    {
+        PokerGameTool.Instance.SortCards(cards, true);
+        for (int i = 0; i < cards.Count; i++)
+            HandCardsView.transform.GetChild(i).GetComponent<PokerCardView>().SetCard(cards[i], PokerScaleType.BIG);
     }
 
     private IEnumerator InsertAnimation(List<int> cards)
@@ -27,9 +35,9 @@ public class DealCardsAnimator : MonoBehaviour
         for (int i = 0; i < cards.Count; i++)
         {
             int cardId = cards[i];
-            GameObject newCard = Instantiate(Resources.Load<GameObject>(Singleton<StringDefine>.Instance.BigCardResPath));
-            newCard.transform.SetParent(HandCardsView.LayoutGroup.transform);
-            PokerCardView cardView = newCard.GetComponent<PokerCardView>();
+            BigPokerCard newCard = ObjectPool<BigPokerCard>.Instance.SpawnObject();
+            newCard.BigPokerCardObj.transform.SetParent(HandCardsView.LayoutGroup.transform);
+            PokerCardView cardView = newCard.BigPokerCardObj.GetComponent<PokerCardView>();
             cardView.SetCard(cardId, PokerScaleType.BIG);
             yield return new WaitForSeconds(InsertCardInterval);
         }
