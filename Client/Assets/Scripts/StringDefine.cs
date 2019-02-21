@@ -8,4 +8,5 @@ public class StringDefine : Singleton<StringDefine>
     public string MiddleCardResPath = "Prefabs/MiddlePokerCard";
     public string BigCardResPath = "Prefabs/BigPokerCard";
     public string PokerResDir = "Ui/artres/game/poker/";
+    public string CountDownNumberRes = "Ui/artres/game/斗地主/jsq";
 }

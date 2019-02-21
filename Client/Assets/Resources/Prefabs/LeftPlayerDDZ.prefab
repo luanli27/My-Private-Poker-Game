@@ -419,7 +419,7 @@ GameObject:
   - component: {fileID: 6798271632701539759}
   - component: {fileID: 6198299777901009069}
   m_Layer: 5
-  m_Name: callScore
+  m_Name: callLord
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

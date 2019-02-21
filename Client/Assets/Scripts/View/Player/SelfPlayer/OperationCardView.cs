@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class OptionView : MonoBehaviour
+class OperationCardView : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

@@ -22,6 +22,9 @@ public class MessageDefine
     //------------------------------G2C-------------------------------------------//
     public static int G2C_ENTER_ROOM = G2C_MSG_BASE + 1;
     public static int G2C_NEW_PLAYER_ENTER_ROOM = G2C_MSG_BASE + 2;
-    public static int G2C_DEAL_CARDS = G2C_MSG_BASE + 3;
-    public static int G2C_PLAY_CARDS = G2C_MSG_BASE + 4;
+    public static int G2C_POKER_GAME_BEGIN = G2C_MSG_BASE + 3;
+    public static int G2C_DEAL_CARDS = G2C_MSG_BASE + 4;
+    public static int G2C_CALL_LORD = G2C_MSG_BASE + 5;
+    public static int G2C_CALL_LORD_RESULT = G2C_MSG_BASE + 6;
+    public static int G2C_PLAY_CARDS = G2C_MSG_BASE + 7;
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
+using Google.Protobuf;
 using Google.Protobuf.Collections;
 
 namespace MyPokerGameServer
@@ -11,6 +12,7 @@ namespace MyPokerGameServer
         private List<AccountInfo> _playerList = new List<AccountInfo>();
         private DDZCardDealer _dealer = new DDZCardDealer();
         private DDZGameData _ddzGameData = new DDZGameData();
+        private int _callLordWaitSeconds = 20;
 
         public void InitPlayerList(List<string> accountList)
         {
@@ -27,10 +29,19 @@ namespace MyPokerGameServer
         public void Start()
         {
             Console.WriteLine("扑克桌满开始游戏！！");
+            SendGameStartMsg();
             DealCards();
+            SendCallLordMsg();
         }
 
-        public void DealCards()
+        private void SendGameStartMsg()
+        {
+            foreach (var player in _playerList)
+                SendMsgToClient(player, MessageDefine.G2C_POKER_GAME_BEGIN, new AckGameStart());
+            Console.WriteLine("斗地主游戏开始啦！！");
+        }
+
+        private void DealCards()
         {
             Dictionary<int, List<int>> result = _dealer.Deal(_playerList.Count);
             foreach (var kv in result)
@@ -45,19 +56,34 @@ namespace MyPokerGameServer
                 msg.StartSeat = 0;
                 msg.HandCards.Clear();
                 foreach (var cardId in _ddzGameData.PlayerInfoDic[i].Handcards)
-                {
                     msg.HandCards.Add(cardId);
-                }
-
-                msg.ThinkTime = 20;
 
                 foreach (var playerInfo in _ddzGameData.PlayerInfoDic)
-                {
                     msg.LeftCardNum.Add(playerInfo.Value.Handcards.Count);
-                }
 
-                Singleton<NetworkManager>.Instance.SendMsg(GetPlayerSocket(_playerList[i].Name), MessageDefine.G2C_DEAL_CARDS, msg);
+                msg.ThinkTime = 20;
+                msg.StartSeat = 0;
+
+                SendMsgToClient(_playerList[i], MessageDefine.G2C_DEAL_CARDS, msg);
             }
+        }
+
+        private void SendCallLordMsg()
+        {
+            CallLordMsg msg = new CallLordMsg();
+            msg.CurrentCallSeat = 0;
+            msg.CurrentCallState = (int)CallLordState.CALL_LORD;
+            msg.WaitTime = _callLordWaitSeconds;
+            foreach (var player in _playerList)
+            {
+                SendMsgToClient(player, MessageDefine.G2C_CALL_LORD, msg);
+                Console.WriteLine("开始叫地主！！");
+            }
+        }
+
+        private void SendMsgToClient(AccountInfo accountInfo, int msgId, IMessage msg)
+        {
+            NetworkManager.Instance.SendMsg(GetPlayerSocket(accountInfo.Name), msgId, msg);
         }
 
         private Socket GetPlayerSocket(string account)

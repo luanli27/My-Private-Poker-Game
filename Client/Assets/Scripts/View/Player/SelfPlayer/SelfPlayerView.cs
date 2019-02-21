@@ -6,10 +6,10 @@ class SelfPlayerView : DDZPlayerBase
 {
     public RemotePlayerInfoView InfoView;
     public RemotePlayerPlayView PlayView;
-    public CallScoreView CallScoreView;
     public ReadyView ReadyView;
     public HandCardsView HandCardsView;
-    public OptionView OptionView;
+    public OperationCardView OperationCardView;
+    public CallLordView CallLordView;
 
     private DDZPlayerData _playerData;
 
@@ -19,11 +19,11 @@ class SelfPlayerView : DDZPlayerBase
         InfoView.SetPlayerInfo(_playerData);
         InfoView.gameObject.SetActive(true);
         PlayView.gameObject.SetActive(false);
-        CallScoreView.gameObject.SetActive(false);
         ReadyView.gameObject.SetActive(true);
         ReadyView.SetReady(true);
         HandCardsView.gameObject.SetActive(false);
-        OptionView.gameObject.SetActive(false);
+        OperationCardView.gameObject.SetActive(false);
+        CallLordView.gameObject.SetActive(false);
     }
 
     public override void OnGameBegin()
@@ -35,5 +35,10 @@ class SelfPlayerView : DDZPlayerBase
     public override void PlayCards(List<int> cards)
     {
 
+    }
+    public override void OnCallLord(int waitTime, CallLordState state)
+    {
+        CallLordView.gameObject.SetActive(true);
+        CallLordView.SetCallLordState(state, waitTime);
     }
 }

@@ -12,4 +12,17 @@ namespace MyPokerGameServer
         LOBBY,
         GAME
     }
+
+    public enum CallLordState
+    {
+        CALL_LORD,
+        GRAP_LORD,
+    }
+
+    public enum CallLordResultState
+    {
+        CALL_LORD,
+        GIVE_UP_CALL_LORD,
+        GRAP_LORD,
+    }
 }

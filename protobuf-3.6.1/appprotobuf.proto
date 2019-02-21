@@ -26,6 +26,11 @@ message ReqReadyForStartGame
 	bool ready = 1;
 }
 
+message AckGameStart
+{
+	
+}
+
 message DealCard
 {
 	int32 startSeat = 1;
@@ -33,6 +38,31 @@ message DealCard
 	repeated int32 handCards = 3; 
 	int32 thinkTime = 4;
 }
+
+message CallLordMsg
+{
+	int32 currentCallSeat = 1;
+	int32 currentCallState = 2;
+	int32 waitTime = 3;
+}
+
+message CallLordResult
+{
+	int32 operateSeat = 1;
+	int32 callLordResult = 2;
+}
+
+message LordCardsMsg
+{
+	repeated int32 lordCards = 1;
+}
+
+message SetOperatableSeat
+{
+	int32 seat = 1;
+	int32 waitTime = 2;
+}
+
 
 message ReqTakeOutCards
 {

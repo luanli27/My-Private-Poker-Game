@@ -26,13 +26,19 @@ public static partial class AppprotobufReflection {
           "eWVySW5mbyI4ChVBY2tOZXdQbGF5ZXJFbnRlclJvb20SHwoKcGxheWVySW5m",
           "bxgBIAEoCzILLlBsYXllckluZm8iQAoKUGxheWVySW5mbxIMCgRTZWF0GAEg",
           "ASgFEhMKC0FjY291bnROYW1lGAIgASgJEg8KB0NvaW5OdW0YAyABKAUiJQoU",
-          "UmVxUmVhZHlGb3JTdGFydEdhbWUSDQoFcmVhZHkYASABKAgiWAoIRGVhbENh",
-          "cmQSEQoJc3RhcnRTZWF0GAEgASgFEhMKC2xlZnRDYXJkTnVtGAIgAygFEhEK",
-          "CWhhbmRDYXJkcxgDIAMoBRIRCgl0aGlua1RpbWUYBCABKAUiJwoPUmVxVGFr",
-          "ZU91dENhcmRzEhQKDHRha2VvdXRDYXJkcxgBIAMoBSKBAQoPQWNrVGFrZU91",
-          "dENhcmRzEgwKBHNlYXQYASABKAUSEAoIbmV4dFNlYXQYAiABKAUSEQoJb3Bl",
-          "cmF0aW9uGAMgASgFEhQKDHRha2VvdXRDYXJkcxgEIAMoBRIRCgl0aGlua1Rp",
-          "bWUYBSABKAUSEgoKaXNOZXdSb3VuZBgGIAEoCGIGcHJvdG8z"));
+          "UmVxUmVhZHlGb3JTdGFydEdhbWUSDQoFcmVhZHkYASABKAgiDgoMQWNrR2Ft",
+          "ZVN0YXJ0IlgKCERlYWxDYXJkEhEKCXN0YXJ0U2VhdBgBIAEoBRITCgtsZWZ0",
+          "Q2FyZE51bRgCIAMoBRIRCgloYW5kQ2FyZHMYAyADKAUSEQoJdGhpbmtUaW1l",
+          "GAQgASgFIlIKC0NhbGxMb3JkTXNnEhcKD2N1cnJlbnRDYWxsU2VhdBgBIAEo",
+          "BRIYChBjdXJyZW50Q2FsbFN0YXRlGAIgASgFEhAKCHdhaXRUaW1lGAMgASgF",
+          "Ij0KDkNhbGxMb3JkUmVzdWx0EhMKC29wZXJhdGVTZWF0GAEgASgFEhYKDmNh",
+          "bGxMb3JkUmVzdWx0GAIgASgFIiEKDExvcmRDYXJkc01zZxIRCglsb3JkQ2Fy",
+          "ZHMYASADKAUiMwoRU2V0T3BlcmF0YWJsZVNlYXQSDAoEc2VhdBgBIAEoBRIQ",
+          "Cgh3YWl0VGltZRgCIAEoBSInCg9SZXFUYWtlT3V0Q2FyZHMSFAoMdGFrZW91",
+          "dENhcmRzGAEgAygFIoEBCg9BY2tUYWtlT3V0Q2FyZHMSDAoEc2VhdBgBIAEo",
+          "BRIQCghuZXh0U2VhdBgCIAEoBRIRCglvcGVyYXRpb24YAyABKAUSFAoMdGFr",
+          "ZW91dENhcmRzGAQgAygFEhEKCXRoaW5rVGltZRgFIAEoBRISCgppc05ld1Jv",
+          "dW5kGAYgASgIYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -41,7 +47,12 @@ public static partial class AppprotobufReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::AckNewPlayerEnterRoom), global::AckNewPlayerEnterRoom.Parser, new[]{ "PlayerInfo" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::PlayerInfo), global::PlayerInfo.Parser, new[]{ "Seat", "AccountName", "CoinNum" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ReqReadyForStartGame), global::ReqReadyForStartGame.Parser, new[]{ "Ready" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::AckGameStart), global::AckGameStart.Parser, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::DealCard), global::DealCard.Parser, new[]{ "StartSeat", "LeftCardNum", "HandCards", "ThinkTime" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::CallLordMsg), global::CallLordMsg.Parser, new[]{ "CurrentCallSeat", "CurrentCallState", "WaitTime" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::CallLordResult), global::CallLordResult.Parser, new[]{ "OperateSeat", "CallLordResult_" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::LordCardsMsg), global::LordCardsMsg.Parser, new[]{ "LordCards" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::SetOperatableSeat), global::SetOperatableSeat.Parser, new[]{ "Seat", "WaitTime" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ReqTakeOutCards), global::ReqTakeOutCards.Parser, new[]{ "TakeoutCards" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::AckTakeOutCards), global::AckTakeOutCards.Parser, new[]{ "Seat", "NextSeat", "Operation", "TakeoutCards", "ThinkTime", "IsNewRound" }, null, null, null)
         }));
@@ -745,6 +756,95 @@ public sealed partial class ReqReadyForStartGame : pb::IMessage<ReqReadyForStart
 
 }
 
+public sealed partial class AckGameStart : pb::IMessage<AckGameStart> {
+  private static readonly pb::MessageParser<AckGameStart> _parser = new pb::MessageParser<AckGameStart>(() => new AckGameStart());
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<AckGameStart> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::AppprotobufReflection.Descriptor.MessageTypes[5]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public AckGameStart() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public AckGameStart(AckGameStart other) : this() {
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public AckGameStart Clone() {
+    return new AckGameStart(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as AckGameStart);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(AckGameStart other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    return true;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(AckGameStart other) {
+    if (other == null) {
+      return;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          input.SkipLastField();
+          break;
+      }
+    }
+  }
+
+}
+
 public sealed partial class DealCard : pb::IMessage<DealCard> {
   private static readonly pb::MessageParser<DealCard> _parser = new pb::MessageParser<DealCard>(() => new DealCard());
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -752,7 +852,7 @@ public sealed partial class DealCard : pb::IMessage<DealCard> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::AppprotobufReflection.Descriptor.MessageTypes[5]; }
+    get { return global::AppprotobufReflection.Descriptor.MessageTypes[6]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -932,6 +1032,579 @@ public sealed partial class DealCard : pb::IMessage<DealCard> {
 
 }
 
+public sealed partial class CallLordMsg : pb::IMessage<CallLordMsg> {
+  private static readonly pb::MessageParser<CallLordMsg> _parser = new pb::MessageParser<CallLordMsg>(() => new CallLordMsg());
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<CallLordMsg> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::AppprotobufReflection.Descriptor.MessageTypes[7]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public CallLordMsg() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public CallLordMsg(CallLordMsg other) : this() {
+    currentCallSeat_ = other.currentCallSeat_;
+    currentCallState_ = other.currentCallState_;
+    waitTime_ = other.waitTime_;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public CallLordMsg Clone() {
+    return new CallLordMsg(this);
+  }
+
+  /// <summary>Field number for the "currentCallSeat" field.</summary>
+  public const int CurrentCallSeatFieldNumber = 1;
+  private int currentCallSeat_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CurrentCallSeat {
+    get { return currentCallSeat_; }
+    set {
+      currentCallSeat_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "currentCallState" field.</summary>
+  public const int CurrentCallStateFieldNumber = 2;
+  private int currentCallState_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CurrentCallState {
+    get { return currentCallState_; }
+    set {
+      currentCallState_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "waitTime" field.</summary>
+  public const int WaitTimeFieldNumber = 3;
+  private int waitTime_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int WaitTime {
+    get { return waitTime_; }
+    set {
+      waitTime_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as CallLordMsg);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(CallLordMsg other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (CurrentCallSeat != other.CurrentCallSeat) return false;
+    if (CurrentCallState != other.CurrentCallState) return false;
+    if (WaitTime != other.WaitTime) return false;
+    return true;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (CurrentCallSeat != 0) hash ^= CurrentCallSeat.GetHashCode();
+    if (CurrentCallState != 0) hash ^= CurrentCallState.GetHashCode();
+    if (WaitTime != 0) hash ^= WaitTime.GetHashCode();
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (CurrentCallSeat != 0) {
+      output.WriteRawTag(8);
+      output.WriteInt32(CurrentCallSeat);
+    }
+    if (CurrentCallState != 0) {
+      output.WriteRawTag(16);
+      output.WriteInt32(CurrentCallState);
+    }
+    if (WaitTime != 0) {
+      output.WriteRawTag(24);
+      output.WriteInt32(WaitTime);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (CurrentCallSeat != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(CurrentCallSeat);
+    }
+    if (CurrentCallState != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(CurrentCallState);
+    }
+    if (WaitTime != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(WaitTime);
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(CallLordMsg other) {
+    if (other == null) {
+      return;
+    }
+    if (other.CurrentCallSeat != 0) {
+      CurrentCallSeat = other.CurrentCallSeat;
+    }
+    if (other.CurrentCallState != 0) {
+      CurrentCallState = other.CurrentCallState;
+    }
+    if (other.WaitTime != 0) {
+      WaitTime = other.WaitTime;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          input.SkipLastField();
+          break;
+        case 8: {
+          CurrentCallSeat = input.ReadInt32();
+          break;
+        }
+        case 16: {
+          CurrentCallState = input.ReadInt32();
+          break;
+        }
+        case 24: {
+          WaitTime = input.ReadInt32();
+          break;
+        }
+      }
+    }
+  }
+
+}
+
+public sealed partial class CallLordResult : pb::IMessage<CallLordResult> {
+  private static readonly pb::MessageParser<CallLordResult> _parser = new pb::MessageParser<CallLordResult>(() => new CallLordResult());
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<CallLordResult> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::AppprotobufReflection.Descriptor.MessageTypes[8]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public CallLordResult() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public CallLordResult(CallLordResult other) : this() {
+    operateSeat_ = other.operateSeat_;
+    callLordResult_ = other.callLordResult_;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public CallLordResult Clone() {
+    return new CallLordResult(this);
+  }
+
+  /// <summary>Field number for the "operateSeat" field.</summary>
+  public const int OperateSeatFieldNumber = 1;
+  private int operateSeat_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int OperateSeat {
+    get { return operateSeat_; }
+    set {
+      operateSeat_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "callLordResult" field.</summary>
+  public const int CallLordResult_FieldNumber = 2;
+  private int callLordResult_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CallLordResult_ {
+    get { return callLordResult_; }
+    set {
+      callLordResult_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as CallLordResult);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(CallLordResult other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (OperateSeat != other.OperateSeat) return false;
+    if (CallLordResult_ != other.CallLordResult_) return false;
+    return true;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (OperateSeat != 0) hash ^= OperateSeat.GetHashCode();
+    if (CallLordResult_ != 0) hash ^= CallLordResult_.GetHashCode();
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (OperateSeat != 0) {
+      output.WriteRawTag(8);
+      output.WriteInt32(OperateSeat);
+    }
+    if (CallLordResult_ != 0) {
+      output.WriteRawTag(16);
+      output.WriteInt32(CallLordResult_);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (OperateSeat != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(OperateSeat);
+    }
+    if (CallLordResult_ != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(CallLordResult_);
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(CallLordResult other) {
+    if (other == null) {
+      return;
+    }
+    if (other.OperateSeat != 0) {
+      OperateSeat = other.OperateSeat;
+    }
+    if (other.CallLordResult_ != 0) {
+      CallLordResult_ = other.CallLordResult_;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          input.SkipLastField();
+          break;
+        case 8: {
+          OperateSeat = input.ReadInt32();
+          break;
+        }
+        case 16: {
+          CallLordResult_ = input.ReadInt32();
+          break;
+        }
+      }
+    }
+  }
+
+}
+
+public sealed partial class LordCardsMsg : pb::IMessage<LordCardsMsg> {
+  private static readonly pb::MessageParser<LordCardsMsg> _parser = new pb::MessageParser<LordCardsMsg>(() => new LordCardsMsg());
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<LordCardsMsg> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::AppprotobufReflection.Descriptor.MessageTypes[9]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public LordCardsMsg() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public LordCardsMsg(LordCardsMsg other) : this() {
+    lordCards_ = other.lordCards_.Clone();
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public LordCardsMsg Clone() {
+    return new LordCardsMsg(this);
+  }
+
+  /// <summary>Field number for the "lordCards" field.</summary>
+  public const int LordCardsFieldNumber = 1;
+  private static readonly pb::FieldCodec<int> _repeated_lordCards_codec
+      = pb::FieldCodec.ForInt32(10);
+  private readonly pbc::RepeatedField<int> lordCards_ = new pbc::RepeatedField<int>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public pbc::RepeatedField<int> LordCards {
+    get { return lordCards_; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as LordCardsMsg);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(LordCardsMsg other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if(!lordCards_.Equals(other.lordCards_)) return false;
+    return true;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    hash ^= lordCards_.GetHashCode();
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    lordCards_.WriteTo(output, _repeated_lordCards_codec);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    size += lordCards_.CalculateSize(_repeated_lordCards_codec);
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(LordCardsMsg other) {
+    if (other == null) {
+      return;
+    }
+    lordCards_.Add(other.lordCards_);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          input.SkipLastField();
+          break;
+        case 10:
+        case 8: {
+          lordCards_.AddEntriesFrom(input, _repeated_lordCards_codec);
+          break;
+        }
+      }
+    }
+  }
+
+}
+
+public sealed partial class SetOperatableSeat : pb::IMessage<SetOperatableSeat> {
+  private static readonly pb::MessageParser<SetOperatableSeat> _parser = new pb::MessageParser<SetOperatableSeat>(() => new SetOperatableSeat());
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<SetOperatableSeat> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::AppprotobufReflection.Descriptor.MessageTypes[10]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public SetOperatableSeat() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public SetOperatableSeat(SetOperatableSeat other) : this() {
+    seat_ = other.seat_;
+    waitTime_ = other.waitTime_;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public SetOperatableSeat Clone() {
+    return new SetOperatableSeat(this);
+  }
+
+  /// <summary>Field number for the "seat" field.</summary>
+  public const int SeatFieldNumber = 1;
+  private int seat_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int Seat {
+    get { return seat_; }
+    set {
+      seat_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "waitTime" field.</summary>
+  public const int WaitTimeFieldNumber = 2;
+  private int waitTime_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int WaitTime {
+    get { return waitTime_; }
+    set {
+      waitTime_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as SetOperatableSeat);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(SetOperatableSeat other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (Seat != other.Seat) return false;
+    if (WaitTime != other.WaitTime) return false;
+    return true;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (Seat != 0) hash ^= Seat.GetHashCode();
+    if (WaitTime != 0) hash ^= WaitTime.GetHashCode();
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (Seat != 0) {
+      output.WriteRawTag(8);
+      output.WriteInt32(Seat);
+    }
+    if (WaitTime != 0) {
+      output.WriteRawTag(16);
+      output.WriteInt32(WaitTime);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (Seat != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Seat);
+    }
+    if (WaitTime != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(WaitTime);
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(SetOperatableSeat other) {
+    if (other == null) {
+      return;
+    }
+    if (other.Seat != 0) {
+      Seat = other.Seat;
+    }
+    if (other.WaitTime != 0) {
+      WaitTime = other.WaitTime;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          input.SkipLastField();
+          break;
+        case 8: {
+          Seat = input.ReadInt32();
+          break;
+        }
+        case 16: {
+          WaitTime = input.ReadInt32();
+          break;
+        }
+      }
+    }
+  }
+
+}
+
 public sealed partial class ReqTakeOutCards : pb::IMessage<ReqTakeOutCards> {
   private static readonly pb::MessageParser<ReqTakeOutCards> _parser = new pb::MessageParser<ReqTakeOutCards>(() => new ReqTakeOutCards());
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -939,7 +1612,7 @@ public sealed partial class ReqTakeOutCards : pb::IMessage<ReqTakeOutCards> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::AppprotobufReflection.Descriptor.MessageTypes[6]; }
+    get { return global::AppprotobufReflection.Descriptor.MessageTypes[11]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1049,7 +1722,7 @@ public sealed partial class AckTakeOutCards : pb::IMessage<AckTakeOutCards> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::AppprotobufReflection.Descriptor.MessageTypes[7]; }
+    get { return global::AppprotobufReflection.Descriptor.MessageTypes[12]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

@@ -135,17 +135,22 @@ public class PokerGameTool : Singleton<PokerGameTool>
     }
 
     /*only use this value to compare two cards order priority
-      redJoker must be the biggest, 2 is smallest
+      redJoker must be the biggest, 3 is smallest
+      ->RedJoker,BlackJoker,2,A,K-2<-
       same key should be ordered as club, diamend, heart,spade
      */
 
     private float GetCardOrderValue(int cardId)
     {
+        /*
+         * redJoker-3 Refers 16-2;
+         */
         float result;
-        int key = GetCardKey(cardId);
+        int originalKey = GetCardKey(cardId);
+        int key = originalKey <= 1 ? originalKey + 13 : originalKey;
         PokerCardSuit suit = GetCardSuit(cardId);
         if (suit == PokerCardSuit.JOKER)
-            result = 13 + key + (int)suit*0.1f;
+            result = 15 + key + (int)suit*0.1f;
         else
             result = key + (int) suit * 0.1f;
 

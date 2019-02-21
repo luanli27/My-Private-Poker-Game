@@ -1,37 +1,42 @@
 ﻿
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
 class NotifyInfoView : MonoBehaviour
 {
     public Text SampleText;
-    public HorizontalLayoutGroup Layout;
+    public GameObject Layout;
     private List<Text> _textList;
     [SerializeField]
     private float _intervalTime = 0.3f;
     [SerializeField]
     private float _singleWordAnimTime = 0.5f;
-
-    void Start()
-    {
-        Show("测试用文字,看看到底好不好用", true);
-    }
+    [SerializeField]
+    private float _textOffset = 25f;
 
     public void Show(string text, bool show)
     {
         Layout.transform.DetachChildren();
-        Layout.enabled = show;
+        Layout.SetActive(show);
+        SampleText.gameObject.SetActive(false);
         _textList = new List<Text>();
         if (show)
         {
             foreach (char singleChar in text)
             {
                 GameObject go = new GameObject();
-                Text textComponent = go.AddComponent<Text>();
-                textComponent.text = singleChar.ToString();
+                GameObject child = new GameObject("childText");
                 go.transform.SetParent(Layout.transform);
+                go.AddComponent<RectTransform>();
+                go.GetComponent<RectTransform>().sizeDelta = SampleText.rectTransform.sizeDelta;
+                child.transform.SetParent(go.transform);
+                Text textComponent = child.AddComponent<Text>();
+                textComponent.text = singleChar.ToString();
+                SetTextStyle(SampleText, textComponent);
+                textComponent.transform.localPosition = new Vector3();
                 _textList.Add(textComponent);
             }
 
@@ -41,29 +46,26 @@ class NotifyInfoView : MonoBehaviour
             StopAllCoroutines();
     }
 
+    private void SetTextStyle(Text sample, Text text)
+    {
+        text.transform.localScale = SampleText.transform.localScale;
+        text.rectTransform.sizeDelta = sample.rectTransform.sizeDelta;
+        text.color = SampleText.color;
+        text.fontStyle = SampleText.fontStyle;
+        text.font = sample.font;
+        text.fontSize = sample.fontSize;
+    }
+
     IEnumerator TextsAnimation()
     {
         for (int i = 0; i < _textList.Count; i++)
         {
-            Mathf.Lerp(0, 2, _intervalTime);
+            Vector3 localPos = _textList[i].transform.localPosition;
+            Vector3 targetPos = new Vector3(localPos.x, localPos.y + _textOffset, localPos.z);
+            _textList[i].transform.DOPunchPosition(targetPos, _singleWordAnimTime, 1);
             yield return new WaitForSeconds(_intervalTime);
+            i = i == _textList.Count - 1 ? -1 : i;
         }
     }
-
-//    IEnumerator Spring(float durationTime, Text text)
-//    {
-//        float halfTime = durationTime / 2;
-//        Vector3 localPos = text.transform.localPosition;
-//        Vector3 templePos = text.transform.localPosition;
-//        while (durationTime > 0)
-//        {
-//            templePos.y = localPos.y + (halfTime - durationTime) * 20;
-//            text.transform.localPosition = 
-//            //durationTime -= Time.deltaTime;
-//            yield return 0;
-//        }
-//
-//        text.transform.localPosition.Set(localPos.x, localPos.y, localPos.z);
-//    }
 }
 

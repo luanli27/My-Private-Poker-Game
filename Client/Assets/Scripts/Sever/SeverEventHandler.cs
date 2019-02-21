@@ -10,7 +10,9 @@ using UnityEngine;
          { MessageDefine.G2C_ENTER_ROOM, msg => Singleton<EventManager>.Instance.DispatchEvent(EventName.ACK_ENTER_ROOM,  AckEnterRoomResult.Parser.ParseFrom(msg))},
          { MessageDefine.G2C_NEW_PLAYER_ENTER_ROOM, msg => 
              Singleton<EventManager>.Instance.DispatchEvent(EventName.ACK_NEW_PLAYER_ENTER_ROOM, AckNewPlayerEnterRoom.Parser.ParseFrom(msg))},
+         { MessageDefine.G2C_POKER_GAME_BEGIN, msg => Singleton<EventManager>.Instance.DispatchEvent(EventName.ACK_POKER_GAME_START, AckGameStart.Parser.ParseFrom(msg))},
          { MessageDefine.G2C_DEAL_CARDS, msg => Singleton<EventManager>.Instance.DispatchEvent(EventName.ACK_DEAL_CARDS, DealCard.Parser.ParseFrom(msg))},
+         { MessageDefine.G2C_CALL_LORD, msg => Singleton<EventManager>.Instance.DispatchEvent(EventName.ACK_CALL_LORD, CallLordMsg.Parser.ParseFrom(msg))},
      };
 
      private class ServerMsg

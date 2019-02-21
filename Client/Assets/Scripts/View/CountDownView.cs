@@ -13,8 +13,6 @@ public class CountDownView : MonoBehaviour
     public Image LeftNumMultipleRightImg;
     public Action CallbackWhenCountDownOver;
 
-    private readonly string _numResPath = "Ui\\artres\\功能\\斗地主\\jsq";
-
     public void StartCountDown(int seconds)
     {
         StartCoroutine(CountDown(seconds));
@@ -66,7 +64,7 @@ public class CountDownView : MonoBehaviour
         }
         else
         {
-            resPath = _numResPath + num;
+            resPath = StringDefine.Instance.CountDownNumberRes + num;
             Sprite numTexture = Resources.Load<Sprite>(resPath);
             if (numTexture == null)
             {
