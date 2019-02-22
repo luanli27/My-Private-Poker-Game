@@ -22,13 +22,13 @@ public class CallLordView : MonoBehaviour
         CallLordResultView.gameObject.SetActive(false);
         switch (state)
         {
-            case global::CallLord.CALL_LORD:
+            case CallLord.CALL_LORD:
                 CallLordButtonGroup.SetActive(true);
                 GrapLordButtonGroup.SetActive(false);
                 break;
-            case global::CallLord.GRAP_LORD:
+            case CallLord.GRAP_LORD:
                 CallLordButtonGroup.SetActive(false);
-                GrapLordButtonGroup.SetActive(!true);
+                GrapLordButtonGroup.SetActive(true);
                 break;
         }
 
@@ -39,6 +39,8 @@ public class CallLordView : MonoBehaviour
     {
         _callLordButton.onClick.AddListener(() => { ReqCallLord(CallLord.CALL_LORD);});
         _giveUpCallLordButton.onClick.AddListener(() => { ReqCallLord(CallLord.GIVE_UP_CALL_LORD);});
+        _grapLordButton.onClick.AddListener(() => { ReqCallLord(CallLord.GRAP_LORD); });
+        _giveUpGrapLordButton.onClick.AddListener(() => { ReqCallLord(CallLord.GIVE_UP_GRAP_LORD); });
     }
 
     public void SetCallLordResult(CallLord result)

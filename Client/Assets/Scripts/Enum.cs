@@ -23,4 +23,5 @@ public enum CallLord
     CALL_LORD,
     GIVE_UP_CALL_LORD,
     GRAP_LORD,
+    GIVE_UP_GRAP_LORD,
 }

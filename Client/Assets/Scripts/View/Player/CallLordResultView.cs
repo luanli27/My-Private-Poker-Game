@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CallLordResultView : MonoBehaviour
 {
+    //目前缺少不叫的图片资源
     public GameObject CallLordReult;
     public GameObject GiveUpCallLordResult;
     public GameObject GrapLordResult;
@@ -25,6 +26,9 @@ public class CallLordResultView : MonoBehaviour
                 break;
             case CallLord.GRAP_LORD:
                 GrapLordResult.SetActive(true);
+                break;
+            case CallLord.GIVE_UP_GRAP_LORD:
+                GiveUpCallLordResult.SetActive(true);
                 break;
         }
     }
