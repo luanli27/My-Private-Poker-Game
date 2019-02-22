@@ -4,14 +4,15 @@ using System.Net.Sockets;
 
 namespace MyPokerGameServer
 {
-    class PokerRoom
+    class DDZPokerRoom
     {
         private int _roomId = -1;
         private int _maxGamerCount = 3;
         private Dictionary<string, PlayerInfoInRoom> _playerInfoDic = new Dictionary<string, PlayerInfoInRoom>();
         private Dictionary<int, Action<string, byte[]>> _receiveMsgHanlerDic = new Dictionary<int, Action<string, byte[]>>();
+        private DDZPokerGame _pokerGame;
 
-        public PokerRoom(int roomId)
+        public DDZPokerRoom(int roomId)
         {
             _roomId = roomId;
             RegisterDDZEvents();
@@ -90,18 +91,20 @@ namespace MyPokerGameServer
 
         public void StartGame()
         {
-            PokerGame game = new PokerGame();
+            _pokerGame = new DDZPokerGame();
             List<string> accountList = new List<string>();
             foreach (var kv in _playerInfoDic)
                 accountList.Add(kv.Key);
-            game.InitPlayerList(accountList);
-            game.Start();
+            _pokerGame.Init(accountList);
+            _pokerGame.Start();
         }
 
         public void OnReceiveMsg(string account, int msgId, byte[] msgBody)
         {
-            if(_receiveMsgHanlerDic.ContainsKey(msgId) && _playerInfoDic.ContainsKey(account))
+            if (_receiveMsgHanlerDic.ContainsKey(msgId) && _playerInfoDic.ContainsKey(account))
                 _receiveMsgHanlerDic[msgId].Invoke(account, msgBody);
+            else
+                _pokerGame.HandlerMsgs(account, msgId, msgBody);
         }
 
         private void RegisterDDZEvents()

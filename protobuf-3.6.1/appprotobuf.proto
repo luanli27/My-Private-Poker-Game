@@ -44,12 +44,14 @@ message CallLordMsg
 	int32 currentCallSeat = 1;
 	int32 currentCallState = 2;
 	int32 waitTime = 3;
+	repeated int32 callLordResultSeats = 4;
+	repeated int32 callLordResults = 5; 
 }
 
-message CallLordResult
+message ResponseCallLordMsg
 {
-	int32 operateSeat = 1;
-	int32 callLordResult = 2;
+	int32 seat = 1;
+	int32 result = 2;
 }
 
 message LordCardsMsg

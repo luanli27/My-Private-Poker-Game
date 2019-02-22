@@ -109,7 +109,14 @@ class DDZGameScene : MonoBehaviour
     {
         if (msg is CallLordMsg callLordMsg)
         {
-            _playerSeatDic[callLordMsg.CurrentCallSeat].OnCallLord(callLordMsg.WaitTime, (CallLordState)callLordMsg.CurrentCallState);
+            _playerSeatDic[callLordMsg.CurrentCallSeat].OnCallLord(callLordMsg.WaitTime, (CallLord)callLordMsg.CurrentCallState);
+            for (int i = 0; i < callLordMsg.CallLordResultSeats.Count(); i++)
+            {
+                int seat = callLordMsg.CallLordResultSeats.ToList()[i];
+                int result = callLordMsg.CallLordResults.ToList()[i];
+                _playerSeatDic[seat].OnCallLordOver((CallLord)result);
+            }
+
             Debug.LogError("收到服务器发送的叫地主信息");
         }
     }

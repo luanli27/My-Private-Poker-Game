@@ -1,20 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 using Google.Protobuf;
 using Google.Protobuf.Collections;
 
 namespace MyPokerGameServer
 {
-    class PokerGame
+    class DDZPokerGame
     {
         private List<AccountInfo> _playerList = new List<AccountInfo>();
         private DDZCardDealer _dealer = new DDZCardDealer();
         private DDZGameData _ddzGameData = new DDZGameData();
         private int _callLordWaitSeconds = 20;
+        private Dictionary<int, Action<string, byte[]>> _receiveMsgHanlerDic = new Dictionary<int, Action<string, byte[]>>();
 
-        public void InitPlayerList(List<string> accountList)
+        public void Init(List<string> accountList)
+        {
+            InitPlayerData(accountList);
+            RegisterEventHandler();
+        }
+
+        private void InitPlayerData(List<string> accountList)
         {
             List<AccountInfo> accountInfos = new List<AccountInfo>();
             foreach (var account in accountList)
@@ -26,12 +34,23 @@ namespace MyPokerGameServer
             _ddzGameData.InitPlayerInfoDic(accountInfos);
         }
 
+        private void RegisterEventHandler()
+        {
+            _receiveMsgHanlerDic.Add(MessageDefine.C2G_REQ_CALL_LORD, OnGetPlayerCallLordResult);
+        }
+
+        public void HandlerMsgs(string account, int msgId, byte[] msgBody)
+        {
+            if (_receiveMsgHanlerDic.ContainsKey(msgId))
+                _receiveMsgHanlerDic[msgId].Invoke(account, msgBody);
+        }
+
         public void Start()
         {
             Console.WriteLine("扑克桌满开始游戏！！");
             SendGameStartMsg();
             DealCards();
-            SendCallLordMsg();
+            SendCallLordMsg(0, CallLord.CALL_LORD, new List<int>(), new List<int>());
         }
 
         private void SendGameStartMsg()
@@ -68,17 +87,18 @@ namespace MyPokerGameServer
             }
         }
 
-        private void SendCallLordMsg()
+        private void SendCallLordMsg(int callLordSeat, CallLord state, List<int> resultSeats, List<int> results)
         {
             CallLordMsg msg = new CallLordMsg();
-            msg.CurrentCallSeat = 0;
-            msg.CurrentCallState = (int)CallLordState.CALL_LORD;
+            msg.CurrentCallSeat = callLordSeat;
+            msg.CurrentCallState = (int)state;
             msg.WaitTime = _callLordWaitSeconds;
+            foreach (int seat in resultSeats)
+                msg.CallLordResultSeats.Add(seat);
+            foreach (int result in results)
+                msg.CallLordResults.Add(result);
             foreach (var player in _playerList)
-            {
                 SendMsgToClient(player, MessageDefine.G2C_CALL_LORD, msg);
-                Console.WriteLine("开始叫地主！！");
-            }
         }
 
         private void SendMsgToClient(AccountInfo accountInfo, int msgId, IMessage msg)
@@ -96,6 +116,33 @@ namespace MyPokerGameServer
             }
 
             return result;
+        }
+
+        private void OnGetPlayerCallLordResult(string account, byte[] msg)
+        {
+            ResponseCallLordMsg responseCallLordMsg = ResponseCallLordMsg.Parser.ParseFrom(msg, 0, msg.Length);
+            Console.WriteLine("收到玩家:" + account + "的叫地主结果：" + responseCallLordMsg.Seat + "  result is :" + responseCallLordMsg.Result);
+            if (!DDZGameData.Instance.PlayerInfoInGameDic.ContainsKey(responseCallLordMsg.Seat))
+                DDZGameData.Instance.PlayerInfoInGameDic[responseCallLordMsg.Seat] = new PlayerDataInGame();
+            DDZGameData.Instance.PlayerInfoInGameDic[responseCallLordMsg.Seat].CallLordResultState = (CallLord)responseCallLordMsg.Result;
+            int nextCallLordSeat = ++_ddzGameData.CurrentCallLordSeat;
+            List<int> callLordResultSeats = new List<int>();
+            List<int> callLordResults = new List<int>();
+            foreach (var kv in DDZGameData.Instance.PlayerInfoInGameDic)
+            {
+                callLordResultSeats.Add(kv.Key);
+                callLordResults.Add((int)kv.Value.CallLordResultState);
+            }
+            if ((CallLord) responseCallLordMsg.Result == CallLord.CALL_LORD)
+                DDZGameData.Instance.IsGrapLord = true;
+            if (nextCallLordSeat < DDZGameData.Instance.PlayerCount)
+                SendCallLordMsg(nextCallLordSeat, DDZGameData.Instance.IsGrapLord ? CallLord.GRAP_LORD : CallLord.CALL_LORD, callLordResultSeats, callLordResults);
+            else
+                SendCallLordResult();
+        }
+
+        private void SendCallLordResult()
+        {
         }
     }
 }

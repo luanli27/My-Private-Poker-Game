@@ -8,5 +8,6 @@ abstract class DDZPlayerBase : MonoBehaviour
     public abstract void InitPlayerViewWithData(DDZPlayerData data);
     public abstract void OnGameBegin();
 
-    public abstract void OnCallLord(int waitTime, CallLordState state);
+    public abstract void OnCallLord(int waitTime, CallLord state);
+    public abstract void OnCallLordOver(CallLord state);
 } 

@@ -36,9 +36,14 @@ class SelfPlayerView : DDZPlayerBase
     {
 
     }
-    public override void OnCallLord(int waitTime, CallLordState state)
+    public override void OnCallLord(int waitTime, CallLord state)
     {
         CallLordView.gameObject.SetActive(true);
         CallLordView.SetCallLordState(state, waitTime);
+    }
+
+    public override void OnCallLordOver(CallLord state)
+    {
+        CallLordView.SetCallLordResult(state);
     }
 }

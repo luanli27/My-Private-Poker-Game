@@ -9,7 +9,7 @@ public class CallLordResultView : MonoBehaviour
     public GameObject GiveUpCallLordResult;
     public GameObject GrapLordResult;
 
-    public void SetCallLordResult(CallLordResultState state)
+    public void SetCallLordResult(CallLord state)
     {
         CallLordReult.SetActive(false);
         GiveUpCallLordResult.SetActive(false);
@@ -17,13 +17,13 @@ public class CallLordResultView : MonoBehaviour
 
         switch (state)
         {
-            case CallLordResultState.CALL_LORD:
+            case CallLord.CALL_LORD:
                 CallLordReult.SetActive(true);
                 break;
-            case CallLordResultState.GIVE_UP_CALL_LORD:
-                GiveUpCallLordResult.SetActive(false);
+            case CallLord.GIVE_UP_CALL_LORD:
+                GiveUpCallLordResult.SetActive(true);
                 break;
-            case CallLordResultState.GRAP_LORD:
+            case CallLord.GRAP_LORD:
                 GrapLordResult.SetActive(true);
                 break;
         }

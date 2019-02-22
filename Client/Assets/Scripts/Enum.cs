@@ -17,15 +17,9 @@ public enum PokerScaleType
     MIDDLE,
     BIG,
 }
-
-public enum CallLordState
+public enum CallLord
 {
-    CALL_LORD,
-    GRAP_LORD,
-}
-
-public enum CallLordResultState
-{
+    UNKNOW,
     CALL_LORD,
     GIVE_UP_CALL_LORD,
     GRAP_LORD,

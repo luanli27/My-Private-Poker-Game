@@ -491,8 +491,24 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1019759752, guid: 2f65646a9acea374fa9c248c9d5b3206, type: 3}
+      propertyPath: CountDownView
+      value: 
+      objectReference: {fileID: 675845547}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f65646a9acea374fa9c248c9d5b3206, type: 3}
+--- !u!114 &675845547 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2877191109341929391, guid: 2f65646a9acea374fa9c248c9d5b3206,
+    type: 3}
+  m_PrefabInstance: {fileID: 675845546}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db0d9c0f2561c90438e38ddcb3b55b36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &967663116
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,14 +679,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 967663117}
     m_Modifications:
+    - target: {fileID: 1677750806, guid: 887103d18ad26c24d811ed8be112ee49, type: 3}
+      propertyPath: m_Name
+      value: SelfPlayerDDZ
+      objectReference: {fileID: 0}
     - target: {fileID: 8921619851279623463, guid: 887103d18ad26c24d811ed8be112ee49,
         type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1677750806, guid: 887103d18ad26c24d811ed8be112ee49, type: 3}
-      propertyPath: m_Name
-      value: SelfPlayerDDZ
       objectReference: {fileID: 0}
     - target: {fileID: 1677750807, guid: 887103d18ad26c24d811ed8be112ee49, type: 3}
       propertyPath: m_LocalPosition.x
@@ -923,10 +939,46 @@ PrefabInstance:
     - target: {fileID: 248293422693345451, guid: 887103d18ad26c24d811ed8be112ee49,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 248293422693345450, guid: 887103d18ad26c24d811ed8be112ee49,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921619850888963390, guid: 887103d18ad26c24d811ed8be112ee49,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921619850364747614, guid: 887103d18ad26c24d811ed8be112ee49,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921619850364747553, guid: 887103d18ad26c24d811ed8be112ee49,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 184.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921619850888963329, guid: 887103d18ad26c24d811ed8be112ee49,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 182.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 413675357153080109, guid: 887103d18ad26c24d811ed8be112ee49,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 5.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 413675357153080109, guid: 887103d18ad26c24d811ed8be112ee49,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -66.3
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8921619851279623465, guid: 887103d18ad26c24d811ed8be112ee49, type: 3}
+    - {fileID: 8921619849684392895, guid: 887103d18ad26c24d811ed8be112ee49, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 887103d18ad26c24d811ed8be112ee49, type: 3}
 --- !u!114 &1300994322 stripped
 MonoBehaviour:

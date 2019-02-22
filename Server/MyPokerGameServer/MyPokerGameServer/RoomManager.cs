@@ -5,7 +5,7 @@ namespace MyPokerGameServer
 {
     class RoomManager : Singleton<RoomManager>
     {
-        private Dictionary<int, PokerRoom> _roomDic = new Dictionary<int, PokerRoom>();
+        private Dictionary<int, DDZPokerRoom> _roomDic = new Dictionary<int, DDZPokerRoom>();
         public void EnterRoom(int roomId, string account)
         {
             if (_roomDic.ContainsKey(roomId) && _roomDic[roomId].CanEnter(account))
@@ -14,13 +14,13 @@ namespace MyPokerGameServer
             }
             else
             {
-                PokerRoom newRoom = new PokerRoom(roomId);
+                DDZPokerRoom newRoom = new DDZPokerRoom(roomId);
                 _roomDic[roomId] = newRoom;
                 newRoom.EnterNewPlayer(account);
             }
         }
 
-        public PokerRoom GetRoom(int roomId)
+        public DDZPokerRoom GetRoom(int roomId)
         {
             return _roomDic[roomId];
         }

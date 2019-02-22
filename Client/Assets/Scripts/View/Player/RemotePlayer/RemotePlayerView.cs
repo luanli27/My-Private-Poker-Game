@@ -8,6 +8,8 @@ class RemotePlayerView : DDZPlayerBase
     public RemotePlayerPlayView PlayView;
     public CardsLeftView CardsLeftView;
     public ReadyView ReadyView;
+    public CallLordResultView CallLordResultView;
+    public CountDownView CountDownView;
 
     private DDZPlayerData _playerData;
 
@@ -20,6 +22,8 @@ class RemotePlayerView : DDZPlayerBase
         CardsLeftView.gameObject.SetActive(false);
         ReadyView.gameObject.SetActive(true);
         ReadyView.SetReady(true);
+        CallLordResultView.gameObject.SetActive(false);
+        CountDownView.gameObject.SetActive(false);
     }
 
     public override void OnGameBegin()
@@ -32,8 +36,16 @@ class RemotePlayerView : DDZPlayerBase
 
     }
 
-    public override void OnCallLord(int waitTime, CallLordState state)
+    public override void OnCallLord(int waitTime, CallLord state)
     {
+        CountDownView.gameObject.SetActive(true);
+        CountDownView.StartCountDown(waitTime);
+    }
 
+    public override void OnCallLordOver(CallLord state)
+    {
+        CallLordResultView.gameObject.SetActive(true);
+        CallLordResultView.SetCallLordResult(state);
+        CountDownView.gameObject.SetActive(false);
     }
 }

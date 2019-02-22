@@ -29,10 +29,11 @@ public static partial class AppprotobufReflection {
           "UmVxUmVhZHlGb3JTdGFydEdhbWUSDQoFcmVhZHkYASABKAgiDgoMQWNrR2Ft",
           "ZVN0YXJ0IlgKCERlYWxDYXJkEhEKCXN0YXJ0U2VhdBgBIAEoBRITCgtsZWZ0",
           "Q2FyZE51bRgCIAMoBRIRCgloYW5kQ2FyZHMYAyADKAUSEQoJdGhpbmtUaW1l",
-          "GAQgASgFIlIKC0NhbGxMb3JkTXNnEhcKD2N1cnJlbnRDYWxsU2VhdBgBIAEo",
-          "BRIYChBjdXJyZW50Q2FsbFN0YXRlGAIgASgFEhAKCHdhaXRUaW1lGAMgASgF",
-          "Ij0KDkNhbGxMb3JkUmVzdWx0EhMKC29wZXJhdGVTZWF0GAEgASgFEhYKDmNh",
-          "bGxMb3JkUmVzdWx0GAIgASgFIiEKDExvcmRDYXJkc01zZxIRCglsb3JkQ2Fy",
+          "GAQgASgFIogBCgtDYWxsTG9yZE1zZxIXCg9jdXJyZW50Q2FsbFNlYXQYASAB",
+          "KAUSGAoQY3VycmVudENhbGxTdGF0ZRgCIAEoBRIQCgh3YWl0VGltZRgDIAEo",
+          "BRIbChNjYWxsTG9yZFJlc3VsdFNlYXRzGAQgAygFEhcKD2NhbGxMb3JkUmVz",
+          "dWx0cxgFIAMoBSIzChNSZXNwb25zZUNhbGxMb3JkTXNnEgwKBHNlYXQYASAB",
+          "KAUSDgoGcmVzdWx0GAIgASgFIiEKDExvcmRDYXJkc01zZxIRCglsb3JkQ2Fy",
           "ZHMYASADKAUiMwoRU2V0T3BlcmF0YWJsZVNlYXQSDAoEc2VhdBgBIAEoBRIQ",
           "Cgh3YWl0VGltZRgCIAEoBSInCg9SZXFUYWtlT3V0Q2FyZHMSFAoMdGFrZW91",
           "dENhcmRzGAEgAygFIoEBCg9BY2tUYWtlT3V0Q2FyZHMSDAoEc2VhdBgBIAEo",
@@ -49,8 +50,8 @@ public static partial class AppprotobufReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::ReqReadyForStartGame), global::ReqReadyForStartGame.Parser, new[]{ "Ready" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::AckGameStart), global::AckGameStart.Parser, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::DealCard), global::DealCard.Parser, new[]{ "StartSeat", "LeftCardNum", "HandCards", "ThinkTime" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::CallLordMsg), global::CallLordMsg.Parser, new[]{ "CurrentCallSeat", "CurrentCallState", "WaitTime" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::CallLordResult), global::CallLordResult.Parser, new[]{ "OperateSeat", "CallLordResult_" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::CallLordMsg), global::CallLordMsg.Parser, new[]{ "CurrentCallSeat", "CurrentCallState", "WaitTime", "CallLordResultSeats", "CallLordResults" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::ResponseCallLordMsg), global::ResponseCallLordMsg.Parser, new[]{ "Seat", "Result" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::LordCardsMsg), global::LordCardsMsg.Parser, new[]{ "LordCards" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::SetOperatableSeat), global::SetOperatableSeat.Parser, new[]{ "Seat", "WaitTime" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ReqTakeOutCards), global::ReqTakeOutCards.Parser, new[]{ "TakeoutCards" }, null, null, null),
@@ -1059,6 +1060,8 @@ public sealed partial class CallLordMsg : pb::IMessage<CallLordMsg> {
     currentCallSeat_ = other.currentCallSeat_;
     currentCallState_ = other.currentCallState_;
     waitTime_ = other.waitTime_;
+    callLordResultSeats_ = other.callLordResultSeats_.Clone();
+    callLordResults_ = other.callLordResults_.Clone();
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1099,6 +1102,26 @@ public sealed partial class CallLordMsg : pb::IMessage<CallLordMsg> {
     }
   }
 
+  /// <summary>Field number for the "callLordResultSeats" field.</summary>
+  public const int CallLordResultSeatsFieldNumber = 4;
+  private static readonly pb::FieldCodec<int> _repeated_callLordResultSeats_codec
+      = pb::FieldCodec.ForInt32(34);
+  private readonly pbc::RepeatedField<int> callLordResultSeats_ = new pbc::RepeatedField<int>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public pbc::RepeatedField<int> CallLordResultSeats {
+    get { return callLordResultSeats_; }
+  }
+
+  /// <summary>Field number for the "callLordResults" field.</summary>
+  public const int CallLordResultsFieldNumber = 5;
+  private static readonly pb::FieldCodec<int> _repeated_callLordResults_codec
+      = pb::FieldCodec.ForInt32(42);
+  private readonly pbc::RepeatedField<int> callLordResults_ = new pbc::RepeatedField<int>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public pbc::RepeatedField<int> CallLordResults {
+    get { return callLordResults_; }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
     return Equals(other as CallLordMsg);
@@ -1115,6 +1138,8 @@ public sealed partial class CallLordMsg : pb::IMessage<CallLordMsg> {
     if (CurrentCallSeat != other.CurrentCallSeat) return false;
     if (CurrentCallState != other.CurrentCallState) return false;
     if (WaitTime != other.WaitTime) return false;
+    if(!callLordResultSeats_.Equals(other.callLordResultSeats_)) return false;
+    if(!callLordResults_.Equals(other.callLordResults_)) return false;
     return true;
   }
 
@@ -1124,6 +1149,8 @@ public sealed partial class CallLordMsg : pb::IMessage<CallLordMsg> {
     if (CurrentCallSeat != 0) hash ^= CurrentCallSeat.GetHashCode();
     if (CurrentCallState != 0) hash ^= CurrentCallState.GetHashCode();
     if (WaitTime != 0) hash ^= WaitTime.GetHashCode();
+    hash ^= callLordResultSeats_.GetHashCode();
+    hash ^= callLordResults_.GetHashCode();
     return hash;
   }
 
@@ -1146,6 +1173,8 @@ public sealed partial class CallLordMsg : pb::IMessage<CallLordMsg> {
       output.WriteRawTag(24);
       output.WriteInt32(WaitTime);
     }
+    callLordResultSeats_.WriteTo(output, _repeated_callLordResultSeats_codec);
+    callLordResults_.WriteTo(output, _repeated_callLordResults_codec);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1160,6 +1189,8 @@ public sealed partial class CallLordMsg : pb::IMessage<CallLordMsg> {
     if (WaitTime != 0) {
       size += 1 + pb::CodedOutputStream.ComputeInt32Size(WaitTime);
     }
+    size += callLordResultSeats_.CalculateSize(_repeated_callLordResultSeats_codec);
+    size += callLordResults_.CalculateSize(_repeated_callLordResults_codec);
     return size;
   }
 
@@ -1177,6 +1208,8 @@ public sealed partial class CallLordMsg : pb::IMessage<CallLordMsg> {
     if (other.WaitTime != 0) {
       WaitTime = other.WaitTime;
     }
+    callLordResultSeats_.Add(other.callLordResultSeats_);
+    callLordResults_.Add(other.callLordResults_);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1199,16 +1232,26 @@ public sealed partial class CallLordMsg : pb::IMessage<CallLordMsg> {
           WaitTime = input.ReadInt32();
           break;
         }
+        case 34:
+        case 32: {
+          callLordResultSeats_.AddEntriesFrom(input, _repeated_callLordResultSeats_codec);
+          break;
+        }
+        case 42:
+        case 40: {
+          callLordResults_.AddEntriesFrom(input, _repeated_callLordResults_codec);
+          break;
+        }
       }
     }
   }
 
 }
 
-public sealed partial class CallLordResult : pb::IMessage<CallLordResult> {
-  private static readonly pb::MessageParser<CallLordResult> _parser = new pb::MessageParser<CallLordResult>(() => new CallLordResult());
+public sealed partial class ResponseCallLordMsg : pb::IMessage<ResponseCallLordMsg> {
+  private static readonly pb::MessageParser<ResponseCallLordMsg> _parser = new pb::MessageParser<ResponseCallLordMsg>(() => new ResponseCallLordMsg());
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public static pb::MessageParser<CallLordResult> Parser { get { return _parser; } }
+  public static pb::MessageParser<ResponseCallLordMsg> Parser { get { return _parser; } }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
@@ -1221,68 +1264,68 @@ public sealed partial class CallLordResult : pb::IMessage<CallLordResult> {
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public CallLordResult() {
+  public ResponseCallLordMsg() {
     OnConstruction();
   }
 
   partial void OnConstruction();
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public CallLordResult(CallLordResult other) : this() {
-    operateSeat_ = other.operateSeat_;
-    callLordResult_ = other.callLordResult_;
+  public ResponseCallLordMsg(ResponseCallLordMsg other) : this() {
+    seat_ = other.seat_;
+    result_ = other.result_;
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public CallLordResult Clone() {
-    return new CallLordResult(this);
+  public ResponseCallLordMsg Clone() {
+    return new ResponseCallLordMsg(this);
   }
 
-  /// <summary>Field number for the "operateSeat" field.</summary>
-  public const int OperateSeatFieldNumber = 1;
-  private int operateSeat_;
+  /// <summary>Field number for the "seat" field.</summary>
+  public const int SeatFieldNumber = 1;
+  private int seat_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public int OperateSeat {
-    get { return operateSeat_; }
+  public int Seat {
+    get { return seat_; }
     set {
-      operateSeat_ = value;
+      seat_ = value;
     }
   }
 
-  /// <summary>Field number for the "callLordResult" field.</summary>
-  public const int CallLordResult_FieldNumber = 2;
-  private int callLordResult_;
+  /// <summary>Field number for the "result" field.</summary>
+  public const int ResultFieldNumber = 2;
+  private int result_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public int CallLordResult_ {
-    get { return callLordResult_; }
+  public int Result {
+    get { return result_; }
     set {
-      callLordResult_ = value;
+      result_ = value;
     }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
-    return Equals(other as CallLordResult);
+    return Equals(other as ResponseCallLordMsg);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public bool Equals(CallLordResult other) {
+  public bool Equals(ResponseCallLordMsg other) {
     if (ReferenceEquals(other, null)) {
       return false;
     }
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (OperateSeat != other.OperateSeat) return false;
-    if (CallLordResult_ != other.CallLordResult_) return false;
+    if (Seat != other.Seat) return false;
+    if (Result != other.Result) return false;
     return true;
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override int GetHashCode() {
     int hash = 1;
-    if (OperateSeat != 0) hash ^= OperateSeat.GetHashCode();
-    if (CallLordResult_ != 0) hash ^= CallLordResult_.GetHashCode();
+    if (Seat != 0) hash ^= Seat.GetHashCode();
+    if (Result != 0) hash ^= Result.GetHashCode();
     return hash;
   }
 
@@ -1293,38 +1336,38 @@ public sealed partial class CallLordResult : pb::IMessage<CallLordResult> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public void WriteTo(pb::CodedOutputStream output) {
-    if (OperateSeat != 0) {
+    if (Seat != 0) {
       output.WriteRawTag(8);
-      output.WriteInt32(OperateSeat);
+      output.WriteInt32(Seat);
     }
-    if (CallLordResult_ != 0) {
+    if (Result != 0) {
       output.WriteRawTag(16);
-      output.WriteInt32(CallLordResult_);
+      output.WriteInt32(Result);
     }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public int CalculateSize() {
     int size = 0;
-    if (OperateSeat != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeInt32Size(OperateSeat);
+    if (Seat != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Seat);
     }
-    if (CallLordResult_ != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeInt32Size(CallLordResult_);
+    if (Result != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Result);
     }
     return size;
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public void MergeFrom(CallLordResult other) {
+  public void MergeFrom(ResponseCallLordMsg other) {
     if (other == null) {
       return;
     }
-    if (other.OperateSeat != 0) {
-      OperateSeat = other.OperateSeat;
+    if (other.Seat != 0) {
+      Seat = other.Seat;
     }
-    if (other.CallLordResult_ != 0) {
-      CallLordResult_ = other.CallLordResult_;
+    if (other.Result != 0) {
+      Result = other.Result;
     }
   }
 
@@ -1337,11 +1380,11 @@ public sealed partial class CallLordResult : pb::IMessage<CallLordResult> {
           input.SkipLastField();
           break;
         case 8: {
-          OperateSeat = input.ReadInt32();
+          Seat = input.ReadInt32();
           break;
         }
         case 16: {
-          CallLordResult_ = input.ReadInt32();
+          Result = input.ReadInt32();
           break;
         }
       }

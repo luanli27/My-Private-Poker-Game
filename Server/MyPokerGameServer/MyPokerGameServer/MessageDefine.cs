@@ -19,7 +19,8 @@ namespace MyPokerGameServer
         //登陆
         public static int C2G_REQ_LOGIN = C2G_MSG_BASE + 1;
         public static int C2G_REQ_READY_FOR_START = C2G_MSG_BASE + 2;
-        public static int C2G_REQ_PLAY_CARDS = C2G_MSG_BASE + 3;
+        public static int C2G_REQ_CALL_LORD = C2G_MSG_BASE + 3;
+        public static int C2G_REQ_PLAY_CARDS = C2G_MSG_BASE + 4;
 
         //------------------------------G2C-------------------------------------------//
         public static int G2C_ENTER_ROOM = G2C_MSG_BASE + 1;
